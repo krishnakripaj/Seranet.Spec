@@ -178,7 +178,7 @@ small {
 }
 
 .navbar .brand {
-    background: url(/content/images/logo.png) no-repeat left center !important;
+    background: url(./images/logo.png) no-repeat left center !important;
     margin-left: -20px;
 }
 
