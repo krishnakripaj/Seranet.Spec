@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'robotobold';
+    src: url('../fonts/roboto-bold-webfont.eot');
+    src: url('../fonts/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'robotolight';
+    src: url('../fonts/roboto-light-webfont.eot');
+    src: url('../fonts/roboto-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto-light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto-regular-webfont.eot');
+    src: url('../fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+html,
+body {
+    font-family: 'robotoregular';
+    background-color: #e5e9ec;
+}
+h3 {
+    font-size: 1.5em;
+}
+.app-header-wrapper {
+    background-color: #000;
+}
+.app-header,
+.app-content {
+    width: 90%;
+    margin: 0 auto;
+}
+.app-header {
+    height: 60px;
+    padding-top: 19px;
+}
+.main-menu {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.main-menu li {
+    float: left;
+    margin-right: 25px;
+}
+.main-menu li a {
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+}
+.main-menu li a:hover,
+.main-menu a.selected {
+    color: #f35958;
+    text-decoration: none;
+}
+.logo {
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    background-position: 0px 12px;
+}
+.page-heading {
+    margin-bottom: 1em;
+    font-family: 'robotolight';
+    letter-spacing: -2px;
+}
+.content-box-type-one {
+    padding: 20px;
+}
+.content-box-type-two{
+    padding:10px 20px;
+}
+.top-boxes h3 {
+    font-family: 'robotolight';
+    margin: 0em 0em 1em 0em;
+    color: #fff;
+    font-size: 1.5em;
+}
+.mid-boxes {
+    margin-top: 2em;
+    color: #fff;
+}
+.mid-boxes h3 {
+    margin: 0em 0em 1em 0em;
+    font-size: 1.2em;
+    float:left;
+    margin-right:10px;
+}
+.iconed-nav {
+    margin-top: 8px;
+}
+.iconed-nav i{
+    color:#fff;
+}
+.iconed-nav a {
+    color: #fff;
+    font-family: 'robotolight';
+}
+.margin-zero {
+    margin: 0px !important;
+}
+.blue-back {
+    background-color: #0090d9;
+}
+.green-back {
+    background-color: #0aa699;
+}
+.dark-green-back{
+    background-color:#07776d;
+}
+.red-back {
+    background-color: #f35958;
+}
+.magenta-back {
+    background-color: #736086;
+}
+.yellow-back{
+    background-color: #fdd01c;
+}
+.white-back{
+    background-color:#fff;
+}
+.dark-green-text{
+    color:#07776d;
+}
+.yellow-text{
+    color: #fdd01c;
+}
+.red-text{
+    color: #f35958;
+}
+.bold-text{
+    font-family:'robotobold';
+}
+.grid-title-white div{
+    color:#fff;
+    font-family:'robotobold';
+    font-size:1.1em;
+}
+.grid{
+    border-bottom:1px solid #d3d3d3;
+}
+.inverted-margin-container{
+    padding-left:15px;
+    padding-right:15px;
+}
+.font-adjuster{
+    font-size:1.12em !important;
+}
+.height-adjuster{
+    height:81px;
+}
+.status-text{
+    margin:6px 0px;
+}
+.progress-bar-back, .progress-bar-back div{
+    height:5px;
+}
+.progress-bar-back{
+    background-color:#ebeef1;
+}
+.large-text{
+    font-size:1.2em;
+}
+.progress-bar{
+    box-shadow:none;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+    .logo {
+        background-image: url(../images/logo-retina.png);
+        background-repeat: no-repeat;
+        background-position: 0px 10px;
+        background-size: 373px;
+    }
+}

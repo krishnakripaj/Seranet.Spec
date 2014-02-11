@@ -1,19 +1,12 @@
 ﻿/*#region Override background color theme */
 body {
-    background-color: #FFF;
+    background-image:url(images/back.jpg);
 }
 
 .center {
     text-align: center;
 }
 
-.navbar-inverse .btn-navbar.active {
-    background-color: #333 \9;
-}
-
-.navbar-inner {
-    background-color: #333 !important;
-}
 
 .sidebar .navi > li > a {
     background-color: #333 !important;
@@ -31,13 +24,6 @@ body {
         color: #999;
     }
 
-.navbar-inverse .btn-navbar {
-    background-color: #333;
-}
-
-    .navbar-inverse .btn-navbar:hover {
-        background-color: #333;
-    }
 
 .sidebar {
     margin-top: -2px;
