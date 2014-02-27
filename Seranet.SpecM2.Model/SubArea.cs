@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Seranet.Spec.Models
+namespace Seranet.SpecM2.Model
 {
     public class SubArea : IIdentifier
     {
