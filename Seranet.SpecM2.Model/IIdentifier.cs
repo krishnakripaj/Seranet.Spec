@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seranet.Spec.Models
+namespace Seranet.SpecM2.Model
 {
     public interface IIdentifier
     {

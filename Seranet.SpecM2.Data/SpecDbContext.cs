@@ -1,4 +1,4 @@
-﻿using Seranet.Spec.Models;
+﻿using Seranet.SpecM2.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,7 +6,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
-namespace Seranet.Spec.Data
+namespace Seranet.SpecM2.Data
 {
     public class SpecDbContext: DbContext
     {
@@ -15,6 +15,7 @@ namespace Seranet.Spec.Data
         {
         }
 
+        public DbSet<Project> Projects { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<SubArea> SubAreas { get; set; }

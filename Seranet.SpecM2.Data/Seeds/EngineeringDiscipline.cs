@@ -1,30 +1,18 @@
-﻿using Seranet.Spec.Models;
+﻿using Seranet.SpecM2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Seranet.Spec.Data
+namespace Seranet.SpecM2.Data.Seeds
 {
-    public class SpecSeedDataInitializer: System.Data.Entity. DropCreateDatabaseAlways<SpecDbContext>
+    class EngineeringDiscipline
     {
-        protected override void Seed(SpecDbContext context)
-        {
-            /* insert the level base data */
-            var levels = new List<Level>
-            {
-                new Level{Id=1, GUID=Guid.NewGuid(), Name="Explorer"},
-                new Level{Id=2, GUID=Guid.NewGuid(), Name="Veteran"},
-                new Level{Id=3, GUID=Guid.NewGuid(), Name="Optimizer"}
-            };
-            levels.ForEach(l => context.Levels.Add(l));
-            context.SaveChanges();
-            var level1 = context.Levels.FirstOrDefault(l => l.Id == 1);
-            var level2 = context.Levels.FirstOrDefault(l => l.Id == 2);
-            var level3 = context.Levels.FirstOrDefault(l => l.Id == 3);
+        private Area ed;
 
-            /* insert Engineering Discipline data */
-            var ed = new Area
+        public EngineeringDiscipline(Level level1, Level  level2, Level level3  ) {
+            ed = new Area
             {
                 GUID = Guid.NewGuid(),
                 Name = "Engineering Discipline",
@@ -73,27 +61,14 @@ namespace Seranet.Spec.Data
                         },
                     }
             };
-            context.Areas.Add(ed);
-            context.SaveChanges();
+        }
 
-
-            var areas = new List<Area>
+        public Area Area 
+        {
+            get 
             {
-                
-                new Area{ GUID=Guid.NewGuid(), Name = "Business Focus", Description = "todo"},
-                new Area{ GUID=Guid.NewGuid(), Name = "Team Building", Description = "todo"},
-                new Area{ GUID=Guid.NewGuid(), Name = "Stakeholder Engagement", Description = "todo"}
-            };
-
-            areas.ForEach(s => context.Areas.Add(s));
-            context.SaveChanges();
-
-
-            var subAreas = new List<SubArea>
-            {
-                new SubArea{Code = "ED1", Name="Test Automation"},
-
-            };
+                return ed;
+            }
         }
     }
 }
