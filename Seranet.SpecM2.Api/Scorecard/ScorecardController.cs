@@ -14,9 +14,9 @@ namespace Seranet.SpecM2.Api
         private SpecDbContext context = new SpecDbContext();
 
         // GET api/scorecard
-        public IEnumerable<Project> Get()
+        public IEnumerable<Area> Get()
         {
-            return context.Projects;
+            return context.Areas;
         }
 
         // GET api/values/5

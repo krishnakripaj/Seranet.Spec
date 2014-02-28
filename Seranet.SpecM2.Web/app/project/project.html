@@ -6,6 +6,21 @@
                     <div data-cc-widget-header title="{{vm.title}}"></div>
                     <div class="widget-content user">
                         <h3>TODO: Implement Project Features</h3>
+                        <ul>
+                            <li data-ng-repeat="area in areas">
+                                {{area.Name}}
+                                <ul>
+                                    <li data-ng-repeat="subarea in area.SubAreas">
+                                        {{subarea.Name}}
+                                        <ul>
+                                            <li data-ng-repeat="practice in subarea.Practices">
+                                                {{practice.Code}}
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                     <div class="widget-foot">
                         <div class="clearfix"></div>

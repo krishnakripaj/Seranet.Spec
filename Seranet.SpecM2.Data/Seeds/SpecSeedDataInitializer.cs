@@ -33,26 +33,14 @@ namespace Seranet.SpecM2.Data.Seeds
             /* insert Engineering Discipline data */
 
             context.Areas.Add(new EngineeringDiscipline(level1, level2, level3).Area);
+            context.Areas.Add(new BusinessFocus(level1, level2, level3).Area);
+            context.Areas.Add(new TeamBuilding(level1, level2, level3).Area);
+            context.Areas.Add(new StakeholderEngagement(level1, level2, level3).Area);
+            context.SaveChanges();
+
             context.SaveChanges();
 
 
-            var areas = new List<Area>
-            {
-                
-                new Area{ GUID=Guid.NewGuid(), Name = "Business Focus", Description = "todo"},
-                new Area{ GUID=Guid.NewGuid(), Name = "Team Building", Description = "todo"},
-                new Area{ GUID=Guid.NewGuid(), Name = "Stakeholder Engagement", Description = "todo"}
-            };
-
-            areas.ForEach(s => context.Areas.Add(s));
-            context.SaveChanges();
-
-
-            var subAreas = new List<SubArea>
-            {
-                new SubArea{Code = "ED1", Name="Test Automation"},
-
-            };
         }
     }
 }
