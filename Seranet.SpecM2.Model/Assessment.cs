@@ -7,10 +7,6 @@ namespace Seranet.SpecM2.Model
 {
     public class Assessment : IIdentifier
     {
-        public bool Approved { get; set; }
-
-        public string Comment { get; set; }
-
         public Claim Claim { get; set; }
 
         public string Auditor { get; set; }

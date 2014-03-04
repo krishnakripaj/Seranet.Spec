@@ -11,8 +11,11 @@ namespace Seranet.SpecM2.Data.Seeds
     {
         private Area bf;
 
-        public BusinessFocus(Level level1, Level level2, Level level3)
+        public BusinessFocus(Level[] levels)
         {
+            Level level1 = levels[0];
+            Level level2 = levels[1];
+            Level level3 = levels[2];
             bf = new Area
             {
                 GUID = Guid.NewGuid(),

@@ -10,32 +10,28 @@ namespace Seranet.SpecM2.Data.Seeds
     {
         protected override void Seed(SpecDbContext context)
         {
-            var projects = new List<Project>
+            /* insert the project base data */
+            Project[] projects = new Projects().projects;
+            for (int i = 0; i < projects.Length; i++)
             {
-                new Project{Id = 1, GUID = Guid.NewGuid(), Enabled=true, Name="Tempus", ProjetId="TEMP1"},
-                new Project{Id = 2, GUID = Guid.NewGuid(), Enabled=true, Name="TrioLink", ProjetId="TRI1"}
-            };
-            projects.ForEach(p => context.Projects.Add(p));
+                context.Projects.Add(projects[i]);
+            }
+            context.SaveChanges(); 
+            
 
             /* insert the level base data */
-            var levels = new List<Level>
+            Level[] levels = new Levels().levels;
+            for (int i = 0; i < levels.Length; i++)
             {
-                new Level{Id=1, GUID=Guid.NewGuid(), Name="Explorer"},
-                new Level{Id=2, GUID=Guid.NewGuid(), Name="Veteran"},
-                new Level{Id=3, GUID=Guid.NewGuid(), Name="Optimizer"}
-            };
-            levels.ForEach(l => context.Levels.Add(l));
-            context.SaveChanges();
-            var level1 = context.Levels.FirstOrDefault(l => l.Id == 1);
-            var level2 = context.Levels.FirstOrDefault(l => l.Id == 2);
-            var level3 = context.Levels.FirstOrDefault(l => l.Id == 3);
+                context.Levels.Add(levels[i]);
+            }             
+            context.SaveChanges();            
 
-            /* insert Engineering Discipline data */
-
-            context.Areas.Add(new EngineeringDiscipline(level1, level2, level3).Area);
-            context.Areas.Add(new BusinessFocus(level1, level2, level3).Area);
-            context.Areas.Add(new TeamBuilding(level1, level2, level3).Area);
-            context.Areas.Add(new StakeholderEngagement(level1, level2, level3).Area);
+            /* insert specm2 model data */
+            context.Areas.Add(new EngineeringDiscipline(levels).Area);
+            context.Areas.Add(new BusinessFocus(levels).Area);
+            context.Areas.Add(new TeamBuilding(levels).Area);
+            context.Areas.Add(new StakeholderEngagement(levels).Area);
             context.SaveChanges();
 
             context.SaveChanges();

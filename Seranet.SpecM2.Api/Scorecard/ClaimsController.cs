@@ -9,14 +9,12 @@ using System.Web.Http;
 
 namespace Seranet.SpecM2.Api.Scorecard
 {
-    public abstract class ScorecardController : ApiController
+    class ClaimsController : BaseApiController
     {
-        protected SpecDbContext context = new SpecDbContext();
-
-        // GET api/scorecard
-        public IEnumerable<Area> Get()
+        // GET api/claims
+        public IEnumerable<Claim> Get()
         {
-            return context.Areas;
+            return context.Claims;
         }
 
         // GET api/values/5
@@ -24,6 +22,5 @@ namespace Seranet.SpecM2.Api.Scorecard
         {
             return "value";
         }
-
     }
 }

@@ -11,8 +11,11 @@ namespace Seranet.SpecM2.Data.Seeds
     {
         private Area tb;
 
-        public TeamBuilding(Level level1, Level level2, Level level3)
+        public TeamBuilding(Level[] levels)
         {
+            Level level1 = levels[0];
+            Level level2 = levels[1];
+            Level level3 = levels[2];
             tb = new Area
             {
                 GUID = Guid.NewGuid(),
