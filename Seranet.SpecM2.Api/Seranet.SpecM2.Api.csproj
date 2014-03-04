@@ -77,8 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Scorecard\ScorecardController.cs" />
+    <Compile Include="BaseApiController.cs" />
+    <Compile Include="Scorecard\ClaimsController.cs" />
+    <Compile Include="Scorecard\ModelController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scorecard\ProjectController.cs" />
+    <Compile Include="Scorecard\ScorecardController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
