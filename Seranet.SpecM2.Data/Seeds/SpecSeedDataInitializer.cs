@@ -8,8 +8,11 @@ namespace Seranet.SpecM2.Data.Seeds
 {
     public class SpecSeedDataInitializer: System.Data.Entity. DropCreateDatabaseAlways<SpecDbContext>
     {
+
         protected override void Seed(SpecDbContext context)
         {
+            context.Database.ExecuteSqlCommand("CREATE VIEW dbo.ClaimDetails AS SELECT t1.Project_Id,t1.Practice_Id,t1.Obsolete,t1.Pending,t1.Approved  from dbo.Claim t1 WHERE t1.CreatedTime = (SELECT max(CreatedTime) FROM dbo.Claim t2 WHERE t2.Practice_Id = t1.Practice_Id AND t2.Project_Id=t1.Project_Id)");    
+
             /* insert the project base data */
             Project[] projects = new Projects().projects;
             for (int i = 0; i < projects.Length; i++)
