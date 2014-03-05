@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Seranet.SpecM2.Api.Scorecard
 {
-    class ProjectController : BaseApiController
+    public class ProjectController : BaseApiController
     {
         // GET api/project
         public IEnumerable<Project> Get()
