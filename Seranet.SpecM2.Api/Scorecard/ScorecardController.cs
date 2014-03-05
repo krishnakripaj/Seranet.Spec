@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Seranet.SpecM2.Api.Scorecard
 {
-    public abstract class ScorecardController : ApiController
+    public abstract class ScorecardController : BaseApiController
     {
         protected SpecDbContext context = new SpecDbContext();
 
