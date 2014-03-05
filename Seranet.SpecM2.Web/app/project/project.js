@@ -36,7 +36,6 @@
             $http({ method: 'GET', url: 'api/project/' + $routeParams.projectId }).
                success(function (data, status, headers, config) {
                    $scope.project = data.Name;
-                   $scope.$apply();
                }).
                error(function (data, status, headers, config) {
                    console.log(data);

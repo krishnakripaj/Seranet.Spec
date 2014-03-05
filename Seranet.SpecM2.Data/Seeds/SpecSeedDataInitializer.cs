@@ -38,7 +38,7 @@ namespace Seranet.SpecM2.Data.Seeds
             StakeholderEngagement se= new StakeholderEngagement(levels);
 
             context.Areas.Add(ed.Area);
-            context.Areas.Add(tb.Area);
+            context.Areas.Add(bf.Area);
             context.Areas.Add(tb.Area);
             context.Areas.Add(se.Area);
             context.SaveChanges();
