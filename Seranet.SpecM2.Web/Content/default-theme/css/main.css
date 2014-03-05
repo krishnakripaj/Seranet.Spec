@@ -35,6 +35,12 @@ h3 {
     width: 90%;
     margin: 0 auto;
 }
+
+.scorecard-content-box {
+    width: 25%;
+    margin: 0 auto;
+}
+
 .app-header {
     height: 60px;
     padding-top: 19px;
