@@ -11,13 +11,16 @@ namespace Seranet.SpecM2.Api.Model
 
         public int Practice_Id { get; set; }
 
-        public bool Pending { get; set; }
-
-        public bool Obsolete { get; set; }
-
-        public bool Approved { get; set; }
+        public Status Status { get; set; }
 
         public int Id { get; set; }
 
+    }
+
+    public enum Status
+    {
+        PENDING,
+        APPROVED,
+        REJECTED
     }
 }

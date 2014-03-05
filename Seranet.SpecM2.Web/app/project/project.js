@@ -7,9 +7,13 @@
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 
-        var vm = this;
-        vm.title = 'Project ' + $routeParams.projectId;
+        
         $scope.areas = [];
+        $scope.project = "";
+
+        var vm = this;
+        vm.title = $scope.project + " score card";
+
         activate();
 
         function activate() {
@@ -28,6 +32,17 @@
                    // or server returns response with an error status.
                });
 
+
+            $http({ method: 'GET', url: 'api/project/' + $routeParams.projectId }).
+               success(function (data, status, headers, config) {
+                   $scope.project = data.Name;
+                   $scope.$apply();
+               }).
+               error(function (data, status, headers, config) {
+                   console.log(data);
+                   // called asynchronously if an error occurs
+                   // or server returns response with an error status.
+               });
         }
     }
 })();       
