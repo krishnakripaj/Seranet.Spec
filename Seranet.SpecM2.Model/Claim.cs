@@ -16,17 +16,20 @@ namespace Seranet.SpecM2.Model
         public DateTime CreatedTime { get; set; }
 
         public Project Project { get; set; }
-
-        public bool Obsolete { get; set; }
-
-        public bool Approved { get; set; }
-
-        public bool Pending { get; set; }
+        
+        public Status Status { get; set; }
 
         public int Id { get; set; }
 
         public Guid GUID { get; set; }
 
         public byte[] RowVersion { get; set; }
+    }
+
+    public enum Status
+    {
+        PENDING,
+        APPROVED,
+        REJECTED
     }
 }
