@@ -11,8 +11,10 @@ namespace Seranet.SpecM2.Data.Seeds
 
         protected override void Seed(SpecDbContext context)
         {
+
             context.Database.ExecuteSqlCommand("CREATE VIEW dbo.ClaimDetails AS SELECT t1.id,t1.Project_Id,t1.Practice_Id,t1.Status from dbo.Claim t1 WHERE t1.CreatedTime = (SELECT max(CreatedTime) FROM dbo.Claim t2 WHERE t2.Practice_Id = t1.Practice_Id AND t2.Project_Id=t1.Project_Id)");
             
+
             /* insert the project base data */
             Project[] projects = new Projects().projects;
             for (int i = 0; i < projects.Length; i++)
@@ -52,7 +54,7 @@ namespace Seranet.SpecM2.Data.Seeds
                 }
             }
             /* insert claims data */
-            Claim[] claims = new Claims(projects, practices).claims;
+            Claim[] claims = new Claims(projects, practices, context).claims;
             for (int i = 0; i < claims.Length; i++)
             {
                 context.Claims.Add(claims[i]);
