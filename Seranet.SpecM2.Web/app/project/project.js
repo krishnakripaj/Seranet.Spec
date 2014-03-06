@@ -33,7 +33,7 @@
                    success(function (data, status, headers, config) {
                        $scope.projectName = data.Name;
 
-                       $http({ method: 'GET', url: 'api/projectprogress/' + '2' }).
+                       $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
                        success(function (data, status, headers, config) {
                            console.log(data);
                            for (var i = 0; i < data.length; i++) {
@@ -80,7 +80,7 @@
 
                         }
                         else {
-                            if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1 &&
+                            if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete) && $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1 &&
                                 $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Level.Id] <= level) {
 
                                 level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
