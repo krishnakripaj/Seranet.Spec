@@ -81,7 +81,7 @@
                         }
                         else {
                             if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete) && $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1 &&
-                                $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Level.Id] <= level) {
+                                $scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
 
                                 level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
                             }
@@ -92,7 +92,7 @@
                     }
                     $scope.areas[i].SubAreas[j].level = level;
 
-                    if (arealevel > level) {
+                    if (arealevel >= level) {
                         arealevel = level;
                     }
                 }

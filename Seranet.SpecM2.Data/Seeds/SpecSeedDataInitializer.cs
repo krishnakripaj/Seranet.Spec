@@ -54,7 +54,7 @@ namespace Seranet.SpecM2.Data.Seeds
                 }
             }
             /* insert claims data */
-            Claim[] claims = new Claims(projects, practices).claims;
+            Claim[] claims = new Claims(projects, practices, context).claims;
             for (int i = 0; i < claims.Length; i++)
             {
                 context.Claims.Add(claims[i]);
