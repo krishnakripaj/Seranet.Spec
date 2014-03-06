@@ -9,10 +9,10 @@
 
         
         $scope.areas = [];
-        $scope.project = "";
+        $scope.projectName = "";
 
         var vm = this;
-        vm.title = $scope.project + " score card";
+        vm.title = $scope.projectName + " score card";
 
         activate();
 
@@ -35,7 +35,7 @@
 
             $http({ method: 'GET', url: 'api/project/' + $routeParams.projectId }).
                success(function (data, status, headers, config) {
-                   $scope.project = data.Name;
+                   $scope.projectName = data.Name;
                }).
                error(function (data, status, headers, config) {
                    console.log(data);
