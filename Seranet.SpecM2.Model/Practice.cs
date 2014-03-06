@@ -15,7 +15,7 @@ namespace Seranet.SpecM2.Model
 
         public string Link { get; set; }
 
-        public Level Level { get; set;}
+        public virtual Level Level { get; set;}
 
         public bool Obsolete { get; set; }
 
