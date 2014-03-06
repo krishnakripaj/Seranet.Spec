@@ -147,6 +147,14 @@ h3 {
     font-family:'robotobold';
     font-size:1.1em;
 }
+
+.grid-title-white{
+    color:#fff;
+    font-family:'robotobold';
+    font-size:1.1em;
+    padding: 10px;
+}
+
 .grid{
     border-bottom:1px solid #d3d3d3;
 }
@@ -184,3 +192,30 @@ h3 {
         background-size: 373px;
     }
 }
+
+/* Styles added by Kripa  */
+
+.modal-popup{
+      position: relative;
+  z-index: 1050;
+  width: auto;
+  margin: 10px;
+}
+
+.modal-header{
+    background-color : #A09B9B;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+    .modal-popup {
+        width: 600px;
+        margin: 30px auto;
+    }
+}
+
+.checkbox-inline{
+    float: right;
+}
+
