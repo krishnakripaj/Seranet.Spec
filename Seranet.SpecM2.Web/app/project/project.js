@@ -7,12 +7,13 @@
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 
-        
-        $scope.areas = [];
-        $scope.project = "";
 
+        $scope.areas = [];
+        $scope.projectName = "";
+        $scope.projectId = $routeParams.projectId;
+        $scope.claims = new Object();
         var vm = this;
-        vm.title = $scope.project + " score card";
+        vm.title = " score card";
 
         activate();
 
@@ -25,6 +26,32 @@
                    for (var i = 0; i < data.length; i++) {
                        $scope.areas.push(data[i]);
                    };
+
+                   $http({ method: 'GET', url: 'api/project/' + $scope.projectId }).
+                   success(function (data, status, headers, config) {
+                       $scope.projectName = data.Name;
+
+                       $http({ method: 'GET', url: 'api/projectprogress/' + '2' }).
+                       success(function (data, status, headers, config) {
+                           console.log(data);
+                           for (var i = 0; i < data.length; i++) {
+                               $scope.claims[data[i].Practice_Id] = data[i].Status;
+                           };
+                           calculate();
+                       }).
+                       error(function (data, status, headers, config) {
+                           console.log(data);
+                           // called asynchronously if an error occurs
+                           // or server returns response with an error status.
+                       });
+
+                   }).
+                   error(function (data, status, headers, config) {
+                       console.log(data);
+                       // called asynchronously if an error occurs
+                       // or server returns response with an error status.
+                   });
+
                }).
                error(function (data, status, headers, config) {
                    console.log(data);
@@ -33,15 +60,39 @@
                });
 
 
-            $http({ method: 'GET', url: 'api/project/' + $routeParams.projectId }).
-               success(function (data, status, headers, config) {
-                   $scope.project = data.Name;
-               }).
-               error(function (data, status, headers, config) {
-                   console.log(data);
-                   // called asynchronously if an error occurs
-                   // or server returns response with an error status.
-               });
+        }
+
+        function calculate() {
+            //if (2 in $scope.claims)
+            //console.log('yes');
+            for (var i = 0; i < $scope.areas.length; i++) {
+                var arealevel = 3;
+                for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
+                    var level = 3;
+                    for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
+                        if (!($scope.areas[i].SubAreas[j].Practices[k].Id in $scope.claims) &&
+                            $scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+                            level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
+                        }
+                        else {
+                            if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1 &&
+                                $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Level.Id] <= level) {
+                                level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
+                            }
+                        }
+                        if (level == 0) {
+                            break;
+                        }
+                    }
+                    $scope.areas[i].SubAreas[j].level = level;
+
+                    if (arealevel > level) {
+                        arealevel = level;
+                    }
+                }
+
+                $scope.areas[i].level = arealevel;
+            }
         }
     }
-})();       
+})();
