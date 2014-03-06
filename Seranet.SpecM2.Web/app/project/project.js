@@ -9,9 +9,11 @@
 
 
         $scope.areas = [];
+        //$scope.areas[i].level gives the level of i-th area
+        // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.projectName = "";
         $scope.projectId = $routeParams.projectId;
-        $scope.claims = new Object();
+        $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         var vm = this;
         vm.title = " score card";
 
@@ -70,13 +72,17 @@
                 for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
                     var level = 3;
                     for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
+
                         if (!($scope.areas[i].SubAreas[j].Practices[k].Id in $scope.claims) &&
                             $scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+
                             level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
+
                         }
                         else {
                             if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete) && $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1 &&
-                                $scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Level.Id] <= level) {
+                                $scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+
                                 level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
                             }
                         }
@@ -86,7 +92,7 @@
                     }
                     $scope.areas[i].SubAreas[j].level = level;
 
-                    if (arealevel > level) {
+                    if (arealevel >= level) {
                         arealevel = level;
                     }
                 }

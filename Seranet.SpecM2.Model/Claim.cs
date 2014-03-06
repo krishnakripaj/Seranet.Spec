@@ -16,8 +16,10 @@ namespace Seranet.SpecM2.Model
         public DateTime CreatedTime { get; set; }
 
         public Project Project { get; set; }
+
         
         public Status Status { get; set; }
+
 
         public int Id { get; set; }
 
@@ -32,4 +34,5 @@ namespace Seranet.SpecM2.Model
         APPROVED,
         REJECTED
     }
+
 }
