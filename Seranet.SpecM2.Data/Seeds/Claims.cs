@@ -15,7 +15,8 @@ namespace Seranet.SpecM2.Data.Seeds
         {
 
             int id_count = 0;
-            int [] map=new int [28]{1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,3,0,2,1,1,1,0,1,1,2,3,3,1}; // 1 -> aproved, 2-> reject, 3 -> pending
+            int[] map = new int[28] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 3, 0, 2, 1, 1, 1, 0, 1, 1, 2, 3, 3, 1 }; // 1 -> aproved, 2-> reject, 3 -> pending
+           // int[] map = new int[28] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
             claims = new Claim[map.Length-3+3]; //reduce 3 for number of 0 s add 3 for extra 3 at the end
            
@@ -66,7 +67,7 @@ namespace Seranet.SpecM2.Data.Seeds
             };
             claims[id_count++] = new Claim
             {
-               // Id = id_count + 1,
+                // Id = id_count + 1,
                 GUID = Guid.NewGuid(),
                 Status = Status.REJECTED,
                 AuditorComment = "rejected due to abc ",
@@ -77,7 +78,7 @@ namespace Seranet.SpecM2.Data.Seeds
             };
             claims[id_count++] = new Claim
             {
-               // Id = id_count + 1,
+                // Id = id_count + 1,
                 GUID = Guid.NewGuid(),
                 Status = Status.REJECTED,
                 AuditorComment = "rejected due to abc ",
