@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BaseApiController.cs" />
+    <Compile Include="Dashboard\CertificatesController.cs" />
     <Compile Include="Model\ClaimDetail.cs" />
     <Compile Include="Scorecard\ClaimsController.cs" />
     <Compile Include="Scorecard\ModelController.cs" />
@@ -103,6 +104,7 @@
       <Name>Seranet.SpecM2.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -60,7 +60,7 @@
         <div class="mid-boxes green-back content-box-type-one">
             <h3>Project Comparison</h3>
             |
-            <span>6 projects</span>
+            <span>{{projectlist.length}} projects</span>
         </div>
         <div class="inverted-margin-container white-back">
             <div class="row dark-green-back">
@@ -69,153 +69,25 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row grid-title-white">
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">Engineering Discipline</div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">Business Focus</div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">People Development</div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">Stakeholder Engagement</div>
+                        <div class="col-md-3" data-ng-repeat="area in areas">
+                            <div class="content-box-type-two">{{area.Name}}</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" data-ng-repeat="project in projectlist">
                 <div class="col-md-2 grid">
-                    <div class="content-box-type-two bold-text height-adjuster">Tempus</div>
+                    <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
                 </div>
                 <div class="col-md-10">
                     <div class="row grid">
-                        <div class="col-md-3">
+                        <div class="col-md-3" data-ng-repeat="area in project.areas">
                             <div class="content-box-type-two">
-                                <div class="dark-green-text bold-text large-text">L3</div>
-                                <div class="status-text">Certified 23 of 25</div>
+                                <div class="dark-green-text bold-text large-text">L{{area.arealevel}}</div>
+                                <div class="status-text">Certified {{area.areacertificates}} of {{area.areapractices}}</div>
                                 <div class="progress-bar-back">
                                     <div class="progress-bar dark-green-back" style="width: 76.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="dark-green-text bold-text large-text">L3</div>
-                                <div class="status-text">Certified 23 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar dark-green-back" style="width: 76.8%;"></div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="dark-green-text bold-text large-text">L3</div>
-                                <div class="status-text">Certified 23 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar dark-green-back" style="width: 26.8%;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="dark-green-text bold-text large-text">L3</div>
-                                <div class="status-text">Certified 23 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar dark-green-back" style="width: 76.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 grid">
-                    <div class="content-box-type-two bold-text height-adjuster">Adramatch</div>
-                </div>
-                <div class="col-md-10">
-                    <div class="row grid">
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="yellow-text bold-text large-text">L2</div>
-                                <div class="status-text">Certified 12 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar yellow-back" style="width: 40.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="yellow-text bold-text large-text">L2</div>
-                                <div class="status-text">Certified 12 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar yellow-back" style="width: 40.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="yellow-text bold-text large-text">L2</div>
-                                <div class="status-text">Certified 12 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar yellow-back" style="width: 40.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="yellow-text bold-text large-text">L2</div>
-                                <div class="status-text">Certified 12 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar yellow-back" style="width: 40.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 grid">
-                    <div class="content-box-type-two bold-text height-adjuster">BUS</div>
-                </div>
-                <div class="col-md-10">
-                    <div class="row grid">
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="red-text bold-text large-text">L1</div>
-                                <div class="status-text">Certified 4 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar red-back" style="width: 17.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="red-text bold-text large-text">L1</div>
-                                <div class="status-text">Certified 4 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar red-back" style="width: 17.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="red-text bold-text large-text">L1</div>
-                                <div class="status-text">Certified 4 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar red-back" style="width: 17.8%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="content-box-type-two">
-                                <div class="red-text bold-text large-text">L1</div>
-                                <div class="status-text">Certified 4 of 25</div>
-                                <div class="progress-bar-back">
-                                    <div class="progress-bar red-back" style="width: 17.8%;"></div>
                                 </div>
                             </div>
                         </div>
