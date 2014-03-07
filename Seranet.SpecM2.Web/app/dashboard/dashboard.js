@@ -58,7 +58,7 @@
                                    $scope.claims[data[i].Project_Id+":"+data[i].Practice_Id] = data[i].Status;
                                }
                            };
-                          calculate();
+                           calculate();
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);
@@ -89,8 +89,11 @@
         //console.log('yes');
         for (var p = 0; p < $scope.projectlist.length; p++) {
             var projectlevel = 3;
+            $scope.projectlist[p].areas = [];
+            certificateCount(p);
             for (var i = 0; i < $scope.areas.length; i++) {
                 var arealevel = 3;
+
                 for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
                     var level = 3;
                     for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
@@ -125,8 +128,7 @@
                     }
 
                 }
-                $scope.projectlist[p].areas = [];
-                $scope.projectlist[p].areas.push(arealevel);
+                $scope.projectlist[p].areas.push({ arealevel: arealevel });
 
                 if (projectlevel >= arealevel) {
                     projectlevel = arealevel;
@@ -139,6 +141,22 @@
         }
 
     }
+
+    function certificateCount(projectId) {
+
+
+        $http({ method: 'GET', url: 'api/certificates/' + projectId }).
+        success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.projectlist[projectId].certificates = data;
+        }).
+        error(function (data, status, headers, config) {
+            console.log(data);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    }
+
     }
     
 })();
