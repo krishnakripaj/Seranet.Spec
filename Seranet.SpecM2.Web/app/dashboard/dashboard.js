@@ -90,29 +90,43 @@
         for (var p = 0; p < $scope.projectlist.length; p++) {
             var projectlevel = 3;
             $scope.projectlist[p].areas = [];
-            certificateCount(p);
+
+            //certificateCount(p);
             for (var i = 0; i < $scope.areas.length; i++) {
                 var arealevel = 3;
-
+                var practicesCount = 0;
+                var certificatesCount = 0;
                 for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
                     var level = 3;
                     for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
 
-                        if (!(($scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id) in $scope.claims) &&
-                            $scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
-
-                            level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
-
-                        }
-                        else {
-                            if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete) && $scope.claims[$scope.projectlist[p].Id+":"+$scope.areas[i].SubAreas[j].Practices[k].Id] != 1 &&
-                                $scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+                        if (!(($scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id) in $scope.claims)){
+                            if($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
 
                                 level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
                             }
                         }
-                        if (level == 0) {
-                            break;
+                        else {
+                            if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)){
+                                
+                                if($scope.claims[$scope.projectlist[p].Id+":"+$scope.areas[i].SubAreas[j].Practices[k].Id] != 1){
+
+                                    if($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+
+                                        level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
+                                    }
+
+                                }
+
+                                else {
+                                    certificatesCount++;
+                                }
+                            }
+
+                        }
+
+                        if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)){
+                            practicesCount ++;
                         }
                     }
                     //$scope.areas[i].SubAreas[j].level = level;
@@ -123,12 +137,8 @@
                        
                     }
 
-                    if (arealevel == 0) {
-                        break;
-                    }
-
                 }
-                $scope.projectlist[p].areas.push({ arealevel: arealevel });
+                $scope.projectlist[p].areas.push({ arealevel: arealevel, areacertificates: certificatesCount, areapractices: practicesCount });
 
                 if (projectlevel >= arealevel) {
                     projectlevel = arealevel;
@@ -142,7 +152,7 @@
 
     }
 
-    function certificateCount(projectId) {
+    /*function certificateCount(projectId) {
 
 
         $http({ method: 'GET', url: 'api/certificates/' + projectId }).
@@ -155,7 +165,7 @@
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
-    }
+    }*/
 
     }
     

@@ -17,7 +17,7 @@ namespace Seranet.SpecM2.Api.Dashboard
         // GET api/values/5
         public int Get(int id)
         {
-            int result = context.Database.SqlQuery<int>("Select Count(*) from dbo.ClaimDetails where Project_Id=@p0", id).First();
+            int result = context.Database.SqlQuery<int>("Select Count(*) from dbo.ClaimDetails where Project_Id=@p0 AND Status= @p1", id, 1).First();
             return result;
         }
     }
