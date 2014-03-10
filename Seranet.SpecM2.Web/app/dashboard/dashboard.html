@@ -84,10 +84,10 @@
                     <div class="row grid">
                         <div class="col-md-3" data-ng-repeat="area in project.areas">
                             <div class="content-box-type-two">
-                                <div class="dark-green-text bold-text large-text">L{{area.arealevel}}</div>
+                                <div id={{project.Name}}{{area.Name}}>L{{area.arealevel}}</div>
                                 <div class="status-text">Certified {{area.areacertificates}} of {{area.areapractices}}</div>
                                 <div class="progress-bar-back">
-                                    <div class="progress-bar dark-green-back" style="width: 76.8%;"></div>
+                                    <div id=pb{{project.Name}}{{area.Name}}></div>
                                 </div>
                             </div>
                         </div>
@@ -97,3 +97,6 @@
         </div>
     </div>
 </section>
+
+
+<link href="content/default-theme/css/main.css" rel="stylesheet">
