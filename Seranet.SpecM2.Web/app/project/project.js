@@ -115,11 +115,46 @@
                     if (arealevel >= level) {
                         arealevel = level;
                     }
+
+                    var substyle = "";
+                    var levelPercentage;
+                    if ($scope.areas[i].SubAreas[j].level == 0) {
+                        substyle = "black";
+                        levelPercentage = 0;
+                    }
+                    else if ($scope.areas[i].SubAreas[j].level == 1) {
+                        substyle = "red";
+                        levelPercentage = 25;
+                    }
+                    else if ($scope.areas[i].SubAreas[j].level == 2) {
+                        substyle = "yellow";
+                        levelPercentage = 75;
+                    }
+                    else if ($scope.areas[i].SubAreas[j].level == 3) {
+                        substyle = "dark-green";
+                        levelPercentage = 100;
+                    }
+
+                    document.getElementById($scope.areas[i].SubAreas[j].Id).className = "progress-bar " + substyle + "-back";
+                    document.getElementById($scope.areas[i].SubAreas[j].Name).className = substyle + "-text bold-text large-text";
+                    document.getElementById($scope.areas[i].SubAreas[j].Id).style.width = levelPercentage + "%";
+
                 }
 
                 $scope.areas[i].practices = practicesCount;
                 $scope.areas[i].certificates = certificatesCount;
                 $scope.areas[i].level = arealevel;
+                var style = "";
+                if ($scope.areas[i].level == 0)
+                    style = "black-back";
+                else if ($scope.areas[i].level == 1)
+                    style = "red-back";
+                else if ($scope.areas[i].level == 2)
+                    style = "yellow-back";
+                else if ($scope.areas[i].level == 3)
+                    style = "dark-green-back";
+
+                document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style + " clearfix";
             }
         }
     }
