@@ -123,6 +123,11 @@ h5 {
 .dark-green-back {
     background-color: #07776d;
 }
+
+.black-back {
+    background-color: #000000;
+}
+
 .red-back {
     background-color: #f35958;
 }
@@ -137,6 +142,15 @@ h5 {
 }
 .dark-green-text {
     color: #07776d;
+}
+.black-text {
+    color: #000000;
+}
+.red-text {
+    color: #f35958;
+}
+.yellow-text {
+    color: #fdd01c;
 }
 .title-type-one {
     background-color: #444;

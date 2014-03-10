@@ -88,7 +88,7 @@
                     <div class="content-box-type-three title-type-one">
                         <h4>{{area.Name}}</h4>
                     </div>
-                    <div class="content-box-type-three dark-green-back clearfix">
+                    <div id={{area.Name}}>
                         <span class="level-text-large">L{{area.level}}</span>
                         <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
                     </div>
@@ -102,10 +102,10 @@
                                 </a>
                             </h5>
                         </div>
-                        <div class="dark-green-text bold-text large-text">L{{subarea.level}}</div>
+                        <div id={{subarea.Name}}>L{{subarea.level}}</div>
                         <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
                         <div class="progress-bar-back">
-                            <div class="progress-bar dark-green-back" style="width: 76.8%;"></div>
+                            <div id={{subarea.Id}}></div>
                         </div>
                     </div>
                 </div>
