@@ -9,11 +9,63 @@
 
 
         $scope.areas = [];
+        $scope.incompletedPractisesCount = 0;
         //$scope.areas[i].level gives the level of i-th area
         // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.projectName = "";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
+        $scope.toBeCompletedCount;
+        $scope.completedCount;
+        $scope.subAreaName = "";
+
+        $scope.setPractisesArray = function (practises, subareaName) {
+            $scope.practices = [];
+            $scope.completedPractises = [];
+            $scope.pendingPractises = [];
+            $scope.incompletedPractises = [];
+
+
+            $scope.subAreaName = subareaName;
+            $scope.practices = practises;
+            console.log(practises);
+
+            var index = 0;
+            var index1 = 0;
+            var index2 = 0;
+
+            for (var i = 0; i < Object.keys($scope.practices).length; i++) {
+               
+                for (var j =0; j < Object.keys($scope.claims).length; j++) {
+                    if (j+1 == $scope.practices[i].Id) {
+                        if ($scope.claims[j+1] == 1)
+                        {
+                            $scope.completedPractises[index] = practises[i];
+                            console.log("Got one! " + index);
+                            index++;
+                        }
+                        else if ($scope.claims[j+1] == 2) {
+                            $scope.incompletedPractises[index1] = practises[i];
+                            console.log("Incompleted one! " + index1);
+                            index1++;
+                        }
+                        else  {
+                            $scope.pendingPractises[index2] = practises[i];
+                            console.log("Pending one! " + index2);
+                            index2++;
+                        }
+                   
+                       
+                    }
+                }
+
+                $scope.toBeCompletedCount = index2 + index1 ;
+                $scope.completedCount = index;
+            }
+
+        }
+
+
         var vm = this;
         vm.title = " score card";
 
@@ -40,6 +92,7 @@
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
                            };
                            calculate();
+
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);

@@ -40,6 +40,7 @@ namespace Seranet.SpecM2.Data.Seeds
             // 2 -> rejected
             // 3 -> pending
             int id_count = 0;
+
             int[] map1 = new int[28] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 3, 0, 1, 1, 1, 1, 0, 1, 1, 2, 3, 3, 1 }; // 1 -> aproved, 2-> reject, 3 -> pending
 
 
@@ -77,6 +78,7 @@ namespace Seranet.SpecM2.Data.Seeds
                 if (map_tempus[i] != 0)
                 {
                     claims[id_count] = new Claim
+
                     {
                         Id = id_count + 1,
                         GUID = Guid.NewGuid(),
