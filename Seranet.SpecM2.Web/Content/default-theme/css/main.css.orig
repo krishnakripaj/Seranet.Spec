@@ -227,6 +227,7 @@ h5 {
         background-position: 0px 10px;
         background-size: 373px;
     }
+<<<<<<< HEAD
 }
 
 /* Styles added by Kripa  */
@@ -260,3 +261,6 @@ h5 {
     opacity: 0.4;
 }
 
+=======
+}
+>>>>>>> upstream/master
