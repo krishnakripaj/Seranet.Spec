@@ -137,19 +137,85 @@
                     }
 
                 }
-                $scope.projectlist[p].areas.push({ arealevel: arealevel, areacertificates: certificatesCount, areapractices: practicesCount });
+                $scope.projectlist[p].areas.push({ Name: $scope.areas[i].Name, arealevel: arealevel, areacertificates: certificatesCount, areapractices: practicesCount });
 
                 if (projectlevel >= arealevel) {
                     projectlevel = arealevel;
                 }
 
+                //$scope.$$phase || $scope.$apply();
+                $scope.$apply();
+
+                var style = "";
+                var levelPercentage;
+                if (arealevel == 0) {
+                    style = "black";
+                    levelPercentage = 0;
+                }
+                else if (arealevel == 1) {
+                    style = "red";
+                    levelPercentage = 25;
+                }
+                else if (arealevel == 2) {
+                    style = "yellow";
+                    levelPercentage = 75;
+                }
+                else if (arealevel == 3) {
+                    style = "dark-green";
+                    levelPercentage = 100;
+                }
+                console.log($scope.projectlist[p].Name + $scope.areas[i].Name);
+                document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).className = "progress-bar " + style + "-back";
+                document.getElementById($scope.projectlist[p].Name + $scope.areas[i].Name).className = style + "-text bold-text large-text";
+                document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).style.width = levelPercentage + "%";
                 
+
             }
 
             $scope.projectlist[p].level = projectlevel;
         }
+        //style();
+    }
+
+
+    function style() {
+        for (var p = 0; p < $scope.projectlist.length; p++) {
+            
+            for (var i = 0; i < $scope.areas.length; i++) {
+                
+                var style = "";
+                var levelPercentage;
+                if ($scope.projectlist[p].areas[i].arealevel == 0) {
+                    style = "black";
+                    levelPercentage = 0;
+                }
+                else if ($scope.projectlist[p].areas[i].arealevel == 1) {
+                    style = "red";
+                    levelPercentage = 25;
+                }
+                else if ($scope.projectlist[p].areas[i].arealevel == 2) {
+                    style = "yellow";
+                    levelPercentage = 75;
+                }
+                else if ($scope.projectlist[p].areas[i].arealevel == 3) {
+                    style = "dark-green";
+                    levelPercentage = 100;
+                }
+                console.log($scope.projectlist[p].Name + $scope.areas[i].Name);
+                //document.getElementById($scope.areas[i].Id).className = "progress-bar " + style + "-back";
+                document.getElementById($scope.projectlist[p].Name + $scope.areas[i].Name).className = style + "-text bold-text large-text";
+
+                //document.getElementById($scope.areas[i].Id).style.width = levelPercentage + "%";
+
+            }
+
+        }
+
+
+
 
     }
+
 
     }
     
