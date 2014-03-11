@@ -85,30 +85,28 @@
         <div class="top-boxes">
             <div class="row">
                 <div class="col-md-3" data-ng-repeat="area in areas">
-                    <div class="content-box-type-three title-type-one">
-                        <h4>{{area.Name}}</h4>
-                    </div>
-                    <div id={{area.Name}}>
-                        <span class="level-text-large">L{{area.level}}</span>
-                        <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
-                    </div>
+                    
+                        <div class="content-box-type-three title-type-one">
+                            <h4>{{area.Name}}</h4>
+                        </div>
+                        <div id={{area.Name}}>
+                            <span class="level-text-large">L{{area.level}}</span>
+                            <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
+                        </div>
 
-                    <div class="content-box-type-three scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas">
-                        <div>
-
+                        <div class="content-box-type-three scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas">
                             <a data-target="#myModal" data-toggle="modal" ng-click="setPractisesArray(subarea.Practices, subarea.Name)">
-                                <div data-target=" #mymodal">
+                                <div>
                                     {{subarea.Name}}
+
+                                    <div id={{subarea.Name}}>L{{subarea.level}}</div>
+                                    <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
+                                    <div class="progress-bar-back">
+                                        <div id={{subarea.Id}}></div>
+                                    </div>
                                 </div>
                             </a>
-                        </div>
-                        <div id={{subarea.Name}}>L{{subarea.level}}</div>
-                        <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
-                        <div class="progress-bar-back">
-                            <div id={{subarea.Id}}></div>
-                        </div>
-                    </div>
-
+                        </div>                 
 
                 </div>
             </div>
