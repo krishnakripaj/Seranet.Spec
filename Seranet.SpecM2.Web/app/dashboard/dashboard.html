@@ -77,22 +77,24 @@
             </div>
 
             <div class="row" data-ng-repeat="project in projectlist">
-                <div class="col-md-2 grid">
-                    <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
-                </div>
-                <div class="col-md-10">
-                    <div class="row grid">
-                        <div class="col-md-3" data-ng-repeat="area in project.areas">
-                            <div class="content-box-type-two">
-                                <div id={{project.Name}}{{area.Name}}>L{{area.arealevel}}</div>
-                                <div class="status-text">Certified {{area.areacertificates}} of {{area.areapractices}}</div>
-                                <div class="progress-bar-back">
-                                    <div id=pb{{project.Name}}{{area.Name}}></div>
+                <a href=#/project/{{project.Id}}>
+                    <div class="col-md-2 grid">
+                        <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row grid">
+                            <div class="col-md-3" data-ng-repeat="area in project.areas">
+                                <div class="content-box-type-two">
+                                    <div id={{project.Name}}{{area.Name}}>L{{area.arealevel}}</div>
+                                    <div class="status-text">Certified {{area.areacertificates}} of {{area.areapractices}}</div>
+                                    <div class="progress-bar-back">
+                                        <div id=pb{{project.Name}}{{area.Name}}></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
