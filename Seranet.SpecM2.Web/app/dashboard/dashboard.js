@@ -84,9 +84,8 @@
         }
 
 
-    function calculate() {
-        //if (2 in $scope.claims)
-        //console.log('yes');
+        function calculate() {
+
         for (var p = 0; p < $scope.projectlist.length; p++) {
             var projectlevel = 3;
             $scope.projectlist[p].areas = [];
@@ -128,9 +127,7 @@
                             practicesCount ++;
                         }
                     }
-                    //$scope.areas[i].SubAreas[j].level = level;
-                    
-                    //$scope.SubAreaslevel[$scope.projectlist[p].Project_Id
+
                     if (arealevel >= level) {
                         arealevel = level;
                        
@@ -174,47 +171,10 @@
 
             $scope.projectlist[p].level = projectlevel;
         }
-        //style();
-    }
-
-
-    function style() {
-        for (var p = 0; p < $scope.projectlist.length; p++) {
-            
-            for (var i = 0; i < $scope.areas.length; i++) {
-                
-                var style = "";
-                var levelPercentage;
-                if ($scope.projectlist[p].areas[i].arealevel == 0) {
-                    style = "black";
-                    levelPercentage = 0;
-                }
-                else if ($scope.projectlist[p].areas[i].arealevel == 1) {
-                    style = "red";
-                    levelPercentage = 25;
-                }
-                else if ($scope.projectlist[p].areas[i].arealevel == 2) {
-                    style = "yellow";
-                    levelPercentage = 75;
-                }
-                else if ($scope.projectlist[p].areas[i].arealevel == 3) {
-                    style = "dark-green";
-                    levelPercentage = 100;
-                }
-                console.log($scope.projectlist[p].Name + $scope.areas[i].Name);
-                //document.getElementById($scope.areas[i].Id).className = "progress-bar " + style + "-back";
-                document.getElementById($scope.projectlist[p].Name + $scope.areas[i].Name).className = style + "-text bold-text large-text";
-
-                //document.getElementById($scope.areas[i].Id).style.width = levelPercentage + "%";
-
-            }
-
-        }
-
-
-
 
     }
+
+
 
 
     }

@@ -14,9 +14,9 @@ namespace Seranet.SpecM2.Data.Seeds
         public Projects()
         {
             projects = new Project[2];
-
-            projects[0] = new Project { Id = 1, GUID = Guid.NewGuid(), Enabled = true, Name = "Tempus", ProjetId = "TEMP1" };                
-            projects[1] = new Project{Id = 2, GUID = Guid.NewGuid(), Enabled=true, Name="TrioLink", ProjetId="TRI1"};
+            
+            projects[0] = new Project { Id = 1, GUID = Guid.NewGuid(), Enabled = true, Name = "Tempus", ProjetId = "temp1" };
+            projects[1] = new Project { Id = 2, GUID = Guid.NewGuid(), Enabled = true, Name = "Trio Link", ProjetId = "trio1" };
         }
     }
 }
