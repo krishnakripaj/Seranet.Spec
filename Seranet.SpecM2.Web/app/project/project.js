@@ -10,6 +10,8 @@
 
         $scope.areas = [];
         $scope.incompletedPractisesCount = 0;
+        $scope.level_list = [0,1,2];
+
         //$scope.areas[i].level gives the level of i-th area
         // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.projectName = "";
@@ -28,6 +30,12 @@
             $scope.pendingPractises = [];
             $scope.incompletedPractises = [];
 
+            for (var i = 0 ; i < 3 ; i++) {
+                $scope.completedPractises[i] = [];
+                $scope.pendingPractises[i] = [];
+                $scope.incompletedPractises[i] = [];
+            }
+
 
             $scope.subAreaName = subareaName;
             $scope.practices = practises;
@@ -38,23 +46,23 @@
             var index2 = 0;
 
             for (var i = 0; i < Object.keys($scope.practices).length; i++) {
-               
-                for (var j =0; j < Object.keys($scope.claims).length; j++) {
-                    if (j+1 == $scope.practices[i].Id) {
-                        if ($scope.claims[j+1] == 1)
-                        {
-                            $scope.completedPractises[index] = practises[i];
-                            console.log("Got one! " + index);
+
+                for (var j = 0; j < Object.keys($scope.claims).length; j++) {
+                    if (j + 1 == $scope.practices[i].Id) {
+                        if ($scope.claims[j + 1] == 1) {
+                            $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                            console.log($scope.completedPractises[0]);
+                            console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
                             index++;
                         }
-                        else if ($scope.claims[j+1] == 2) {
-                            $scope.incompletedPractises[index1] = practises[i];
-                            console.log("Incompleted one! " + index1);
+                        else if ($scope.claims[j + 1] == 2) {
+                            $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                            console.log("Incompleted one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
                             index1++;
                         }
-                        else  {
-                            $scope.pendingPractises[index2] = practises[i];
-                            console.log("Pending one! " + index2);
+                        else {
+                            $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                            console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
                             index2++;
                         }
                    
@@ -65,7 +73,12 @@
                 $scope.toBeCompletedCount = index2 + index1 ;
                 $scope.completedCount = index;
             }
-
+         
+            //can do through for loop
+            document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
+            document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
+            document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
+           
         }
 
 
