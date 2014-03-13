@@ -10,7 +10,7 @@
 
         $scope.areas = [];
         $scope.incompletedPractisesCount = 0;
-        $scope.level_list = [0,1,2];
+        $scope.level_list = [0, 1, 2];
 
         //$scope.areas[i].level gives the level of i-th area
         // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
@@ -47,39 +47,58 @@
 
             for (var i = 0; i < Object.keys($scope.practices).length; i++) {
 
-                for (var j = 0; j < Object.keys($scope.claims).length; j++) {
-                    if (j + 1 == $scope.practices[i].Id) {
-                        if ($scope.claims[j + 1] == 1) {
-                            $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-                            console.log($scope.completedPractises[0]);
-                            console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
-                            index++;
-                        }
-                        else if ($scope.claims[j + 1] == 2) {
-                            $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-                            console.log("Incompleted one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
-                            index1++;
-                        }
-                        else {
-                            $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-                            console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
-                            index2++;
-                        }
-                   
-                       
-                    }
+                if (typeof $scope.claims[$scope.practices[i].Id] === "undefined" || $scope.claims[$scope.practices[i].Id] === 0) {
+                    $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                    console.log("Unclaimed or rejected one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
+                    index1++;
                 }
+                if ($scope.claims[$scope.practices[i].Id] == 1) {
+                    $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                    console.log($scope.completedPractises[0]);
+                    console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
+                    index++;
+                }
+                else if ($scope.claims[$scope.practices[i].Id] == 2) {
+                    $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                    console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
+                    index2++;
+                }
+            
 
-                $scope.toBeCompletedCount = index2 + index1 ;
-                $scope.completedCount = index;
-            }
-         
-            //can do through for loop
-            document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
-            document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
-            document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
-           
+
+            //for (var j = 0; j < Object.keys($scope.claims).length; j++) {
+            //    if (j + 1 == $scope.practices[i].Id) {
+            //        if ($scope.claims[j + 1] == 1) {
+            //            $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+            //            console.log($scope.completedPractises[0]);
+            //            console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
+            //            index++;
+            //        }
+            //        else if ($scope.claims[j + 1] == 2) {
+            //            $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+            //            console.log("Incompleted one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
+            //            index1++;
+            //        }
+            //        else {
+            //            $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+            //            console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
+            //            index2++;
+            //        }
+
+
+            //    }
+            //}
+
+            $scope.toBeCompletedCount = index1 + index2;
+            $scope.completedCount = index;
         }
+
+        //can do through for loop
+        document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
+        document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
+        document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
+    }
+
 
 
         var vm = this;
@@ -109,7 +128,7 @@
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
                            };
                            calculate();
-                           isAMember($scope.projectAssignment);                               
+                           isAMember($scope.projectAssignment);
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);
@@ -227,12 +246,12 @@
                 document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style + " clearfix";
             }
         }
-        
+
         function isAMember(projectAssignment) {
             $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           $scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           $scope.userName = "nirangad";//data.split("\\")[1].toString().toLowerCase();
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
@@ -245,11 +264,11 @@
                                                 if (data[i].members[j].toLowerCase() == $scope.userName)
                                                     $scope.isMember = true;
                                             }
-                                            
+
                                         }
                                     }
                                 }
-                                
+
                             }).
                             error(function (data, error) {
                                 console.log(error);
@@ -260,7 +279,7 @@
                            console.log(data);
                            // called asynchronously if an error occurs
                            // or server returns response with an error status.
-            });
+                       });
         }
 
     }
