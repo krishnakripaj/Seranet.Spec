@@ -15,7 +15,7 @@
                             <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
                         </div>
 
-                    <div class="content-box-type-three scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas"  ng-click="setPractisesArray(subarea.Practices, subarea.Name)">
+                    <div class="content-box-type-three scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas" ng-click="setPractisesArray(subarea.Practices, subarea.Name)" onmouseover="this.style.background='#C0C0C0';" onmouseout="this.style.background = 'white';">
                         <a data-target="#myModal" data-toggle="modal">
                             <div>
                                 {{subarea.Name}}
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="row ng-scope" ng-repeat="i in level_list">
+                            <div class="row ng-scope" ng-repeat="i in level_list" id="{{i+1}}-level-wholeraw" >
                                 <div class="col-md-2 blue-back  content-box-type-two" id="popup-level{{i+1}}-raw">
                                     <div class="bold-text">
                                         L{{i+1}}
