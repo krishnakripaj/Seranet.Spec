@@ -87,21 +87,27 @@
                                 <div class="col-md-5">
                                     <div class="row">
   
-                                        <div class="row grid disabled-practise-div" ng-repeat="pending in pendingPractises[i]">
+                                        <div class="row grid" ng-repeat="pending in pendingPractises[i]">
                                             <div class="content-box-type-two">
                                                 {{pending.Id}} -  {{pending.Code}} - {{pending.Description}}
                                                 <div class="checkbox-inline bold-text">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1" checked> Claim
+                                                    <input type="checkbox" disabled="disabled" id="inlineCheckbox1" value="option1" checked> Claim
                                                 </div>
                                             </div>
-
                                         </div>
 
                                         <div class="row grid" ng-repeat="incomplete in incompletedPractises[i]">
                                             <div class="content-box-type-two">
                                                 {{incomplete.Id}} -  {{incomplete.Code}} - {{incomplete.Description}}
                                                 <div class="checkbox-inline bold-text">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Claim
+                                                    <div ng-switch on="isMember">
+                                                        <div ng-switch-when="no">
+                                                            <input type="checkbox" disabled="disabled" id="inlineCheckbox1" value="option1"> Claim
+                                                        </div>
+                                                        <div ng-switch-when="yes">
+                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Claim
+                                                        </div>
+                                                    </div>                                                    
                                                 </div>
                                             </div>
                                         </div>

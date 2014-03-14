@@ -17,7 +17,7 @@
         $scope.projectName = "";
         $scope.projectAssignment = "";
         $scope.userName = "";
-        $scope.isMember = false;
+        $scope.isMember = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -64,31 +64,6 @@
                     index2++;
                 }
             
-
-
-            //for (var j = 0; j < Object.keys($scope.claims).length; j++) {
-            //    if (j + 1 == $scope.practices[i].Id) {
-            //        if ($scope.claims[j + 1] == 1) {
-            //            $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-            //            console.log($scope.completedPractises[0]);
-            //            console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
-            //            index++;
-            //        }
-            //        else if ($scope.claims[j + 1] == 2) {
-            //            $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-            //            console.log("Incompleted one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
-            //            index1++;
-            //        }
-            //        else {
-            //            $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-            //            console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
-            //            index2++;
-            //        }
-
-
-            //    }
-            //}
-
             $scope.toBeCompletedCount = index1 + index2;
             $scope.completedCount = index;
         }
@@ -128,7 +103,10 @@
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
                            };
                            calculate();
-                           isAMember($scope.projectAssignment);
+                           isAMember($scope.projectAssignment).then(function () {
+                               console.log('Success: ' + $scope.isMember);
+                           });
+
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);
@@ -248,21 +226,21 @@
         }
 
         function isAMember(projectAssignment) {
-            $http({ method: 'GET', url: 'security/username' }).
+            var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           $scope.userName = "nirangad";//data.split("\\")[1].toString().toLowerCase();
+                           $scope.userName = data.split("\\")[1].toString().toLowerCase();
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
                                 for (var i = 0; i < data.length; i++) {
                                     if (projectAssignment.toLowerCase() == data[i].assignment.toLowerCase()) {
                                         if (data[i].rep.toLowerCase() == $scope.userName)
-                                            $scope.isMember = true;
+                                            $scope.isMember = "yes";
                                         else {
                                             for (var j = 0; j < data[i].members.length ; j++) {
                                                 if (data[i].members[j].toLowerCase() == $scope.userName)
-                                                    $scope.isMember = true;
+                                                    $scope.isMember = "yes";
                                             }
 
                                         }
@@ -280,6 +258,7 @@
                            // called asynchronously if an error occurs
                            // or server returns response with an error status.
                        });
+            return promise;
         }
 
     }
