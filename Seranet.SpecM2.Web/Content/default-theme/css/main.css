@@ -95,6 +95,7 @@ h5 {
 }
 .content-box-type-three-ash:hover {
    background-color:#C0C0C0;
+   cursor: pointer;
 }
 
 .top-boxes h3 {
@@ -278,3 +279,7 @@ h5 {
     opacity: 0.4;
 }
 
+#sub-area-actionlink {
+    text-decoration: none;
+
+}

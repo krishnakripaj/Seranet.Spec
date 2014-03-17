@@ -16,7 +16,7 @@
                         </div>
 
                     <div class="content-box-type-three-ash scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas" ng-click="setPractisesArray(subarea.Practices, subarea.Name)" >
-                        <a data-target="#myModal" data-toggle="modal">
+                        <a id="sub-area-actionlink" data-target="#myModal" data-toggle="modal">
                             <div>
                                 {{subarea.Name}}
                                 <div id={{subarea.Name}}>L{{subarea.level}}</div>
@@ -47,7 +47,7 @@
                             <div class="row grid">
                                 <div class=" col-md-12">
                                     <div class="row ng-scope white-back" id="popup header">
-                                        <div class="col-md-2"></div>
+                                        <div class="col-md-1"></div>
                                         <div class="col-md-5">
                                             <div class="row grid dark-green-back">
                                                 <div class="green-back  bold-text" style="padding: 10px;">
@@ -55,6 +55,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--<div class="col-md-1"></div>-->
                                         <div class="col-md-5">
                                             <div class="row grid dark-green-back">
                                                 <div class="red-back  bold-text" style="padding: 10px;">
@@ -67,7 +68,7 @@
                             </div>
 
                             <div class="row ng-scope" ng-repeat="i in level_list" id="{{i+1}}-level-wholeraw" >
-                                <div class="col-md-2 blue-back  content-box-type-two" id="popup-level{{i+1}}-raw">
+                                <div class="col-md-1 blue-back  content-box-type-two" id="popup-level{{i+1}}-raw">
                                     <div class="bold-text" align="center">
                                         L{{i+1}}
                                     </div>
@@ -82,7 +83,7 @@
                                     </div>
 
                                 </div>
-
+                                <!--<div class="col-md-1"></div>-->
                                 <div class="col-md-5">                                
                                         <div class="row grid" ng-repeat="pending in pendingPractises[i]">
                                             <div class="content-box-type-two-popup">
