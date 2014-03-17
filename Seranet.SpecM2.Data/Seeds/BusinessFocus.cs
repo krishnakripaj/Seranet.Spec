@@ -28,7 +28,7 @@ namespace Seranet.SpecM2.Data.Seeds
                                 new Practice{ GUID=Guid.NewGuid(), Code="PA.2.1", Description=" The team has a plan to implement the ideas gathered", Level = level2 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="PA.2.2", Description=" The team has a feedback mechanism on the different usage patterns", Level = level2 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="PA.3.1", Description="The team has a plan to incorporate the different feedback received", Level = level3 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="PA.3.2", Description=" The team has incorporated this loop into the day to day planning and product roadmap.", Level = level3 }
+                                new Practice{ GUID=Guid.NewGuid(), Code="PA.3.2", Description="The team has incorporated this loop into the day to day planning and product roadmap", Level = level3 }
                             }
                         },
                         new SubArea{ GUID=Guid.NewGuid(), Code="HV", Name="Hypothesis Validation", 
