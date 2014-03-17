@@ -6,7 +6,8 @@
     function project($scope, common, $routeParams, $http) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
-
+        var vm = this;
+        vm.title = " score card";
 
         $scope.areas = [];
         $scope.incompletedPractisesCount = 0;
@@ -25,6 +26,7 @@
         $scope.completedCount;
         $scope.subAreaName = "";
         $scope.changedClaims = false;
+
 
         $scope.listOfAllClaims = [];
 
@@ -163,10 +165,6 @@
                 //}
             }
         }
-
-
-        var vm = this;
-        vm.title = " score card";
 
         activate();
 
@@ -316,6 +314,8 @@
                 document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style + " clearfix";
             }
         }
+
+       
 
         function isAMember(projectAssignment) {
             var promise = $http({ method: 'GET', url: 'security/username' }).
