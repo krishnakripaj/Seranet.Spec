@@ -8,51 +8,60 @@ namespace Seranet.SpecM2.Data.Seeds
 {
     public class SpecSeedDataInitializer: System.Data.Entity. DropCreateDatabaseAlways<SpecDbContext>
     {
+
         protected override void Seed(SpecDbContext context)
         {
-            var projects = new List<Project>
+
+            context.Database.ExecuteSqlCommand("CREATE VIEW dbo.ClaimDetails AS SELECT t1.id,t1.Project_Id,t1.Practice_Id,t1.Status from dbo.Claim t1 WHERE t1.CreatedTime = (SELECT max(CreatedTime) FROM dbo.Claim t2 WHERE t2.Practice_Id = t1.Practice_Id AND t2.Project_Id=t1.Project_Id)");
+            
+
+            /* insert the project base data */
+            Project[] projects = new Projects().projects;
+            for (int i = 0; i < projects.Length; i++)
             {
-                new Project{Id = 1, GUID = Guid.NewGuid(), Enabled=true, Name="Tempus", ProjetId="TEMP1"},
-                new Project{Id = 2, GUID = Guid.NewGuid(), Enabled=true, Name="TrioLink", ProjetId="TRI1"}
-            };
-            projects.ForEach(p => context.Projects.Add(p));
+                context.Projects.Add(projects[i]);
+            }
+            context.SaveChanges(); 
+            
 
             /* insert the level base data */
-            var levels = new List<Level>
+            Level[] levels = new Levels().levels;
+            for (int i = 0; i < levels.Length; i++)
             {
-                new Level{Id=1, GUID=Guid.NewGuid(), Name="Explorer"},
-                new Level{Id=2, GUID=Guid.NewGuid(), Name="Veteran"},
-                new Level{Id=3, GUID=Guid.NewGuid(), Name="Optimizer"}
-            };
-            levels.ForEach(l => context.Levels.Add(l));
-            context.SaveChanges();
-            var level1 = context.Levels.FirstOrDefault(l => l.Id == 1);
-            var level2 = context.Levels.FirstOrDefault(l => l.Id == 2);
-            var level3 = context.Levels.FirstOrDefault(l => l.Id == 3);
+                context.Levels.Add(levels[i]);
+            }             
+            context.SaveChanges();            
 
-            /* insert Engineering Discipline data */
+            /* insert specm2 model data */
 
-            context.Areas.Add(new EngineeringDiscipline(level1, level2, level3).Area);
-            context.SaveChanges();
+            EngineeringDiscipline ed= new EngineeringDiscipline(levels);
+            BusinessFocus bf = new BusinessFocus(levels);
+            TeamBuilding tb= new TeamBuilding(levels);
+            StakeholderEngagement se= new StakeholderEngagement(levels);
 
-
-            var areas = new List<Area>
-            {
-                
-                new Area{ GUID=Guid.NewGuid(), Name = "Business Focus", Description = "todo"},
-                new Area{ GUID=Guid.NewGuid(), Name = "Team Building", Description = "todo"},
-                new Area{ GUID=Guid.NewGuid(), Name = "Stakeholder Engagement", Description = "todo"}
-            };
-
-            areas.ForEach(s => context.Areas.Add(s));
+            context.Areas.Add(ed.Area);
+            context.Areas.Add(bf.Area);
+            context.Areas.Add(tb.Area);
+            context.Areas.Add(se.Area);
             context.SaveChanges();
 
 
-            var subAreas = new List<SubArea>
+                        
+            List <Practice> practices = new List <Practice>();
+            foreach (SubArea s in ed.Area.SubAreas) { 
+                foreach (Practice p in s.Practices) {
+                    practices.Add(p);
+                }
+            }
+            /* insert claims data */
+            Claim[] claims = new Claims(projects, practices, context).claims;
+            for (int i = 0; i < claims.Length; i++)
             {
-                new SubArea{Code = "ED1", Name="Test Automation"},
+                context.Claims.Add(claims[i]);
+            }
+            context.SaveChanges();
 
-            };
+
         }
     }
 }

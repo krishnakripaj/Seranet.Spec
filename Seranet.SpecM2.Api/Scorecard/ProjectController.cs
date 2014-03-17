@@ -9,21 +9,19 @@ using System.Web.Http;
 
 namespace Seranet.SpecM2.Api.Scorecard
 {
-    public abstract class ScorecardController : BaseApiController
+    public class ProjectController : BaseApiController
     {
-        protected SpecDbContext context = new SpecDbContext();
-
-        // GET api/scorecard
-        public IEnumerable<Area> Get()
+        // GET api/project
+        public IEnumerable<Project> Get()
         {
-            return context.Areas;
+            return context.Projects;
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public Project Get(int id)
         {
-            return "value";
+            return context.Projects.Where(p => p.Id == id).FirstOrDefault();
         }
-
     }
 }
+

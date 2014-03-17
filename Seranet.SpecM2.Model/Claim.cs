@@ -9,13 +9,17 @@ namespace Seranet.SpecM2.Model
     {
         public Practice Practice { get; set; }
 
-        public string Comment { get; set; }
+        public string TeamComment { get; set; }
+
+        public string AuditorComment { get; set; }
 
         public DateTime CreatedTime { get; set; }
 
         public Project Project { get; set; }
 
-        public bool Obsolete { get; set; }
+        
+        public Status Status { get; set; }
+
 
         public int Id { get; set; }
 
@@ -23,4 +27,12 @@ namespace Seranet.SpecM2.Model
 
         public byte[] RowVersion { get; set; }
     }
+
+    public enum Status
+    {
+        PENDING,
+        APPROVED,
+        REJECTED
+    }
+
 }
