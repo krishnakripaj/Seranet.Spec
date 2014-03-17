@@ -76,8 +76,8 @@
                                 <div class="col-md-5">
 
                                     <div class="row grid" ng-repeat="completed in completedPractises[i]">
-                                        <div class="content-box-type-two">
-                                             {{completed.Code}} - {{completed.Description}}
+                                        <div class="content-box-type-two-popup">
+                                            {{completed.Code}} - {{completed.Description}}
                                         </div>
                                     </div>
 
@@ -85,7 +85,7 @@
 
                                 <div class="col-md-5">                                
                                         <div class="row grid" ng-repeat="pending in pendingPractises[i]">
-                                            <div class="content-box-type-two">
+                                            <div class="content-box-type-two-popup">
                                                 {{pending.Code}} - {{pending.Description}}
                                                 <div class="checkbox-inline bold-text">
                                                     <input type="checkbox" disabled="disabled" id="inlineCheckbox1" value="option1" checked> Claim
@@ -94,8 +94,8 @@
                                         </div>
 
                                         <div id=IncompleteDiv{{incomplete.Id}} class="row grid" ng-repeat="incomplete in incompletedPractises[i]">
-                                            <div class="content-box-type-two">
-                                                {{incomplete.Id}} -  {{incomplete.Code}} - {{incomplete.Description}}
+                                            <div class="content-box-type-two-popup">
+                                                {{incomplete.Code}} - {{incomplete.Description}}
                                                 <div class="checkbox-inline bold-text">
                                                     <div ng-switch on="isMember">
                                                         <div ng-switch-when="no">

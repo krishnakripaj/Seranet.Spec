@@ -82,6 +82,10 @@ h5 {
 .content-box-type-two {
     padding: 10px 20px;
 }
+.content-box-type-two-popup {
+    padding: 10px 20px;
+    word-wrap: break-word;
+}
 .content-box-type-three {
     padding: 12px 30px;
 }
