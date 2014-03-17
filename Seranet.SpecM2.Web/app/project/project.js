@@ -15,16 +15,20 @@
         //$scope.areas[i].level gives the level of i-th area
         // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.projectName = "";
+        $scope.projectInContext;
         $scope.projectAssignment = "";
         $scope.userName = "";
-        $scope.isMember = "no";
+        $scope.isMember = "yes";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
         $scope.completedCount;
         $scope.subAreaName = "";
 
+        $scope.listOfAllClaims = [];
+
         $scope.setPractisesArray = function (practises, subareaName) {
+            $scope.listOfAllClaims.length = 0;
             $scope.practices = [];
             $scope.completedPractises = [];
             $scope.pendingPractises = [];
@@ -74,6 +78,66 @@
         document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
     }
 
+        //function to save the claims
+        $scope.createClaimRequest = function (practise) {
+
+            console.log(practise);
+            var l = "#incompleteCheckBox" + practise.Id;
+            var data = {};
+            console.log(l);
+            if (!$(l).prop('checked')) {
+                // $scope.listOfAllClaims.pop();
+
+                $scope.listOfAllClaims.splice($.inArray($scope.findClaimObject(practise.Id), $scope.listOfAllClaims), 1);
+
+                console.log("not clicked - " + l);
+                console.log($scope.listOfAllClaims);
+            }
+            else {
+
+                data['AuditorComment'] = "Seed Auto generated ";
+                data['Practice'] = practise;
+                data['Project'] = $scope.projectInContext;
+                data['TeamComment'] = "Seed Auto generated ";
+
+                $scope.listOfAllClaims.push(data);
+                console.log("clicked - " + l);
+                console.log($scope.listOfAllClaims);
+            }
+        };
+
+        $scope.findClaimObject = function (claimPracticeId) {
+
+            for (var i = 0, len = $scope.listOfAllClaims.length; i < len; i++) {
+
+                if ($scope.listOfAllClaims[i].Practice.Id === claimPracticeId)
+                    return $scope.listOfAllClaims[i]; // Return as soon as the object is found
+
+            }
+
+            return null; // The object was not found
+
+        }
+
+        $scope.createAndSaveClaimRequestsArray = function () {
+            jQuery.noConflict();
+            $(document).ready(function () {
+                $('#myModal').modal('hide');
+            });
+
+            if ($scope.listOfAllClaims.length != 0) {
+                $http.post("api/claims", $scope.listOfAllClaims).success(function (data, status, headers) {
+                    console.log("Claim aray added");
+                })
+
+                for (var i = 0; i < $scope.listOfAllClaims.length; i++) {
+                    var divId = "IncompleteDiv" + $scope.listOfAllClaims[i].Practice.Id;
+
+                    console.log(divId);
+                    document.getElementById(divId).className = "row grid disabled-practise-div";
+                }
+            }
+        }
 
 
         var vm = this;
@@ -93,6 +157,9 @@
 
                    $http({ method: 'GET', url: 'api/project/' + $scope.projectId }).
                    success(function (data, status, headers, config) {
+
+                       $scope.projectInContext = data;
+
                        $scope.projectName = data.Name;
                        $scope.projectAssignment = data.ProjetId;
 
