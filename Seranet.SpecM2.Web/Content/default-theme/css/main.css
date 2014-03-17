@@ -82,6 +82,10 @@ h5 {
 .content-box-type-two {
     padding: 10px 20px;
 }
+.content-box-type-two-popup {
+    padding: 10px 20px;
+    word-wrap: break-word;
+}
 .content-box-type-three {
     padding: 12px 30px;
 }
@@ -257,10 +261,11 @@ h5 {
 @media screen and (min-width: 768px) {
     .modal-popup {
         width: 600px;
-        margin: 60px 100px;
+        margin: 5% 14%;
     }
     .modal-content {
         width:988px;
+        margin: 0 auto;
     }
 }
 
