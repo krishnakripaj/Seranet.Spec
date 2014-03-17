@@ -25,6 +25,146 @@
         $scope.toBeCompletedCount;
         $scope.completedCount;
         $scope.subAreaName = "";
+        $scope.changedClaims = false;
+
+
+        $scope.listOfAllClaims = [];
+
+        $scope.setPractisesArray = function (practises, subareaName) {
+
+            if ($scope.changedClaims) {
+                $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
+                       success(function (data, status, headers, config) {
+                           console.log(data);
+                           for (var i = 0; i < data.length; i++) {
+                               $scope.claims[data[i].Practice_Id] = data[i].Status;
+                           };
+                           setPractices();
+
+                       }).
+                       error(function (data, status, headers, config) {
+                           console.log(data);
+                           // called asynchronously if an error occurs
+                           // or server returns response with an error status.
+                       });
+            }
+            else {
+                setPractices();
+            }
+
+            function setPractices() {
+                $scope.listOfAllClaims.length = 0;
+                $scope.practices = [];
+                $scope.completedPractises = [];
+                $scope.pendingPractises = [];
+                $scope.incompletedPractises = [];
+
+                for (var i = 0 ; i < 3 ; i++) {
+                    $scope.completedPractises[i] = [];
+                    $scope.pendingPractises[i] = [];
+                    $scope.incompletedPractises[i] = [];
+                }
+
+
+                $scope.subAreaName = subareaName;
+                $scope.practices = practises;
+                console.log(practises);
+
+                var index = 0;
+                var index1 = 0;
+                var index2 = 0;
+
+                for (var i = 0; i < Object.keys($scope.practices).length; i++) {
+
+                    if (typeof $scope.claims[$scope.practices[i].Id] === "undefined" || $scope.claims[$scope.practices[i].Id] === 0) {
+                        $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                        console.log("Unclaimed or rejected one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
+                        index1++;
+                    }
+                    if ($scope.claims[$scope.practices[i].Id] == 1) {
+                        $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                        console.log($scope.completedPractises[0]);
+                        console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
+                        index++;
+                    }
+                    else if ($scope.claims[$scope.practices[i].Id] == 2) {
+                        $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                        console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
+                        index2++;
+                    }
+
+                    $scope.toBeCompletedCount = index1 + index2;
+                    $scope.completedCount = index;
+                }
+            }
+
+            //can do through for loop
+            document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
+            document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
+            document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
+        }
+
+        //function to save the claims
+        $scope.createClaimRequest = function (practise) {
+
+            console.log(practise);
+            var l = "#incompleteCheckBox" + practise.Id;
+            var data = {};
+            console.log(l);
+            if (!$(l).prop('checked')) {
+                // $scope.listOfAllClaims.pop();
+
+                $scope.listOfAllClaims.splice($.inArray($scope.findClaimObject(practise.Id), $scope.listOfAllClaims), 1);
+
+                console.log("not clicked - " + l);
+                console.log($scope.listOfAllClaims);
+            }
+            else {
+
+                data['AuditorComment'] = "Seed Auto generated ";
+                data['Practice'] = practise;
+                data['Project'] = $scope.projectInContext;
+                data['TeamComment'] = "Seed Auto generated ";
+
+                $scope.listOfAllClaims.push(data);
+                console.log("clicked - " + l);
+                console.log($scope.listOfAllClaims);
+            }
+        };
+
+        $scope.findClaimObject = function (claimPracticeId) {
+
+            for (var i = 0, len = $scope.listOfAllClaims.length; i < len; i++) {
+
+                if ($scope.listOfAllClaims[i].Practice.Id === claimPracticeId)
+                    return $scope.listOfAllClaims[i]; // Return as soon as the object is found
+
+            }
+
+            return null; // The object was not found
+
+        }
+
+        $scope.createAndSaveClaimRequestsArray = function () {
+            $scope.changedClaims = true;
+            jQuery.noConflict();
+            $(document).ready(function () {
+                $('#myModal').modal('hide');
+            });
+
+            if ($scope.listOfAllClaims.length != 0) {
+                $http.post("api/claims", $scope.listOfAllClaims).success(function (data, status, headers) {
+                    console.log("Claim aray added");
+                })
+
+                //for (var i = 0; i < $scope.listOfAllClaims.length; i++) {
+                //    var divId = "IncompleteDiv" + $scope.listOfAllClaims[i].Practice.Id;
+
+                //    console.log(divId);
+                //    document.getElementById(divId).className = "row grid disabled-practise-div";
+                //}
+            }
+        }
 
         activate();
 
@@ -175,56 +315,7 @@
             }
         }
 
-        $scope.setPractisesArray = function (practises, subareaName) {
-            $scope.practices = [];
-            $scope.completedPractises = [];
-            $scope.pendingPractises = [];
-            $scope.incompletedPractises = [];
-
-            for (var i = 0 ; i < 3 ; i++) {
-                $scope.completedPractises[i] = [];
-                $scope.pendingPractises[i] = [];
-                $scope.incompletedPractises[i] = [];
-            }
-
-
-            $scope.subAreaName = subareaName;
-            $scope.practices = practises;
-            console.log(practises);
-
-            var index = 0;
-            var index1 = 0;
-            var index2 = 0;
-
-            for (var i = 0; i < Object.keys($scope.practices).length; i++) {
-
-                if (typeof $scope.claims[$scope.practices[i].Id] === "undefined" || $scope.claims[$scope.practices[i].Id] === 0) {
-                    $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-                    console.log("Unclaimed or rejected one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
-                    index1++;
-                }
-                if ($scope.claims[$scope.practices[i].Id] == 1) {
-                    $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-                    console.log($scope.completedPractises[0]);
-                    console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
-                    index++;
-                }
-                else if ($scope.claims[$scope.practices[i].Id] == 2) {
-                    $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
-                    console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
-                    index2++;
-                }
-
-                             
-                $scope.toBeCompletedCount = index1 + index2;
-                $scope.completedCount = index;
-            }
-
-            //can do through for loop
-            document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
-            document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
-            document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
-           }
+       
 
         function isAMember(projectAssignment) {
             var promise = $http({ method: 'GET', url: 'security/username' }).
