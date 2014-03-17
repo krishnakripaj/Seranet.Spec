@@ -16,17 +16,16 @@
         //$scope.areas[i].level gives the level of i-th area
         // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.projectName = "";
+        $scope.projectInContext;
         $scope.projectAssignment = "";
         $scope.userName = "";
-        $scope.isMember = false;
+        $scope.isMember = "yes";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
         $scope.completedCount;
         $scope.subAreaName = "";
 
-        
-       
         activate();
 
         function activate() {
@@ -41,6 +40,9 @@
 
                    $http({ method: 'GET', url: 'api/project/' + $scope.projectId }).
                    success(function (data, status, headers, config) {
+
+                       $scope.projectInContext = data;
+
                        $scope.projectName = data.Name;
                        $scope.projectAssignment = data.ProjetId;
 
@@ -51,7 +53,10 @@
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
                            };
                            calculate();
-                           isAMember($scope.projectAssignment);
+                           isAMember($scope.projectAssignment).then(function () {
+                               console.log('Success: ' + $scope.isMember);
+                           });
+
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);
@@ -222,21 +227,21 @@
            }
 
         function isAMember(projectAssignment) {
-            $http({ method: 'GET', url: 'security/username' }).
+            var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           $scope.userName = "nirangad";//data.split("\\")[1].toString().toLowerCase();
+                           $scope.userName = data.split("\\")[1].toString().toLowerCase();
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
                                 for (var i = 0; i < data.length; i++) {
                                     if (projectAssignment.toLowerCase() == data[i].assignment.toLowerCase()) {
                                         if (data[i].rep.toLowerCase() == $scope.userName)
-                                            $scope.isMember = true;
+                                            $scope.isMember = "yes";
                                         else {
                                             for (var j = 0; j < data[i].members.length ; j++) {
                                                 if (data[i].members[j].toLowerCase() == $scope.userName)
-                                                    $scope.isMember = true;
+                                                    $scope.isMember = "yes";
                                             }
 
                                         }
@@ -254,6 +259,7 @@
                            // called asynchronously if an error occurs
                            // or server returns response with an error status.
                        });
+            return promise;
         }
 
     }

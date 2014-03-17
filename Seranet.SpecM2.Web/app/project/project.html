@@ -86,21 +86,27 @@
                                 <div class="col-md-5">
                                     <div class="row">
   
-                                        <div class="row grid disabled-practise-div" ng-repeat="pending in pendingPractises[i]">
+                                        <div class="row grid" ng-repeat="pending in pendingPractises[i]">
                                             <div class="content-box-type-two">
                                                 {{pending.Code}} - {{pending.Description}}
                                                 <div class="checkbox-inline bold-text">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1" checked> Claim
+                                                    <input type="checkbox" disabled="disabled" id="inlineCheckbox1" value="option1" checked> Claim
                                                 </div>
                                             </div>
-
                                         </div>
 
-                                        <div class="row grid" ng-repeat="incomplete in incompletedPractises[i]">
+                                        <div id=IncompleteDiv{{incomplete.Id}} class="row grid" ng-repeat="incomplete in incompletedPractises[i]">
                                             <div class="content-box-type-two">
                                                 {{incomplete.Id}} -  {{incomplete.Code}} - {{incomplete.Description}}
                                                 <div class="checkbox-inline bold-text">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Claim
+                                                    <div ng-switch on="isMember">
+                                                        <div ng-switch-when="no">
+                                                            <input type="checkbox" disabled="disabled" id="inlineCheckbox1" value="option1"> Claim
+                                                        </div>
+                                                        <div ng-switch-when="yes">
+                                                            <input type="checkbox" id=incompleteCheckBox{{incomplete.Id}} value="option1" ng-click="createClaimRequest(incomplete)"> Claim
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -116,7 +122,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" ng-click="createAndSaveClaimRequestsArray()">Save changes</button>
                     </div>
                 </div>
 
