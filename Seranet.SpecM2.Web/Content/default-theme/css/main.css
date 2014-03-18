@@ -278,3 +278,43 @@ h5 {
     opacity: 0.4;
 }
 
+
+.disabled-div{
+    pointer-events:none;
+    opacity: 0.4;
+}
+
+input[type="checkbox"].checkbox {
+    display: none;
+}
+
+input[type="checkbox"].checkbox + label {
+    display: inline;
+    position: relative;
+    color: #333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+    
+    /*label styling*/
+    padding: 2px 4px;
+    font-size: 11.844px;
+    font-weight: bold;
+    line-height: 14px;
+    
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+input[type="checkbox"].checkbox:checked + label {
+    color: #fff;
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+
+input[type="checkbox"].checkbox:disabled + label {
+    opacity: 0.5;
+}
