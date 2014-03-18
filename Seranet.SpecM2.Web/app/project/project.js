@@ -321,7 +321,8 @@
             var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           $scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           //$scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           $scope.userName = "nirangad";
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
