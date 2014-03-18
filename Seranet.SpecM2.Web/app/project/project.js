@@ -99,9 +99,9 @@
             }
 
             //can do through for loop
-            document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
-            document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
-            document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
+            document.getElementById("popup-level1-raw").className = "col-md-1 red-back  content-box-type-two";
+            document.getElementById("popup-level2-raw").className = "col-md-1 yellow-back  content-box-type-two";
+            document.getElementById("popup-level3-raw").className = "col-md-1 green-back  content-box-type-two";
         }
 
         //function to save the claims
@@ -368,7 +368,8 @@
             var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           $scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           //$scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           $scope.userName = "nirangad";
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);

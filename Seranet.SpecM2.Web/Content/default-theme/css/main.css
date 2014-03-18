@@ -95,6 +95,7 @@ h5 {
 }
 .content-box-type-three-ash:hover {
    background-color:#C0C0C0;
+   cursor: pointer;
 }
 
 .top-boxes h3 {
@@ -317,4 +318,9 @@ input[type="checkbox"].checkbox:checked + label {
 
 input[type="checkbox"].checkbox:disabled + label {
     opacity: 0.5;
+}
+
+#sub-area-actionlink {
+    text-decoration: none;
+
 }
