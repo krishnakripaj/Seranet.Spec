@@ -8,11 +8,12 @@ using System.Web;
 
 namespace Seranet.SpecM2.Data
 {
-    public class SpecDbContext: DbContext
+    public class SpecDbContext : DbContext
     {
-
-        public SpecDbContext() : base("SpecDbContext")
+        public SpecDbContext()
+            : base(System.Environment.GetEnvironmentVariable("SERANET.SPECM2.DBCONTEXT"))
         {
+
         }
 
         public DbSet<Project> Projects { get; set; }
