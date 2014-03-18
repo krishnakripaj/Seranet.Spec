@@ -132,6 +132,51 @@
             }
         };
 
+        //when cancel button clicked 
+        $scope.cancelAnyClaimsAdded = function () {
+
+            $scope.listOfAllClaims.length = 0;
+            $scope.changedClaims = true;
+
+            $scope.closeModalPopup();
+        }
+
+        //when save button is clicked
+        $scope.createAndSaveClaimRequestsArray = function () {
+            $scope.changedClaims = true;
+
+            $scope.closeModalPopup();
+
+            if ($scope.listOfAllClaims.length != 0) {
+                $http.post("api/claims", $scope.listOfAllClaims).success(function (data, status, headers) {
+                    console.log("Claim aray added");
+                })
+            }
+        }
+
+        //to hide the modal popup
+        $scope.closeModalPopup = function () {
+            jQuery.noConflict();
+            $(document).ready(function () {
+                $('#myModal').modal('hide');
+            });
+        }
+
+        //to uncheck all the checkboxes when popup closed
+        $('#myModal').on('hidden.bs.modal', function (e) {
+
+            var checkboxes = new Array();
+            checkboxes = document.getElementsByName('incompleteCheckboxes');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = false
+                }
+            }
+        })
+
+
+
         $scope.findClaimObject = function (claimPracticeId) {
 
             for (var i = 0, len = $scope.listOfAllClaims.length; i < len; i++) {
@@ -165,6 +210,8 @@
                 //}
             }
         }
+
+
 
         activate();
 
