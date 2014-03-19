@@ -102,6 +102,10 @@
             document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
             document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
             document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
+            document.getElementById("1-level-wholeraw").className = "row grid palered-back";
+            document.getElementById("2-level-wholeraw").className = "row grid paleyellow-back";
+            document.getElementById("3-level-wholeraw").className = "row grid palegreen-back";
+
         }
 
         //function to save the claims
@@ -275,10 +279,12 @@
                 var arealevel = 3;
                 var practicesCount = 0;
                 var certificatesCount = 0;
+                var pendingCount = 0;
                 for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
                     var level = 3;
                     var subpracticesCount = 0;
                     var subcertificatesCount = 0;
+                    var subpendingCount = 0;
                     for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
 
                         if (!($scope.areas[i].SubAreas[j].Practices[k].Id in $scope.claims)) {
@@ -292,10 +298,15 @@
 
                                 if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1) {
 
+                                    if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] === 0) {
+                                        subpendingCount++;
+                                        console.log($scope.areas[i].SubAreas[j].Practices[k].Id +" is pending")
+                                    }
                                     if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
 
                                         level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
                                     }
+                                    
 
                                 }
 
@@ -313,9 +324,11 @@
                     }
                     $scope.areas[i].SubAreas[j].practices = subpracticesCount;
                     $scope.areas[i].SubAreas[j].certificates = subcertificatesCount;
+                    $scope.areas[i].SubAreas[j].pendings = subpendingCount;
                     $scope.areas[i].SubAreas[j].level = level;
                     practicesCount += subpracticesCount;
                     certificatesCount += subcertificatesCount;
+                    pendingCount += subpendingCount;
                     if (arealevel >= level) {
                         arealevel = level;
                     }
@@ -347,6 +360,7 @@
 
                 $scope.areas[i].practices = practicesCount;
                 $scope.areas[i].certificates = certificatesCount;
+                $scope.areas[i].pendings = pendingCount;
                 $scope.areas[i].level = arealevel;
                 var style = "";
                 if ($scope.areas[i].level == 0)
@@ -368,7 +382,7 @@
             var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           //$scope.userName = data.split("\\")[1].toString().toLowerCase();
+                          // $scope.userName = data.split("\\")[1].toString().toLowerCase();
                            $scope.userName = "nirangad";
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {

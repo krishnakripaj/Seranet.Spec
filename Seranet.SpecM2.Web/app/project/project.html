@@ -12,7 +12,7 @@
                     </div>
                     <div id={{area.Name}}>
                         <span class="level-text-large">L{{area.level}}</span>
-                        <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
+                        <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
                     </div>
 
                     <div class="content-box-type-three-ash scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas" ng-click="setPractisesArray(subarea.Practices, subarea.Name)">
@@ -20,7 +20,7 @@
                             <div>
                                 {{subarea.Name}}
                                 <div id={{subarea.Name}}>L{{subarea.level}}</div>
-                                <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
+                                <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}} ({{subarea.pendings}} Pending)</div>
                                 <div class="progress-bar-back">
                                     <div id={{subarea.Id}}></div>
                                 </div>
@@ -48,14 +48,14 @@
                                 <div class=" col-md-12">
                                     <div class="row ng-scope white-back" id="popup header">
                                         <div class="col-md-2"></div>
-                                        <div class="col-md-5 green-back">
+                                        <div class="col-md-5 blue-back">
                                             <div class="row grid">
                                                 <div class="bold-text" style="padding: 10px;">
                                                     Completed Practices  ( {{completedCount}} )
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 red-back">
+                                        <div class="col-md-5 blue-back">
                                             <div class="row grid">
                                                 <div class="bold-text" style="padding: 10px;">
                                                     To Be Completed Practices  ( {{toBeCompletedCount}} )
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="row ng-scope" ng-repeat="i in level_list" id="{{i+1}}-level-wholeraw">
-                                <div class="col-md-2 content-box-type-two" id="popup-level{{i+1}}-raw">
+                                <div class="col-md-2 content-box-type-two" id="popup-level{{i+1}}-raw" >
                                     <div class="bold-text" align="center">
                                         L{{i+1}}
                                     </div>
@@ -88,7 +88,7 @@
 
                                         <div class="row grid" ng-repeat="pending in pendingPractises[i]">
                                             <div class="content-box-type-two-popup">
-                                                {{pending.Code}} - {{pending.Description}}
+                                               {{pending.Id}} - {{pending.Code}} - {{pending.Description}}
                                                 <div class="checkbox-inline bold-text">
                                                     <div class="disabled-div">
                                                         <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>

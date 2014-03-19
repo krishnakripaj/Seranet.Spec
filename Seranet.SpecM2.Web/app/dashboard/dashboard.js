@@ -139,32 +139,32 @@
                 if (projectlevel >= arealevel) {
                     projectlevel = arealevel;
                 }
-
-                //$scope.$$phase || $scope.$apply();
-                $scope.$apply();
-
-                var style = "";
-                var levelPercentage;
-                if (arealevel == 0) {
-                    style = "black";
-                    levelPercentage = 0;
-                }
-                else if (arealevel == 1) {
-                    style = "red";
-                    levelPercentage = 25;
-                }
-                else if (arealevel == 2) {
-                    style = "yellow";
-                    levelPercentage = 75;
-                }
-                else if (arealevel == 3) {
-                    style = "dark-green";
-                    levelPercentage = 100;
-                }
                 console.log($scope.projectlist[p].Name + $scope.areas[i].Name);
-                document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).className = "progress-bar " + style + "-back";
-                document.getElementById($scope.projectlist[p].Name + $scope.areas[i].Name).className = style + "-text bold-text large-text";
-                document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).style.width = levelPercentage + "%";
+                //$scope.$$phase || $scope.$apply();
+               
+                    $scope.$apply();
+                    var style = "";
+                    var levelPercentage;
+                    if (arealevel == 0) {
+                        style = "black";
+                        levelPercentage = 0;
+                    }
+                    else if (arealevel == 1) {
+                        style = "red";
+                        levelPercentage = 25;
+                    }
+                    else if (arealevel == 2) {
+                        style = "yellow";
+                        levelPercentage = 75;
+                    }
+                    else if (arealevel == 3) {
+                        style = "dark-green";
+                        levelPercentage = 100;
+                    }
+
+                    document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).className = "progress-bar " + style + "-back";
+                    document.getElementById($scope.projectlist[p].Name + $scope.areas[i].Name).className = style + "-text bold-text large-text";
+                    document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).style.width = levelPercentage + "%";                         
                 
 
             }
