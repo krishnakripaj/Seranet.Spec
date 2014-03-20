@@ -10,17 +10,40 @@
                     <div class="content-box-type-three title-type-one">
                         <h4>{{area.Name}}</h4>
                     </div>
-                    <div id={{area.Name}}>
-                        <span class="level-text-large">L{{area.level}}</span>
-                        <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
+                    <div ng-switch on="area.hasPendings" id={{area.Name}}>
+                       
+                        <div ng-switch-when="yes">
+                            <div id={{area.Name}}>
+                                <span class="level-text-large">L{{area.level}}</span>
+                                <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
+                            </div>
+                        </div>
+                        <div ng-switch-when="no">
+                            <div id={{area.Name}}>
+                                <span class="level-text-large">L{{area.level}}</span>
+                                <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
+                            </div>
+                        </div>
                     </div>
+                    <!--<div id={{area.Name}}>
+                        <span class="level-text-large">L{{area.level}}</span>             
+                        <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
+                    </div>-->
 
                     <div class="content-box-type-three-ash scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas" ng-click="setPractisesArray(subarea.Practices, subarea.Name)">
                         <a id="sub-area-actionlink" data-target=" #myModal" data-toggle="modal">
                             <div>
                                 {{subarea.Name}}
                                 <div id={{subarea.Name}}>L{{subarea.level}}</div>
-                                <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}} ({{subarea.pendings}} Pending)</div>
+               
+                                <div ng-switch on="subarea.hasPendings">
+                                    <div ng-switch-when="no">
+                                        <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
+</div>
+                                    <div ng-switch-when="yes">
+                                        <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}} ({{subarea.pendings}} Pending)</div>
+                                        </div>
+                                </div>                                 
                                 <div class="progress-bar-back">
                                     <div id={{subarea.Id}}></div>
                                 </div>
@@ -88,7 +111,7 @@
 
                                         <div class="row grid" ng-repeat="pending in pendingPractises[i]">
                                             <div class="content-box-type-two-popup">
-                                               {{pending.Id}} - {{pending.Code}} - {{pending.Description}}
+                                               {{pending.Code}} - {{pending.Description}}
                                                 <div class="checkbox-inline bold-text">
                                                     <div class="disabled-div">
                                                         <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>

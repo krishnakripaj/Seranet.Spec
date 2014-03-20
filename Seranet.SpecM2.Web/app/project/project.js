@@ -58,7 +58,7 @@
                 $scope.completedPractises = [];
                 $scope.pendingPractises = [];
                 $scope.incompletedPractises = [];
-
+                
                 for (var i = 0 ; i < 3 ; i++) {
                     $scope.completedPractises[i] = [];
                     $scope.pendingPractises[i] = [];
@@ -76,7 +76,7 @@
 
                 for (var i = 0; i < Object.keys($scope.practices).length; i++) {
 
-                    if (typeof $scope.claims[$scope.practices[i].Id] === "undefined" || $scope.claims[$scope.practices[i].Id] === 0) {
+                    if (typeof $scope.claims[$scope.practices[i].Id] === "undefined" || $scope.claims[$scope.practices[i].Id] === 2) {
                         $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Unclaimed or rejected one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
                         index1++;
@@ -87,7 +87,7 @@
                         console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
                         index++;
                     }
-                    else if ($scope.claims[$scope.practices[i].Id] == 2) {
+                    else if ($scope.claims[$scope.practices[i].Id] == 0) {
                         $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
                         index2++;
@@ -326,6 +326,11 @@
                     $scope.areas[i].SubAreas[j].certificates = subcertificatesCount;
                     $scope.areas[i].SubAreas[j].pendings = subpendingCount;
                     $scope.areas[i].SubAreas[j].level = level;
+                    $scope.areas[i].SubAreas[j].hasPendings = "no"
+                    if (subpendingCount > 0) {
+                        $scope.areas[i].SubAreas[j].hasPendings = "yes";
+                        console.log("Pendings identified :" + $scope.areas[i].SubAreas[j].hasPendings);
+                    }
                     practicesCount += subpracticesCount;
                     certificatesCount += subcertificatesCount;
                     pendingCount += subpendingCount;
@@ -355,12 +360,15 @@
                     document.getElementById($scope.areas[i].SubAreas[j].Id).className = "progress-bar " + substyle + "-back";
                     document.getElementById($scope.areas[i].SubAreas[j].Name).className = substyle + "-text bold-text large-text";
                     document.getElementById($scope.areas[i].SubAreas[j].Id).style.width = levelPercentage + "%";
-
                 }
 
                 $scope.areas[i].practices = practicesCount;
                 $scope.areas[i].certificates = certificatesCount;
                 $scope.areas[i].pendings = pendingCount;
+                $scope.areas[i].hasPendings="no"
+                if (pendingCount > 0) {
+                    $scope.areas[i].hasPendings = "yes";
+                }
                 $scope.areas[i].level = arealevel;
                 var style = "";
                 if ($scope.areas[i].level == 0)
