@@ -78,8 +78,16 @@
 
             <div class="row" data-ng-repeat="project in projectlist">
                 <a href=#/project/{{project.Id}}>
-                    <div class="col-md-2 grid">
-                        <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
+                    <div class="col-md-2 grid" ng-switch on="project.hasPendings">
+                        <div ng-switch-when="no">
+                            <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
+                        </div>
+                        <div ng-switch-when="yes">
+                            <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}
+                                <div>({{project.pendingcount}} Pending)</div>
+                            </div>
+                            
+                        </div>
                     </div>
                     <div class="col-md-10">
                         <div class="row grid">
