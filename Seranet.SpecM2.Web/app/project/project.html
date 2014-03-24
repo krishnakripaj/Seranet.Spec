@@ -115,7 +115,7 @@
                                                 <div class="checkbox-inline bold-text">
                                                     <div class="disabled-div">
                                                         <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
-                                                        <label for=incompleteCheckBox{{incomplete.Id}}>Pending</label>
+                                                        <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,11 +128,11 @@
                                                     <div ng-switch on="isMember">
                                                         <div ng-switch-when="no" class="disabled-div">
                                                             <input type="checkbox" class="checkbox" id=incompleteCheckBox{{incomplete.Id}}>
-                                                            <label for=incompleteCheckBox{{incomplete.Id}}>Claim</label>
+                                                            <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
                                                         </div>
                                                         <div ng-switch-when="yes">
                                                             <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} ng-click="createClaimRequest(incomplete)">
-                                                            <label for=incompleteCheckBox{{incomplete.Id}}>Claim</label>
+                                                            <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
                                                         </div>
                                                     </div>
                                                 </div>

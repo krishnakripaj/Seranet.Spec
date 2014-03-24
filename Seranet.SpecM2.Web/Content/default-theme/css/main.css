@@ -299,9 +299,9 @@ input[type="checkbox"].checkbox + label {
     border-color: #adadad;
     
     /*label styling*/
-    padding: 2px 4px;
+    padding: 6px 0px;
     font-size: 11.844px;
-    font-weight: bold;
+    font-weight: lighter;
     line-height: 14px;
     
     vertical-align: baseline;
@@ -310,12 +310,24 @@ input[type="checkbox"].checkbox + label {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+
+    float:left;
+    width:5.0em;
+    text-align:center;
 }
 
 input[type="checkbox"].checkbox:checked + label {
     color: #fff;
     background-color: #3276b1;
     border-color: #285e8e;
+}
+
+input[type="checkbox"].checkbox:checked+label:after {
+    content: 'Pending';
+}
+
+input[type="checkbox"].checkbox +label:after {
+    content: 'Claim'; 
 }
 
 input[type="checkbox"].checkbox:disabled + label {
