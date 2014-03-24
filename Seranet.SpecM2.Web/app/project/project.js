@@ -19,7 +19,7 @@
         $scope.projectInContext;
         $scope.projectAssignment = "";
         $scope.userName = "";
-        $scope.isMember = "yes";
+        $scope.isMember = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -390,7 +390,7 @@
             var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                          // $scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           //$scope.userName = data.split("\\")[1].toString().toLowerCase();
                            $scope.userName = "nirangad";
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
