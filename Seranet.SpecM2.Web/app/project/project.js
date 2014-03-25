@@ -146,15 +146,16 @@
         }
 
         //when save button is clicked
-        $scope.createAndSaveClaimRequestsArray = function () {
+        $scope.saveAnyClaimsAdded = function () {
             $scope.changedClaims = true;
 
             $scope.closeModalPopup();
 
             if ($scope.listOfAllClaims.length != 0) {
-                $http.post("api/claims", $scope.listOfAllClaims).success(function (data, status, headers) {
-                    console.log("Claim aray added");
-                })
+                $http.post("api/claims", $scope.listOfAllClaims).
+                    success(function (data, status, headers) {
+                        console.log("Claim aray added");
+                    });
             }
         }
 

@@ -57,7 +57,7 @@ namespace Seranet.SpecM2.Api.Scorecard
                 claimToAdd.CreatedTime = DateTime.Now;
                 claimToAdd.Practice = context.Practices.FirstOrDefault(t => t.Id == claimToAdd.Practice.Id);
                 claimToAdd.Project = context.Projects.FirstOrDefault(t => t.Id == claimToAdd.Project.Id);
-                claimToAdd.Status = getStatus(2);
+                claimToAdd.Status = getStatus(3);
                 context.Claims.Add(claimToAdd);
                 context.SaveChanges();
             }
