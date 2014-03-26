@@ -45,6 +45,7 @@ namespace Seranet.SpecM2.Web
 
                         "~/app/layout/shell.js",
                         "~/app/layout/sidebar.js",
+                        "~/app/layout/topnav.js",
                         "~/app/services/datacontext.js",
                         "~/app/services/directives.js"));
 
