@@ -54,6 +54,7 @@
     <Compile Include="Seeds\Projects.cs" />
     <Compile Include="Seeds\StakeholderEngagement.cs" />
     <Compile Include="Seeds\TeamBuilding.cs" />
+    <Compile Include="Seeds\UserRoles.cs" />
     <Compile Include="SpecDbContext.cs" />
     <Compile Include="Seeds\SpecSeedDataInitializer.cs" />
   </ItemGroup>

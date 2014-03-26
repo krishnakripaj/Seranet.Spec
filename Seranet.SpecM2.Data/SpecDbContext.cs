@@ -23,6 +23,7 @@ namespace Seranet.SpecM2.Data
         public DbSet<SubArea> SubAreas { get; set; }
         public DbSet<Practice> Practices { get; set; }
         public DbSet<Claim> Claims { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
