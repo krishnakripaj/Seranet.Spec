@@ -85,6 +85,7 @@
     <Compile Include="Scorecard\ProjectController.cs" />
     <Compile Include="Scorecard\ProjectProgressController.cs" />
     <Compile Include="Scorecard\ScorecardController.cs" />
+    <Compile Include="Scorecard\UserRoleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

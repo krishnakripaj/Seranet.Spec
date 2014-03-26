@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Seranet.SpecM2.Data.Seeds
 {
-    public class SpecSeedDataInitializer: System.Data.Entity.CreateDatabaseIfNotExists<SpecDbContext>
+    public class SpecSeedDataInitializer : System.Data.Entity.CreateDatabaseIfNotExists<SpecDbContext>
     {
 
         protected override void Seed(SpecDbContext context)
@@ -60,6 +60,15 @@ namespace Seranet.SpecM2.Data.Seeds
                 context.Claims.Add(claims[i]);
             }
             context.SaveChanges();
+
+
+            /* insert userrole data */
+            UserRole[] userRoles = new UserRoles().userRoles;
+            for (int i = 0; i < userRoles.Length; i++)
+            {
+                context.UserRoles.Add(userRoles[i]);
+            }
+            context.SaveChanges(); 
 
 
         }

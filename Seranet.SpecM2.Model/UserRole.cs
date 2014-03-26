@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 
 namespace Seranet.SpecM2.Model
 {
-    public class User : IIdentifier
+    public class UserRole : IIdentifier
     {
-        public string UserName { get; set; }
-
+        public string UserRoleType { get; set; }
+        
         public int Id { get; set; }
+
+        public String UserName { get; set; }
 
         public Guid GUID { get; set; }
 
         public byte[] RowVersion { get; set; }
-
     }
 }
