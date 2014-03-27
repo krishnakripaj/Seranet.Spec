@@ -7,7 +7,7 @@ namespace Seranet.SpecM2.Model
 {
     public class UserRole : IIdentifier
     {
-        public string UserRoleType { get; set; }
+        public UserRoleType UserRoleType { get; set; }
         
         public int Id { get; set; }
 
@@ -17,4 +17,11 @@ namespace Seranet.SpecM2.Model
 
         public byte[] RowVersion { get; set; }
     }
+
+    public enum UserRoleType
+    {
+        ADMIN,
+        AUDITOR
+    }
+
 }
