@@ -20,6 +20,7 @@
         $scope.projectAssignment = "";
         $scope.userName = "";
         $scope.isMember = "no";
+        $scope.isAuditor = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -248,6 +249,9 @@
                            isAMember($scope.projectAssignment).then(function () {
                                console.log('Success: ' + $scope.isMember);
                            });
+                           //isAuditor($scope.auditorAssignment).then(function () {
+                           //    console.log('Success: ' + $scope.isAuditor);
+                           //})
 
                        }).
                        error(function (data, status, headers, config) {
@@ -423,6 +427,33 @@
                        });
             return promise;
         }
+        function isAuditor(auditorAssignment) {
+            var promise = $http({ method: 'GET', url: 'security/username' }).
+                       success(function (data, status, headers, config) {
+                           console.log(data);
+                           //$scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           $scope.userName = "nirangad";
+                           $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
+                                success(function (data, status, headers, config) {
+                                    if (data == "auditor") {
+                                        $scope.isAuditor = "yes";
+                                    }
+                                    else {
+                                        $scope.isAuditor = "no";
+                                    }
 
+                                }).
+                                error(function (data, status, headers, config) {
+                                    console.log(data);
+                                });
+                       }).
+                       error(function (data, status, headers, config) {
+                           console.log(data);
+                           // called asynchronously if an error occurs
+                           // or server returns response with an error status.
+                       });
+            return promise;
+
+        }
     }
 })();
