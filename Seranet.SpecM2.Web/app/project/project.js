@@ -18,7 +18,7 @@
         $scope.projectAssignment = "";
         $scope.userName = "";
         $scope.isMember = "no";
-        $scope.isAuditor = "yes";
+        $scope.isAuditor = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -479,11 +479,11 @@
                                 }
                                 $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                                  success(function (data, status, headers, config) {
-                                    if (data == "\"Auditor\"") {
+                                    if (data == 1) {    //enum returns a number
                                         $scope.isAuditor = "yes";
                                     }
                                     else {
-                                        //$scope.isAuditor = "no";
+                                        $scope.isAuditor = "no";
                                     }
                                     console.log("is auditor: " + $scope.isAuditor)
                                 }).

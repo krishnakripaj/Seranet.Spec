@@ -168,7 +168,9 @@
                             </div>
                             <div ng-switch-when="no">
                                 <div ng-switch on="isAuditor">
-                                    <div ng-switch-when="no"></div>
+                                    <div ng-switch-when="no">
+                                        <button type="button" class="btn btn-default" ng-click="closeModalPopup()" data-dismiss=" modal">Close</button>
+                                    </div>
                                     <div ng-switch-when="yes">
                                         <button type="button" class="btn btn-default" ng-click="cancelAuditing()" data-dismiss=" modal">Close</button>
                                         <button type="button" class="btn btn-primary" ng-click="saveAudited()">Save changes</button>
