@@ -21,7 +21,7 @@
                     
                     $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                         success(function (data, status, headers, config) {
-                            if (data == "admin") {
+                            if (data == 0) {
                                 $scope.isAdmin = "yes";
                             }
                             else {

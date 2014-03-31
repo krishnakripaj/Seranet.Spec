@@ -39,7 +39,7 @@
                                 <div ng-switch on="subarea.hasPendings">
                                     <div ng-switch-when="no">
                                         <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
-</div>
+                                    </div>
                                     <div ng-switch-when="yes">
                                         <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}} ({{subarea.pendings}} Pending)</div>
                                         </div>
@@ -73,14 +73,14 @@
                                         <div class="col-md-2"></div>
                                         <div class="col-md-5 blue-back">
                                             <div class="row grid">
-                                                <div class="bold-text" style="padding: 10px;">
+                                                <div class="bold-text" style="padding: 10px; text-align:center;">
                                                     Completed Practices  ( {{completedCount}} )
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 blue-back">
+                                        <div class="col-md-5 purple-back">
                                             <div class="row grid">
-                                                <div class="bold-text" style="padding: 10px;">
+                                                <div class="bold-text" style="padding: 10px; text-align: center;">
                                                     To Be Completed Practices  ( {{toBeCompletedCount}} )
                                                 </div>
                                             </div>
@@ -102,6 +102,12 @@
                                         <div class="content-box-type-two-popup">
                                             {{completed.Code}} - {{completed.Description}}
                                         </div>
+                                        <div ng-switch on="isAuditor">
+                                            <div ng-switch-when="yes" class="checkbox-inline bold-text">
+                                                <button type="button" id=btn-reject{{completed.Id}} class="btn btn-default" ng-click="rejectClaim(completed)">Reject</button>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -113,9 +119,15 @@
                                             <div class="content-box-type-two-popup">
                                                {{pending.Code}} - {{pending.Description}}
                                                 <div class="checkbox-inline bold-text">
-                                                    <div class="disabled-div">
-                                                        <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
-                                                        <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                    <div ng-switch on="isAuditor">
+                                                        <div ng-switch-when="no" class="disabled-div">
+                                                            <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
+                                                            <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                        </div>
+                                                        <div ng-switch-when="yes">
+                                                            <button type="button" id=btn-accept{{pending.Id}} class ="btn btn-default" ng-click="acceptClaim(pending)">Accept</button>
+                                                            <button type="button" id=btn-reject{{pending.Id}} class ="btn btn-default" ng-click="rejectClaim(pending)">Reject</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,10 +161,25 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss=" modal">Close</button>
-                        <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
-                    </div>
-                </div>
+                        <div ng-switch on="isMember">
+                            <div ng-switch-when="yes">
+                                <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss=" modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
+                            </div>
+                            <div ng-switch-when="no">
+                                <div ng-switch on="isAuditor">
+                                    <div ng-switch-when="no">
+                                        <button type="button" class="btn btn-default" ng-click="closeModalPopup()" data-dismiss=" modal">Close</button>
+                                    </div>
+                                    <div ng-switch-when="yes">
+                                        <button type="button" class="btn btn-default" ng-click="cancelAuditing()" data-dismiss=" modal">Close</button>
+                                        <button type="button" class="btn btn-primary" ng-click="saveAudited()">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                   </div>
 
             </div>
         </div>

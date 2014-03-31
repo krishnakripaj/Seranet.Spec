@@ -48,7 +48,6 @@ namespace Seranet.SpecM2.Api.Scorecard
         [HttpPost]
         public void post([FromBody] Claim[] claim)
         {
-
             for (int i = 0; i < claim.Length; i++)
             {
                 var claimToAdd = claim[i];
@@ -63,6 +62,10 @@ namespace Seranet.SpecM2.Api.Scorecard
             }
 
 
+        }
+        [HttpPost]
+        public void post(int status) { 
+        
         }
     }
 }
