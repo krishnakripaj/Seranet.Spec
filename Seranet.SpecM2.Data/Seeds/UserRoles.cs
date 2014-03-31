@@ -19,6 +19,7 @@ namespace Seranet.SpecM2.Data.Seeds
             userRoles[1] = new UserRole { Id = 2, UserRoleType = "Admin", GUID = Guid.NewGuid(), UserName = "hashinis" };
             userRoles[2] = new UserRole { Id = 3, UserRoleType = "Admin", GUID = Guid.NewGuid(), UserName = "nirangad" };
             userRoles[3] = new UserRole { Id = 4, UserRoleType = "Auditor", GUID = Guid.NewGuid(), UserName = "madushib" };
+            
         }
     }
 }
