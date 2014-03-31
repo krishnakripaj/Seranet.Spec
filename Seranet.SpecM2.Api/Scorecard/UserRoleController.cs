@@ -19,9 +19,9 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         // GET api/values/5
-        public String Get(String id)
+        public UserRoleType Get(String id)
         {
-            string userRoleType = context.Database.SqlQuery<string>("Select UserRoleType from dbo.UserRole where UserName=@p0", id).First();
+            UserRoleType userRoleType = context.Database.SqlQuery<UserRoleType>("Select UserRoleType from dbo.UserRole where UserName=@p0", id).First();
             return userRoleType;
         }
 
