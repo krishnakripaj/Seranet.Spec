@@ -22,6 +22,22 @@ namespace Seranet.SpecM2.Api.Scorecard
         {
             return context.Projects.Where(p => p.Id == id).FirstOrDefault();
         }
+
+        [HttpPost]
+        public void post(dynamic project)
+        {
+
+            var projectToAdd = new Project();
+            projectToAdd.GUID = Guid.NewGuid();
+
+            projectToAdd.Enabled = true;
+           projectToAdd.Name = project.name;
+           projectToAdd.ProjetId = project.assignment;
+            context.Projects.Add(projectToAdd);
+            context.SaveChanges();
+
+        }
+
     }
 }
 

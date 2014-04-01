@@ -41,6 +41,7 @@ namespace Seranet.SpecM2.Web
                         "~/app/admin/admin.js",
                         "~/app/dashboard/dashboard.js",
                         "~/app/project/project.js",
+                        "~/app/allprojects/allprojects.js",
                         "~/app/activities/activities.js",
 
                         "~/app/layout/shell.js",

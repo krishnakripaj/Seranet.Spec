@@ -1,0 +1,31 @@
+﻿<section data-ng-controller="allprojects as vm">
+
+    <div class="app-content" id="appContent">
+        <h1 class="page-heading">uihihiuhi</h1>
+
+
+
+        <div class="top-boxes">
+            <div class="row">
+                <div class="col-md-3" data-ng-repeat="project in allProjects">
+                    <div class="content-box-type-three-ash scorecard-tile ng-scope">
+                        <h4>{{project.name}}</h4>
+                        <button type="button" class="btn btn-primary" ng-click="importProjectToDb(project)">Import Project</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+</section>
