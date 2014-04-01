@@ -22,6 +22,8 @@ namespace Seranet.SpecM2.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
         }
     }
 }

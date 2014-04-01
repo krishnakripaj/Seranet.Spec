@@ -151,6 +151,8 @@
     <Content Include="app\activities\activities.js" />
     <Content Include="app\admin\admin.html" />
     <Content Include="app\admin\admin.js" />
+    <Content Include="app\allprojects\allprojects.html" />
+    <Content Include="app\allprojects\allprojects.js" />
     <Content Include="app\app.js" />
     <Content Include="app\common\bootstrap\bootstrap.dialog.js" />
     <Content Include="app\common\common.js" />

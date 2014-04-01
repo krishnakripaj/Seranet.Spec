@@ -29,5 +29,6 @@ namespace Seranet.SpecM2.Api.Scorecard
             var result = context.Database.SqlQuery<ClaimDetail>("Select * from dbo.ClaimDetails where Project_Id=@p0", id);
             return result;
         }
+
     }
 }
