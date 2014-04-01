@@ -1,25 +1,24 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'project';
-    angular.module('app').controller(controllerId, ['$scope', 'common', '$routeParams', '$http', project]);
+    angular.module('app').controller(controllerId, ['$scope', 'common', '$routeParams', '$http','$route', project]);
 
-    function project($scope, common, $routeParams, $http) {
+    function project($scope, common, $routeParams, $http,$route) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
         vm.title = " score card";
 
-        $scope.areas = [];
+        $scope.areas = []; //$scope.areas[i].level gives the level of i-th area,$scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.incompletedPractisesCount = 0;
-        $scope.level_list = [0, 1, 2];
-
-        //$scope.areas[i].level gives the level of i-th area
-        // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
+        $scope.level_list = [0, 1, 2];       
+        
         $scope.projectName = "";
         $scope.projectInContext;
         $scope.projectAssignment = "";
         $scope.userName = "";
         $scope.isMember = "no";
+        $scope.isAuditor = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -29,6 +28,75 @@
 
 
         $scope.listOfAllClaims = [];
+        $scope.auditedClaims = [];
+
+        $scope.rejectClaim = function (practice) {
+            document.getElementById('btn-reject' + practice.Id).disabled = true;
+            if ($scope.claims[practice.Id] == 0) {
+                document.getElementById('btn-accept' + practice.Id).disabled = true;
+            }
+            $scope.claims[practice.Id] = 2;
+            var auditedbefore = false;
+            var data = {};
+            data['practice_id'] = practice.Id;
+            data['status'] = 2;
+            for (var i = 0; i < $scope.auditedClaims.length; i++) {
+                if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
+                    $scope.auditedClaims[i].status = 2;
+                    auditedbefore = true;
+                }
+            }
+            if (auditedbefore === false) {
+                $scope.auditedClaims.push(data);
+            }
+            console.log(practice.Id+" claim is rejected");
+            console.log($scope.auditedClaims);
+           
+            
+        }
+
+        $scope.acceptClaim = function (practice) {
+            document.getElementById('btn-reject' + practice.Id).disabled = true;
+            document.getElementById('btn-accept' + practice.Id).disabled = true;
+          
+            $scope.claims[practice.Id] = 1;
+            var auditedbefore = false;
+            var data = {};
+            data['practice_id'] = practice.Id;
+            data['status'] = 1;
+            for (var i = 0; i < $scope.auditedClaims.length; i++) {
+                if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
+                    $scope.auditedClaims[i].status = 1;
+                    auditedbefore = true;
+                }
+            }
+            if (auditedbefore === false) {
+                $scope.auditedClaims.push(data);
+            }
+            console.log(practice.Id + " claim is accepted");
+            console.log($scope.auditedClaims);
+        }
+
+        $scope.cancelAuditing = function () {
+
+            $scope.auditedClaims.length = 0;
+            //$scope.changedClaims = true;
+
+            $scope.closeModalPopup();
+        }
+
+        $scope.saveAudited = function () {
+            //$scope.changedClaims = true;
+            if ($scope.auditedClaims.length != 0) {
+                $http.post("api/auditor", $scope.auditedClaims).
+                    success(function (data, status, headers) {
+                        console.log("Auditor processed the claims");
+                        console.log($scope.auditedClaims);
+                    });
+            }
+
+            $scope.closeModalPopup();
+        }
 
         $scope.setPractisesArray = function (practises, subareaName) {
 
@@ -90,6 +158,7 @@
                     else if ($scope.claims[$scope.practices[i].Id] == 0) {
                         $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
+                        $scope.currentSubareaPendings++;
                         index2++;
                     }
 
@@ -117,9 +186,7 @@
             console.log(l);
             if (!$(l).prop('checked')) {
                 // $scope.listOfAllClaims.pop();
-
                 $scope.listOfAllClaims.splice($.inArray($scope.findClaimObject(practise.Id), $scope.listOfAllClaims), 1);
-
                 console.log("not clicked - " + l);
                 console.log($scope.listOfAllClaims);
             }
@@ -149,14 +216,16 @@
         $scope.saveAnyClaimsAdded = function () {
             $scope.changedClaims = true;
 
-            $scope.closeModalPopup();
-
             if ($scope.listOfAllClaims.length != 0) {
+
                 $http.post("api/claims", $scope.listOfAllClaims).
                     success(function (data, status, headers) {
-                        console.log("Claim aray added");
+                        console.log("Claim array added");
                     });
             }
+            
+            $scope.closeModalPopup();
+            
         }
 
         //to hide the modal popup
@@ -165,22 +234,20 @@
             $(document).ready(function () {
                 $('#myModal').modal('hide');
             });
+            $('.modal-backdrop').remove();
+            $route.reload();
         }
 
         //to uncheck all the checkboxes when popup closed
         $('#myModal').on('hidden.bs.modal', function (e) {
-
             var checkboxes = new Array();
             checkboxes = document.getElementsByName('incompleteCheckboxes');
-
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].type == 'checkbox') {
                     checkboxes[i].checked = false
                 }
             }
         })
-
-
 
         $scope.findClaimObject = function (claimPracticeId) {
 
@@ -216,8 +283,6 @@
             }
         }
 
-
-
         activate();
 
         function activate() {
@@ -246,8 +311,12 @@
                            };
                            calculate();
                            isAMember($scope.projectAssignment).then(function () {
-                               console.log('Success: ' + $scope.isMember);
+                               console.log('Success: isTeamMember: ' + $scope.isMember+' and isAuditor: '+$scope.isAuditor);
+
                            });
+                           //isAuditor($scope.auditorAssignment).then(function () {
+                           //    console.log('Success: ' + $scope.isAuditor);
+                           //})
 
                        }).
                        error(function (data, status, headers, config) {
@@ -383,16 +452,14 @@
 
                 document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style + " clearfix";
             }
-        }
-
-       
+        }  
 
         function isAMember(projectAssignment) {
             var promise = $http({ method: 'GET', url: 'security/username' }).
                        success(function (data, status, headers, config) {
                            console.log(data);
-                           //$scope.userName = data.split("\\")[1].toString().toLowerCase();
-                           $scope.userName = "nirangad";
+                           $scope.userName = data.split("\\")[1].toString().toLowerCase();
+                           //$scope.userName = "nirangad";
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
@@ -403,17 +470,32 @@
                                         else {
                                             for (var j = 0; j < data[i].members.length ; j++) {
                                                 if (data[i].members[j].toLowerCase() == $scope.userName)
-                                                    $scope.isMember = "yes";
+                                                    $scope.isMember = "yes";                                            
                                             }
 
                                         }
+
                                     }
                                 }
+                                $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
+                                 success(function (data, status, headers, config) {
+                                    if (data == 1) {    //enum returns a number
+                                        $scope.isAuditor = "yes";
+                                    }
+                                    else {
+                                        $scope.isAuditor = "no";
+                                    }
+                                    console.log("is auditor: " + $scope.isAuditor)
+                                }).
+                                error(function (data, status, headers, config) {
+                                    console.log(data);
+                                });
 
-                            }).
+                               }).
                             error(function (data, error) {
                                 console.log(error);
                             });
+                           
 
                        }).
                        error(function (data, status, headers, config) {
@@ -421,8 +503,9 @@
                            // called asynchronously if an error occurs
                            // or server returns response with an error status.
                        });
+           
             return promise;
         }
-
+       
     }
 })();
