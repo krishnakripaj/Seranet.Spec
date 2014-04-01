@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-
+    var controllerId='config.route';
     var app = angular.module('app');
 
     // Collect the routes
@@ -17,7 +17,8 @@
     }
 
     // Define the routes 
-    function getRoutes() {
+    function getRoutes($http) {
+
         return [
             {
                 url: '/',

@@ -9,9 +9,10 @@
         var vm = this;
         var role = "team";
         $scope.userName = "";
-        $scope.isAdmin = "yes";
+        $scope.isAdmin = "no";
+        
         activate();
-
+        
         function activate() {
 
             $http({ method: 'GET', url: 'security/username' }).

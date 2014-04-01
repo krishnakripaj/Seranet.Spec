@@ -479,8 +479,8 @@
                                 }
                                 $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                                  success(function (data, status, headers, config) {
-                                    if (data == 1) {    //enum returns a number
-                                        $scope.isAuditor = "yes";
+                                    if (data == 1 && $scope.isMember=="no") {    //enum returns a number as the role (1 : auditoe, 0:admin
+                                        $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
                                     }
                                     else {
                                         $scope.isAuditor = "no";
