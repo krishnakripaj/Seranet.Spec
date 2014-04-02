@@ -167,14 +167,7 @@
                 }
             }
 
-            //can do through for loop
-            document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
-            document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
-            document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
-            document.getElementById("1-level-wholeraw").className = "row grid palered-back";
-            document.getElementById("2-level-wholeraw").className = "row grid paleyellow-back";
-            document.getElementById("3-level-wholeraw").className = "row grid palegreen-back";
-
+ 
         }
 
         //function to save the claims
