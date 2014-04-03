@@ -31,12 +31,30 @@ namespace Seranet.SpecM2.Api.Scorecard
             projectToAdd.GUID = Guid.NewGuid();
 
             projectToAdd.Enabled = true;
-           projectToAdd.Name = project.name;
-           projectToAdd.ProjetId = project.assignment;
+            projectToAdd.Name = project.name;
+            projectToAdd.ProjetId = project.assignment;
             context.Projects.Add(projectToAdd);
             context.SaveChanges();
 
         }
+
+        [HttpPut]
+        public void put(Project project) {
+
+      //      var projectToAdd = project;
+
+            project.Enabled = false;
+
+      var projectToAdd = context.Projects.Where(p => p.ProjetId == project.ProjetId).FirstOrDefault();
+            //context.Projects.Attach(projectToAdd);
+         //   context.Entry(projectToAdd).State = System.Data.Entity.EntityState.Modified;
+           // context.SaveChanges();
+
+            context.Entry(projectToAdd).CurrentValues.SetValues(project);
+            context.SaveChanges();
+
+        }
+
 
     }
 }
