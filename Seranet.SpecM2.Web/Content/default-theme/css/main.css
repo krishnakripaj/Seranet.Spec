@@ -325,6 +325,10 @@ title-type-two {
     opacity: 0.4;
 }
 
+.no-margin-top {
+margin-top : 0px;
+}
+
 input[type="checkbox"].checkbox {
     display: none;
 }
