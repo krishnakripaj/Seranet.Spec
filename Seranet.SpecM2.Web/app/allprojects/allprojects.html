@@ -1,7 +1,9 @@
-﻿<section data-ng-controller="allprojects as vm">
+﻿<section data-ng-controller="allprojects as vm" >
+   
+    <div class="app-content" id="appContent" >
 
-    <div class="app-content" id="appContent">
-        <h1 class="page-heading">Projects from 99XT Project Service API</h1>
+        <h1 class=" page-heading">
+        Projects from 99XT Project Service API</h1>
 
 
 
@@ -13,7 +15,7 @@
                 <div class="col-md-3" data-ng-repeat="project in allProjectsFromDatabase">
                     <div class="content-box-type-three-ash scorecard-tile ng-scope">
                         <h4>{{project.Name}}</h4>
-                        <button type="button" class="btn btn-primary" id=enableDisableBtn{{project.Id}} ng-click ="enableDisableProject(project)">Enable</button>
+                        <button type="button" class="btn btn-primary" id=enableDisableBtn{{project.Id}} ng-click="enableDisableProject(project)">{{project.enableDisableStatus}}</button>
                     </div>
                 </div>
             </div>
