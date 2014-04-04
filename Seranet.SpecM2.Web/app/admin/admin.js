@@ -16,8 +16,8 @@
             $http({ method: 'GET', url: 'security/username' }).
               success(function (data, status, headers, config) {
                   console.log(data);
-                  //$scope.userName = data.split("\\")[1].toString().toLowerCase();
-                  $scope.userName = "nirangad";
+                  $scope.userName = data.split("\\")[1].toString().toLowerCase();
+                 // $scope.userName = "nirangad";
                   $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                       success(function (data, status, headers, config) {
                           if (data == 0) {

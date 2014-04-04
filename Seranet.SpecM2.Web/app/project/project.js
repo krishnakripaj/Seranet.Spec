@@ -18,7 +18,7 @@
         $scope.projectAssignment = "";
         $scope.userName = "";
         $scope.isMember = "no";
-        $scope.isAuditor = "no";
+        $scope.isAuditor = "yes";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -166,6 +166,13 @@
                     $scope.completedCount = index;
                 }
             }
+            ////can do through for loop
+            //           document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
+            //           document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
+            //           document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
+            //           document.getElementById("1-level-wholeraw").className = "row grid palered-back";
+            //           document.getElementById("2-level-wholeraw").className = "row grid paleyellow-back";
+            //           document.getElementById("3-level-wholeraw").className = "row grid palegreen-back";
 
  
         }
@@ -227,7 +234,7 @@
             $(document).ready(function () {
                 $('#myModal').modal('hide');
             });
-            $('.modal-backdrop').remove();
+            //$('.modal-backdrop').remove();
             $route.reload();
         }
 
@@ -452,7 +459,7 @@
                        success(function (data, status, headers, config) {
                            console.log(data);
                            $scope.userName = data.split("\\")[1].toString().toLowerCase();
-                           //$scope.userName = "nirangad";
+                           // $scope.userName = "nirangad";
                            $http.get("http://99xtechnology.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
@@ -476,7 +483,7 @@
                                         $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
                                     }
                                     else {
-                                        $scope.isAuditor = "no";
+                                       $scope.isAuditor = "no";
                                     }
                                     console.log("is auditor: " + $scope.isAuditor)
                                 }).
