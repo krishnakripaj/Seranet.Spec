@@ -11,7 +11,7 @@
                         <h4>{{area.Name}}</h4>
                     </div>
                     <div ng-switch on="area.hasPendings" id={{area.Name}}>
-                       
+
                         <div ng-switch-when="yes">
                             <div id={{area.Name}}>
                                 <span class="level-text-large">L{{area.level}}</span>
@@ -25,25 +25,21 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div id={{area.Name}}>
-                        <span class="level-text-large">L{{area.level}}</span>             
-                        <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
-                    </div>-->
 
-                    <div class="content-box-type-three-ash scorecard-tile" ng-cloak data-ng-repeat="subarea in area.SubAreas" ng-click="setPractisesArray(subarea.Practices, subarea.Name)">
+                    <div class="content-box-type-three-ash scorecard-tile" id="popup-trigger" ng-cloak data-ng-repeat="subarea in area.SubAreas" ng-click="setPractisesArray(subarea.Practices, subarea.Name)">
                         <a id="sub-area-actionlink" data-target=" #myModal" data-toggle="modal">
                             <div>
                                 {{subarea.Name}}
                                 <div id={{subarea.Name}}>L{{subarea.level}}</div>
-               
+
                                 <div ng-switch on="subarea.hasPendings">
                                     <div ng-switch-when="no">
                                         <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}}</div>
                                     </div>
                                     <div ng-switch-when="yes">
                                         <div class="status-text">Certified {{subarea.certificates}} of {{subarea.practices}} ({{subarea.pendings}} Pending)</div>
-                                        </div>
-                                </div>                                 
+                                    </div>
+                                </div>
                                 <div class="progress-bar-back">
                                     <div id={{subarea.Id}}></div>
                                 </div>
@@ -66,124 +62,115 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="inverted-margin-container white-back">
-                            <div class="row grid">
-                                <div class=" col-md-12">
-                                    <div class="row ng-scope white-back" id="popup header">
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-5 blue-back">
-                                            <div class="row grid">
-                                                <div class="bold-text" style="padding: 10px; text-align:center;">
-                                                    Completed Practices  ( {{completedCount}} )
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 purple-back">
-                                            <div class="row grid">
-                                                <div class="bold-text" style="padding: 10px; text-align: center;">
-                                                    To Be Completed Practices  ( {{toBeCompletedCount}} )
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <div class="col-md-6 blue-back padding-zero"><div class="title-type-two"><h4>Completed Practices  ( {{completedCount}} )</h4></div></div>
+                                    <div class="col-md-6 purple-back padding-zero"><div class="title-type-two"><h4>To Be Completed Practices  ( {{toBeCompletedCount}} )</h4></div></div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row ng-scope" ng-repeat="i in level_list" id="{{i+1}}-level-wholeraw">
-                                <div class="col-md-2 content-box-type-two" id="popup-level{{i+1}}-raw" >
-                                    <div class="bold-text" align="center">
-                                        L{{i+1}}
-                                    </div>
-                                </div>
 
-                                <div class="col-md-5">
-
-                                    <div class="row grid" ng-repeat="completed in completedPractises[i]">
-                                        <div class="content-box-type-two-popup">
-                                            {{completed.Code}} - {{completed.Description}}
-                                        </div>
-                                        <div ng-switch on="isAuditor">
-                                            <div ng-switch-when="yes" class="checkbox-inline bold-text">
-                                                <button type="button" id=btn-reject{{completed.Id}} class="btn btn-default" ng-click="rejectClaim(completed)">Reject</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-5">
-                                    <!--<div class="row">-->
-
-                                        <div class="row grid" ng-repeat="pending in pendingPractises[i]">
+                        <div class="row grid" ng-repeat="i in level_list">
+                            <div class="col-md-1 l{{i+1}}-text large-text">L{{i+1}}</div>
+                            <div class="col-md-11 grid-row-set-l{{i+1}}">
+                                <div class="row grid-type-two">
+                                    <div class="col-md-6">
+                                        <div class="col" ng-repeat="completed in completedPractises[i]">
                                             <div class="content-box-type-two-popup">
-                                               {{pending.Code}} - {{pending.Description}}
-                                                <div class="checkbox-inline bold-text">
-                                                    <div ng-switch on="isAuditor">
-                                                        <div ng-switch-when="no" class="disabled-div">
-                                                            <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
-                                                            <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
-                                                        </div>
-                                                        <div ng-switch-when="yes">
-                                                            <button type="button" id=btn-accept{{pending.Id}} class ="btn btn-default" ng-click="acceptClaim(pending)">Accept</button>
-                                                            <button type="button" id=btn-reject{{pending.Id}} class ="btn btn-default" ng-click="rejectClaim(pending)">Reject</button>
+                                                <div>
+                                                {{completed.Code}} - {{completed.Description}}
+                                                </div>
+                                                 <div ng-switch on="isAuditor">
+                                                <div ng-switch-when="yes" class="checkbox-inline bold-text">
+                                                    <button type="button" id="btn-reject{{completed.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(completed)">Reject</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col">
+                                            <div class="row" ng-repeat="pending in pendingPractises[i]">
+                                                <div class="content-box-type-two-popup">
+                                                    {{pending.Code}} - {{pending.Description}}
+                                                    <div class="checkbox-inline bold-text">
+                                                        <div ng-switch on="isAuditor">
+                                                            <div ng-switch-when="no" class="disabled-div">
+                                                                <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
+                                                                <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                            </div>
+                                                            <div ng-switch-when="yes">
+                                                                <button type="button" id=btn-accept{{pending.Id}} class="btn btn-default-audit" ng-click="acceptClaim(pending)">Accept</button>
+                                                                <button type="button" id=btn-reject{{pending.Id}} class="btn btn-default-audit" ng-click="rejectClaim(pending)">Reject</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div id=IncompleteDiv{{incomplete.Id}} class="row grid" ng-repeat="incomplete in incompletedPractises[i]">
-                                            <div class="content-box-type-two-popup">
-                                                {{incomplete.Code}} - {{incomplete.Description}}
-                                                <div class="checkbox-inline bold-text">
-                                                    <div ng-switch on="isMember">
-                                                        <div ng-switch-when="no" class="disabled-div">
-                                                            <input type="checkbox" class="checkbox" id=incompleteCheckBox{{incomplete.Id}}>
-                                                            <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
-                                                        </div>
-                                                        <div ng-switch-when="yes">
-                                                            <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} ng-click="createClaimRequest(incomplete)">
-                                                            <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                            <div id=IncompleteDiv{{incomplete.Id}} class="row" ng-repeat="incomplete in incompletedPractises[i]">
+                                                <div class="content-box-type-two-popup">
+                                                    {{incomplete.Code}} - {{incomplete.Description}}
+                                                    <div class="checkbox-inline bold-text">
+                                                        <div ng-switch on="isMember">
+                                                            <div ng-switch-when="no" class="disabled-div">
+                                                                <input type="checkbox" class="checkbox" id=incompleteCheckBox{{incomplete.Id}}>
+                                                                <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                            </div>
+                                                            <div ng-switch-when="yes">
+                                                                <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} ng-click="createClaimRequest(incomplete)">
+                                                                <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        <!--</div>-->
 
-
+                                        </div>
                                     </div>
                                 </div>
+
+
                             </div>
+                        </div>
 
-
+                    </div>
+                       <div class="modal-footer">
+            <div ng-switch on="isMember">
+                <div ng-switch-when="yes">
+                    <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss=" modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
+                </div>
+                <div ng-switch-when="no">
+                    <div ng-switch on="isAuditor">
+                        <div ng-switch-when="no">
+                            <button type="button" class="btn btn-default" ng-click="closeModalPopup()" data-dismiss=" modal">Close</button>
+                        </div>
+                        <div ng-switch-when="yes">
+                            <button type="button" class="btn btn-default" ng-click="cancelAuditing()" data-dismiss=" modal">Close</button>
+                            <button type="button" class="btn btn-primary" ng-click="saveAudited()">Save changes</button>
                         </div>
                     </div>
-
-                    <div class="modal-footer">
-                        <div ng-switch on="isMember">
-                            <div ng-switch-when="yes">
-                                <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss=" modal">Close</button>
-                                <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
-                            </div>
-                            <div ng-switch-when="no">
-                                <div ng-switch on="isAuditor">
-                                    <div ng-switch-when="no">
-                                        <button type="button" class="btn btn-default" ng-click="closeModalPopup()" data-dismiss=" modal">Close</button>
-                                    </div>
-                                    <div ng-switch-when="yes">
-                                        <button type="button" class="btn btn-default" ng-click="cancelAuditing()" data-dismiss=" modal">Close</button>
-                                        <button type="button" class="btn btn-primary" ng-click="saveAudited()">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                   </div>
+                </div>
 
             </div>
         </div>
+                </div>
+
+               
+            </div>
+        </div>
+
+      
+
     </div>
+
     <!-- Modal popup end-->
     <!-- Modal popup end-->
 </section>
