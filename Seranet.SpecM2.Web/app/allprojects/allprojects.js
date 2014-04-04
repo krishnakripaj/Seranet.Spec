@@ -31,7 +31,7 @@
             console.log(btnId);
 
             if (project.Enabled === true)
-                document.getElementById(btnId).innerHTML = "Enable";
+                document.getElementById(btnId).innerHTML = "Enable";    // cuz at this point the button has still not changed the enabled state. 
             else
                 document.getElementById(btnId).innerHTML = "Disable";
 
@@ -78,7 +78,12 @@
         $scope.importProjectToDb = function (project) {
             $http.post('api/project', project).
                      success(function (data, status, headers) {
-
+                         console.log("Status: ", data);
+                         if (data === "true")
+                             console.log("Project is existing");
+                         else {
+                             console.log("Project added");
+                         }
                      });
 
             console.log("Importing project happening ...");

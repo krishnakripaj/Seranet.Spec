@@ -24,18 +24,28 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         [HttpPost]
-        public void post(dynamic project)
+        public Boolean post(dynamic project)
         {
 
-            var projectToAdd = new Project();
-            projectToAdd.GUID = Guid.NewGuid();
+            String ProjectID = project.assignment;
+            Boolean isExisting = true; 
 
-            projectToAdd.Enabled = true;
-            projectToAdd.Name = project.name;
-            projectToAdd.ProjetId = project.assignment;
-            context.Projects.Add(projectToAdd);
-            context.SaveChanges();
+            var projectToCheck = context.Projects.Where(a => a.ProjetId == ProjectID).FirstOrDefault();
 
+            if (projectToCheck == null)
+            {
+                var projectToAdd = new Project();
+                projectToAdd.GUID = Guid.NewGuid();
+
+                projectToAdd.Enabled = true;
+                projectToAdd.Name = project.name;
+                projectToAdd.ProjetId = project.assignment;
+                context.Projects.Add(projectToAdd);
+                context.SaveChanges();
+                isExisting = false; 
+            }
+
+            return isExisting;
         }
 
         [HttpPut]
