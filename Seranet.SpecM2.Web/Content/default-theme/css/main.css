@@ -174,10 +174,20 @@ h5 {
     background-color: #444;
     color: #fff;
 }
+title-type-two {
+     color: #fff;
+     padding:6px 20px;
+ }
+ .title-type-two h3, .title-type-two h4{
+     color: #fff;
+     font-size: 1.2em;
+ }
+
 .title-type-one h4,
-.title-type-one h3 {
-    margin: 0px;
+.title-type-one h3, .title-type-two h3, .title-type-two h4 {
+      margin: 10px;
 }
+
 .yellow-text {
     color: #fdd01c;
 }
@@ -192,14 +202,34 @@ h5 {
     font-family: 'robotobold';
     font-size: 1.1em;
 }
-.grid {
+/*.grid*/ 
+.grid{
+     border-bottom: 1px solid #d3d3d3;
+}
+.grid, .grid-type-two{
     border-bottom: 1px solid #d3d3d3;
 }
 .scorecard-tile {
     background-color: #fff;
-    border-bottom: 1px solid #d3d3d3;
-    
+    border-bottom: 1px solid #d3d3d3; 
 }
+
+#popup-trigger{
+     cursor: pointer;
+ }
+ #popup-trigger:hover{
+     background-color: #f1f1f1;
+ }
+ .grid-type-two .col{
+     padding: 5px 4px;
+ }
+
+ .padding-zero{
+     padding: 0px !important;
+ }
+ .large-text{
+     font-size: 2em;
+ }
 
 .inverted-margin-container {
     padding-left: 15px;
@@ -209,7 +239,7 @@ h5 {
     font-size: 1.12em !important;
 }
 .height-adjuster {
-    height: 81px;
+    height: 97px;
 }
 .status-text {
     margin: 6px 0px;
@@ -222,7 +252,7 @@ h5 {
     background-color: #ebeef1;
 }
 .large-text {
-    font-size: 1.2em;
+    font-size: 2em;
 }
 .progress-bar {
     box-shadow: none;
@@ -275,7 +305,7 @@ h5 {
         margin: 5% 14%;
     }
     .modal-content {
-        width:988px;
+        width:1090px;
         margin: 0 auto;
     }
 }
@@ -360,4 +390,56 @@ background-color:#F5F6CE;
 
 .palegreen-back {
 background-color:#97DF9C;
+}
+
+.l1-text{
+     color: #f35958;
+}
+
+.l2-text{
+    color: #fdd01c;
+}
+
+.l3-text{
+     color: #07776d;
+}
+
+.grid-row-set-l1 > div{
+     border-left:5px solid #f35958;
+ }
+ .grid-row-set-l2 > div{
+     border-left:5px solid #fdd01c;
+ }
+.grid-row-set-l3 > div{
+     border-left:5px solid #0aa699;
+ }
+
+btn-default-audit {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+
+   
+}
+
+.btn-default-audit:hover,
+.btn-default-audit:focus,
+.btn-default-audit:active,
+.btn-default-audit.active,
+.open .dropdown-toggle.btn-default-audit {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+
+}
+
+.btn-default-audit:active,
+.open .dropdown-toggle.btn-default-audit {
+  background-image: none;
+}
+
+
+.btn-default-audit .badge {
+  color: #ffffff;
+  background-color: #fff;
 }
