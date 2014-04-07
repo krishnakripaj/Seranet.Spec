@@ -1,32 +1,66 @@
-﻿<section class="mainbar" data-ng-controller="admin as vm">
-    <section class="matter">
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="widget wviolet">
-                    <div ng-switch on="isAdmin">
-                       
-                        <div ng-switch-when="yes">
-                            <div data-cc-widget-header title="{{vm.title}}"></div>
-                            <div class="widget-content user">
-                               
-                                
-                                 <h3>TODO: Implement Admin Features</h3>
-                          
-                            
-                            
-                              </div>
-                        </div>
-                        <div ng-switch-when="no">
-                            <h1>Login As Administrator</h1> 
-                        </div>
-                    </div>
-                    
+﻿<!--<section class="mainbar" data-ng-controller="admin as vm">-->
+<section id="admin-view" data-ng-controller="admin as vm">
 
-                    <div class="widget-foot">
-                        <div class="clearfix"></div>
+    <div class="app-content">
+
+        <div ng-switch on="isAdmin">
+
+            <div ng-switch-when="yes">
+                <h1 class="page-heading">Admin Dashboard</h1>
+
+            </div>
+            <div ng-switch-when="no">
+                <h1>Login As Administrator</h1>
+            </div>
+        </div>
+
+        <div class="top-boxes col-md-8">
+            <div class="row">
+                <div class="content-box-type-three red-back clearfix no-margin-top" style="margin-right: 15px;margin-left: 15px;">
+                    <span class="level-text-small ng-binding no-margin-top">Projects existing in System</span>
+                </div>
+                <div class="col-md-3" data-ng-repeat="project in allProjectsFromDatabase">
+                    <div class="content-box-type-three-ash scorecard-tile ng-scope">
+                        <h4>{{project.Name}}</h4>
+                        <button type="button" class="btn btn-primary" id=enableDisableBtn{{project.Id}} ng-click="enableDisableProject(project)">{{project.enableDisableStatus}}</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <div class="top-boxes col-md-4">
+            <div class="row">
+
+                <div class="content-box-type-three red-back clearfix no-margin-top" style="margin-right: 15px;margin-left: 15px;">
+                    <span class="level-text-small ng-binding no-margin-top">Import Projects From API</span>
+                </div>
+                <div class="col-md-4" data-ng-repeat="project in allProjectsFrom99XServiceAPI">
+                    <div class="content-box-type-three-ash scorecard-tile ng-scope">
+                        <h4>{{project.name}}</h4>
+                        <button type="button" class="btn btn-primary" ng-click="importProjectToDb(project)">Import</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </section>
+
+
+<!--<div ng-switch on="isAdmin">
+
+    <div ng-switch-when="yes">
+        <div data-cc-widget-header title="{{vm.title}}"></div>
+
+    </div>
+    <div ng-switch-when="no">
+        <h1>Login As Administrator</h1>
+    </div>
+</div>
+
+
+<div class="widget-foot">
+    <div class="clearfix"></div>
+</div>-->
+<link href="content/default-theme/css/main.css" rel="stylesheet">
