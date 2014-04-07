@@ -70,8 +70,9 @@
 
             $http.put('api/project/' + project.projetId, JSON.stringify(project)).
                    success(function (data, status, headers) {
+                       $route.reload();
                    });
-            $route.reload();
+           
 
         }
 
@@ -111,6 +112,7 @@
         $scope.importProjectToDb = function (project) {
             $http.post('api/project', project).
                      success(function (data, status, headers) {
+                         $route.reload();
                          console.log("Status: ", data);
                          if (data === "true")
                              console.log("Project is existing");
@@ -120,7 +122,7 @@
                      });
 
             console.log("Importing project happening ...");
-            $route.reload();
+           
 
         }
     }
