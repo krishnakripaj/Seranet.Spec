@@ -99,6 +99,10 @@
         }
 
         $scope.setPractisesArray = function (practises, subareaName) {
+            console.log($('.modal-backdrop'));
+            if (($('.modal-backdrop')).length > 1) {
+                    ($('.modal-backdrop'))[0] = null;
+                }
 
             if ($scope.changedClaims) {
                 $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
@@ -179,7 +183,7 @@
 
         //function to save the claims
         $scope.createClaimRequest = function (practise) {
-
+           
             console.log(practise);
             var l = "#incompleteCheckBox" + practise.Id;
             var data = {};
@@ -230,14 +234,21 @@
 
         //to hide the modal popup
         $scope.closeModalPopup = function () {
+            console.log($('.modal-backdrop'));
+            if (($('.modal-backdrop')).length > 1) {
+                ($('.modal-backdrop'))[0] = null;
+            }
             jQuery.noConflict();
             $(document).ready(function () {
                 $('#myModal').modal('hide');
             });
-            //$('.modal-backdrop').remove();
+            $('.modal-backdrop').remove();
             $route.reload();
         }
-
+       
+       
+           
+       
         //to uncheck all the checkboxes when popup closed
         $('#myModal').on('hidden.bs.modal', function (e) {
             var checkboxes = new Array();
@@ -248,6 +259,9 @@
                 }
             }
         })
+
+      
+       
 
         $scope.findClaimObject = function (claimPracticeId) {
 
