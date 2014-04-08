@@ -47,7 +47,10 @@
                    success(function (data, status, headers, config) {
                        console.log(data);
                        for (var i = 0; i < data.length; i++) {
-                           $scope.projectlist.push(data[i]);
+
+                           if (data[i].Enabled == true) {
+                               $scope.projectlist.push(data[i]);
+                           }
                        };
 
                        $http({ method: 'GET', url: 'api/projectprogress'}).
