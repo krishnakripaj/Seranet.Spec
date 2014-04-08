@@ -1,7 +1,7 @@
 ﻿<section id="dashboard-view" data-ng-controller="dashboard as vm">
     <div class="app-content">
         <h1 class="page-heading">Dashboard</h1>
-        <div class="top-boxes">
+        <!--<div class="top-boxes">
             <div class="row">
                 <div class="col-md-3">
                     <div class="content-box-type-one blue-back">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="mid-boxes green-back content-box-type-one">
             <h3>Project Comparison</h3>
             |
@@ -83,10 +83,11 @@
                             <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
                         </div>
                         <div ng-switch-when="yes">
-                            <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}
+                            <div class="content-box-type-two bold-text height-adjuster">
+                                {{project.Name}}
                                 <div>({{project.pendingcount}} Pending)</div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col-md-10">

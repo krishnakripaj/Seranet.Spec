@@ -24,34 +24,49 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         [HttpPost]
-        public void post(dynamic project)
+        public Boolean post(dynamic project)
         {
 
-            var projectToAdd = new Project();
-            projectToAdd.GUID = Guid.NewGuid();
+            String ProjectID = project.assignment;
+            Boolean isExisting = true; 
 
-            projectToAdd.Enabled = true;
-            projectToAdd.Name = project.name;
-            projectToAdd.ProjetId = project.assignment;
-            context.Projects.Add(projectToAdd);
-            context.SaveChanges();
+            var projectToCheck = context.Projects.Where(a => a.ProjetId == ProjectID).FirstOrDefault();
 
+            if (projectToCheck == null)
+            {
+                var projectToAdd = new Project();
+                projectToAdd.GUID = Guid.NewGuid();
+
+                projectToAdd.Enabled = true;
+                projectToAdd.Name = project.name;
+                projectToAdd.ProjetId = project.assignment;
+                context.Projects.Add(projectToAdd);
+                context.SaveChanges();
+                isExisting = false; 
+            }
+
+            return isExisting;
         }
 
         [HttpPut]
-        public void put(Project project) {
+        public Project put(Project project)
+        {
 
-      //      var projectToAdd = project;
+            //      var projectToAdd = project;
 
-            project.Enabled = false;
+            if (project.Enabled == false)
+                project.Enabled = true;
+            else
+                project.Enabled = false;
 
-      var projectToAdd = context.Projects.Where(p => p.ProjetId == project.ProjetId).FirstOrDefault();
+            var projectToAdd = context.Projects.Where(p => p.ProjetId == project.ProjetId).FirstOrDefault();
             //context.Projects.Attach(projectToAdd);
-         //   context.Entry(projectToAdd).State = System.Data.Entity.EntityState.Modified;
-           // context.SaveChanges();
+            //   context.Entry(projectToAdd).State = System.Data.Entity.EntityState.Modified;
+            // context.SaveChanges();
 
             context.Entry(projectToAdd).CurrentValues.SetValues(project);
             context.SaveChanges();
+            return projectToAdd;
 
         }
 
