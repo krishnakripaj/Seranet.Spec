@@ -174,10 +174,11 @@ h5 {
     background-color: #444;
     color: #fff;
 }
-title-type-two {
+.title-type-two {
      color: #fff;
      padding:6px 20px;
  }
+
  .title-type-two h3, .title-type-two h4{
      color: #fff;
      font-size: 1.2em;
