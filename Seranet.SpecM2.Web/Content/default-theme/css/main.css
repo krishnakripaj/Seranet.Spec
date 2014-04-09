@@ -443,3 +443,8 @@ btn-default-audit {
   color: #ffffff;
   background-color: #fff;
 }
+
+.modal-backdrop.fade.in {
+opacity: 0.5;
+/*filter: alpha(opacity=50);*/
+}

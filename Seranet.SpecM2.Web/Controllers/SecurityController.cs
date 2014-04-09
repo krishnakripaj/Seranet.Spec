@@ -8,6 +8,7 @@ namespace Seranet.SpecM2.Web.Controllers
 {
     public class SecurityController : Controller
     {
+       
         public string UserName()
         {
             return HttpContext.User.Identity.Name;
