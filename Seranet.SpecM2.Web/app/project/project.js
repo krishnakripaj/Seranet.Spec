@@ -40,13 +40,14 @@
             var data = {};
             data['practice_id'] = practice.Id;
             data['status'] = 2;
+            data['project_id'] = $scope.projectId;
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
-                if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
+                if ($scope.auditedClaims[i].practice_id == data['practice_id']) {
                     $scope.auditedClaims[i].status = 2;
                     auditedbefore = true;
                 }
             }
-            if (auditedbefore === false) {
+            if (auditedbefore == false) {
                 $scope.auditedClaims.push(data);
             }
             console.log(practice.Id+" claim is rejected");
@@ -64,6 +65,7 @@
             var data = {};
             data['practice_id'] = practice.Id;
             data['status'] = 1;
+            data['project_id'] = $scope.projectId;
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
                 if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
                     $scope.auditedClaims[i].status = 1;
@@ -90,6 +92,7 @@
             if ($scope.auditedClaims.length != 0) {
                 $http.post("api/auditor", $scope.auditedClaims).
                     success(function (data, status, headers) {
+                        $route.reload();
                         console.log("Auditor processed the claims");
                         console.log($scope.auditedClaims);
                     });
@@ -235,15 +238,15 @@
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
-            if (($('.modal-backdrop')).length > 1) {
-                ($('.modal-backdrop'))[0] = null;
-            }
+            //if (($('.modal-backdrop')).length > 1) {
+            //    ($('.modal-backdrop'))[0] = null;
+            //}
             jQuery.noConflict();
             $(document).ready(function () {
                 $('#myModal').modal('hide');
             });
             $('.modal-backdrop').remove();
-            $route.reload();
+            //$route.reload();
         }
        
        

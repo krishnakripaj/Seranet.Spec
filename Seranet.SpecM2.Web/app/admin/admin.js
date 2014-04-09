@@ -22,7 +22,7 @@
                       success(function (data, status, headers, config) {
                           if (data == 0) {
                               $scope.isAdmin = "yes";
-                              console.log("Admin page writes granted");
+                              console.log("Admin page rites granted");
                           }
                           else {
                               $scope.isAdmin = "no";

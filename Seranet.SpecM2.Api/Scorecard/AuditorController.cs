@@ -17,7 +17,8 @@ namespace Seranet.SpecM2.Api.Scorecard
             for (int i = 0; i < practiceslist.Length; i++)
             {
                 var temp_claim = practiceslist[i];
-                var theClaim = context.Claims.FirstOrDefault(t => t.Id == temp_claim.practice_id);
+                //var theClaim = context.Claims.Where(t => t.Practice.Id == temp_claim.practice_id AND t.project.Id=temp_claim.project_id).OrderByDescending(t=>t.CreatedTime).FirstOrDefault();
+                var theClaim = (from t in context.Claims where t.Practice.Id == temp_claim.practice_id && t.Project.Id == temp_claim.project_id select t).OrderByDescending(t => t.CreatedTime).FirstOrDefault();
                 theClaim.Status = getStatus(temp_claim.status);
                 context.SaveChanges();
             }
@@ -48,5 +49,6 @@ namespace Seranet.SpecM2.Api.Scorecard
     public class practiseStatus {
         public int practice_id;
         public int status;
+        public int project_id;
     }
 }
