@@ -21,8 +21,7 @@ namespace Seranet.SpecM2.Api.Scorecard
                 var theClaim = (from t in context.Claims where t.Practice.Id == temp_claim.practice_id && t.Project.Id == temp_claim.project_id select t).OrderByDescending(t => t.CreatedTime).FirstOrDefault();
                 theClaim.Status = getStatus(temp_claim.status);
                 context.SaveChanges();
-            }
-            
+            }            
         }
 
         private Status getStatus(int k)

@@ -35,12 +35,13 @@
                 config: {
                     templateUrl: 'app/project/project.html'
                 }
-            }, {
-                url: '/activities',
-                config: {
-                    templateUrl: 'app/activities/activities.html'
-                }
             }
+            //, {
+            //    url: '/activities',
+            //    config: {
+            //        templateUrl: 'app/activities/activities.html'
+            //    }
+            //}
             //}, {
             //    url: '/allprojects',
             //    config: {
