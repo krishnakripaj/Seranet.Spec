@@ -40,6 +40,7 @@
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
         $scope.completedCount;
+        $scope.hasPractices;
         $scope.subAreaName = "";
         $scope.changedClaims = false;
 
@@ -109,13 +110,20 @@
             if ($scope.auditedClaims.length != 0) {
                 $http.post("api/auditor", $scope.auditedClaims).
                     success(function (data, status, headers) {
-                        $route.reload();
+                       // $route.reload();
                         console.log("Auditor processed the claims");
                         console.log($scope.auditedClaims);
-                    });
+                        $scope.closeModalPopup();
+                    }).
+                    error(function (data, status, headers, config) {
+                        console.log(data);
+                        alert("unauthorized action");
+                        $scope.closeModalPopup();
+                                }
+                    );
             }
 
-            $scope.closeModalPopup();
+            
         }
 
         $scope.setPractisesArray = function (practises, subareaName) {
@@ -150,11 +158,12 @@
                 $scope.completedPractises = [];
                 $scope.pendingPractises = [];
                 $scope.incompletedPractises = [];
-                
+                $scope.hasPractices = [];
                 for (var i = 0 ; i < 3 ; i++) {
                     $scope.completedPractises[i] = [];
                     $scope.pendingPractises[i] = [];
                     $scope.incompletedPractises[i] = [];
+                    $scope.hasPractices[i] = "no";
                 }
 
 
@@ -188,6 +197,12 @@
 
                     $scope.toBeCompletedCount = index1 + index2;
                     $scope.completedCount = index;
+                    for(var c=0;c<3;c++){
+                        if ($scope.incompletedPractises[c].length + $scope.completedPractises[c].length +$scope.pendingPractises[c].length > 0){
+                            $scope.hasPractices[c] = "yes";
+                        }
+                    }
+                     
                 }
             }
             ////can do through for loop
@@ -245,10 +260,15 @@
                 $http.post("api/claims", $scope.listOfAllClaims).
                     success(function (data, status, headers) {
                         console.log("Claim array added");
+                        $scope.closeModalPopup();
+                    }).
+                    error(function (data, status, headers, config) {
+                        alert("You are not authorized to claim")
+                                    console.log(data);
                     });
             }
             
-            $scope.closeModalPopup();
+            
             
         }
 
@@ -259,11 +279,19 @@
             //    ($('.modal-backdrop'))[0] = null;
             //}
             jQuery.noConflict();
-            $(document).ready(function () {
-                $('#myModal').modal('hide');
-            });
+
+            var modalDialog = $('#myModal');
+            modalDialog.modal('hide');
+            //if (modalDialog.modal) {
+            //    modalDialog.modal('hide');
+            //} else {
+            //    setTimeout(function () { modalDialog = $('#myModal'); modalDialog.modal('hide'); }, 1000);
+            //}
+           // $(document).ready(function () {
+                
+           // });
             $('.modal-backdrop').remove();
-            //$route.reload();
+            $route.reload();
         }
        
        
@@ -279,9 +307,7 @@
                 }
             }
         })
-
-      
-       
+  
 
         $scope.findClaimObject = function (claimPracticeId) {
 

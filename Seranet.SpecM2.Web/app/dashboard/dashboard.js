@@ -1,11 +1,15 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'dashboard';
-    angular.module('app').controller(controllerId, ['$scope', 'common', '$http', '$timeout', dashboard]);
+    angular.module('app').controller(controllerId, ['$scope', 'common', '$http' , dashboard]);
 
+<<<<<<< HEAD
     function dashboard($scope, common, $http, $timeout) {
 
         var vm = this;
+=======
+    function dashboard($scope,common, $http) {
+>>>>>>> upstream/master
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 
@@ -29,7 +33,7 @@
         //$scope.areas[i].level gives the level of i-th area
         // $scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
-
+       
         var vm = this;
         //vm.news = {
         //    title: 'Hot Towel Angular',
@@ -45,6 +49,10 @@
             var promises = [];
             common.activateController(promises, controllerId)
                 .then(function () { log('Activated Dashboard View'); });
+
+            
+
+
 
             $http({ method: 'GET', url: 'api/model' }).
                success(function (data, status, headers, config) {
@@ -63,18 +71,15 @@
                            }
                        };
 
-                       $http({ method: 'GET', url: 'api/projectprogress' }).
+                       $http({ method: 'GET', url: 'api/projectprogress'}).
                        success(function (data, status, headers, config) {
                            console.log(data);
                            for (var i = 0; i < data.length; i++) {
                                {
-                                   $scope.claims[data[i].Project_Id + ":" + data[i].Practice_Id] = data[i].Status;
+                                   $scope.claims[data[i].Project_Id+":"+data[i].Practice_Id] = data[i].Status;
                                }
                            };
-
-                           $timeout(function () {
-                               calculate();
-                           })
+                           calculate();
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);
@@ -102,68 +107,62 @@
 
 
         function calculate() {
-            for (var p = 0; p < $scope.projectlist.length; p++) {
-                var projectlevel = 3;
-                $scope.projectlist[p].areas = [];
-                var pendingCount = 0;
-                for (var i = 0; i < $scope.areas.length; i++) {
-                    var arealevel = 3;
-                    var practicesCount = 0;
-                    var certificatesCount = 0;
+        for (var p = 0; p < $scope.projectlist.length; p++) {
+            var projectlevel = 3;
+            $scope.projectlist[p].areas = [];
+            var pendingCount = 0;
+            for (var i = 0; i < $scope.areas.length; i++) {
+                var arealevel = 3;
+                var practicesCount = 0;
+                var certificatesCount = 0;
+                
+                for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
+                    var level = 3;
+                    for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
 
-                    for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
-                        var level = 3;
-                        for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
+                        if (!(($scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id) in $scope.claims)){
+                            if($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
 
-                            if (!(($scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id) in $scope.claims)) {
-                                if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
-
-                                    level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
-                                }
-                            }
-                            else {
-                                if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {
-
-                                    if ($scope.claims[$scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id] != 1) {
-                                        if ($scope.claims[$scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id] === 0) {
-                                            pendingCount++;
-                                            console.log($scope.areas[i].SubAreas[j].Practices[k].Id + " is pending")
-                                        }
-                                        if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
-                                            level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
-                                        }
-
-                                    }
-                                    else {
-                                        certificatesCount++;
-                                    }
-                                }
-                            }
-                            if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {
-                                practicesCount++;
+                                level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
                             }
                         }
-                        if (arealevel >= level) {
-                            arealevel = level;
+                        else {
+                            if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)){
+                                
+                                if($scope.claims[$scope.projectlist[p].Id+":"+$scope.areas[i].SubAreas[j].Practices[k].Id] != 1){
+                                    if ($scope.claims[$scope.projectlist[p].Id+":"+$scope.areas[i].SubAreas[j].Practices[k].Id] === 0) {
+                                        pendingCount++;
+                                        console.log($scope.areas[i].SubAreas[j].Practices[k].Id + " is pending")
+                                    }
+                                    if($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+                                        level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
+                                    }
 
+                                }
+                                else {
+                                    certificatesCount++;
+                                }
+                            }
                         }
-
+                        if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)){
+                            practicesCount ++;
+                        }
                     }
-                    $scope.projectlist[p].areas.push({ Name: $scope.areas[i].Name, arealevel: arealevel, areacertificates: certificatesCount, areapractices: practicesCount });
-
-                    if (projectlevel >= arealevel) {
-                        projectlevel = arealevel;
+                    if (arealevel >= level) {
+                        arealevel = level;
+                       
                     }
-                    console.log($scope.projectlist[p].Name + $scope.areas[i].Name);
-                    //$scope.$$phase || $scope.$apply();
 
-                    //if(! $rootScope.$root.$$phase) {
-                    //    //$digest or $apply
-                    //    $scope.$apply();
-                    //}
-
+                }
+                $scope.projectlist[p].areas.push({ Name: $scope.areas[i].Name, arealevel: arealevel, areacertificates: certificatesCount, areapractices: practicesCount });
+                
+                if (projectlevel >= arealevel) {
+                    projectlevel = arealevel;
+                }
+                console.log($scope.projectlist[p].Name + $scope.areas[i].Name);
+                //$scope.$$phase || $scope.$apply();
+               
                     $scope.$apply();
-
                     var style = "";
                     var levelPercentage;
                     if (arealevel == 0) {
@@ -185,24 +184,24 @@
 
                     document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).className = "progress-bar " + style + "-back";
                     document.getElementById($scope.projectlist[p].Name + $scope.areas[i].Name).className = style + "-text bold-text large-text";
-                    document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).style.width = levelPercentage + "%";
+                    document.getElementById("pb" + $scope.projectlist[p].Name + $scope.areas[i].Name).style.width = levelPercentage + "%";                         
+                
 
-
-                }
-
-                $scope.projectlist[p].level = projectlevel;
-                $scope.projectlist[p].pendingcount = pendingCount
-                $scope.projectlist[p].hasPendings = "no";
-                if (pendingCount > 0) {
-                    $scope.projectlist[p].hasPendings = "yes";
-                }
             }
 
+            $scope.projectlist[p].level = projectlevel;
+            $scope.projectlist[p].pendingcount=pendingCount
+            $scope.projectlist[p].hasPendings = "no";
+            if (pendingCount > 0) {
+                $scope.projectlist[p].hasPendings = "yes";
+            }
         }
+
+    }
 
 
 
 
     }
-
+    
 })();
