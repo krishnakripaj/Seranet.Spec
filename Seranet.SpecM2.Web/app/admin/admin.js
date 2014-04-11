@@ -68,6 +68,7 @@
                         console.log("Success");
                         $scope.allProjectsFrom99XServiceAPI = data;
                         console.log($scope.allProjectsFrom99XServiceAPI);
+                        vm.isBusy = false;
                     }).
                     error(function (data, error) {
                         console.log(error);
@@ -114,7 +115,7 @@
                               };
 
                               console.log('All Projects from db : ', $scope.allProjectsFromDatabase);
-                              vm.isBusy = false;
+                             
                           }).
                           error(function (data, status, headers, config) {
                               console.log(data);
