@@ -79,61 +79,72 @@
                             <div class="col-md-1 l{{i+1}}-text large-text">L{{i+1}}</div>
                             <div class="col-md-11 grid-row-set-l{{i+1}}">
                                 <div class="row grid-type-two">
-                                    <div class="col-md-6">
-                                        <div class="col" ng-repeat="completed in completedPractises[i]">
-                                            <div class="content-box-type-two-popup">
-                                                <div>
-                                                {{completed.Code}} - {{completed.Description}}
-                                                </div>
-                                                 <div ng-switch on="isAuditor">
-                                                <div ng-switch-when="yes" class="checkbox-inline bold-text">
-                                                    <button type="button" id="btn-reject{{completed.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(completed)">Reject</button>
-                                                </div>
+                                    <div ng-switch on="hasPractices[i]">
+                                        <div ng-switch-when="no">
+                                            <div class="col-md-12">
+                                                <div class="content-box-type-two-popup">
+                                                    No Practices Available
                                                 </div>
                                             </div>
-                                           
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="col">
-                                            <div class="row" ng-repeat="pending in pendingPractises[i]">
-                                                <div class="content-box-type-two-popup">
-                                                    {{pending.Code}} - {{pending.Description}}
-                                                    <div class="checkbox-inline bold-text">
+                                        <div ng-switch-when="yes">
+                                            <div class="col-md-6">
+                                                <div class="col" ng-repeat="completed in completedPractises[i]">
+                                                    <div class="content-box-type-two-popup">
+                                                        <div>
+                                                            {{completed.Code}} - {{completed.Description}}
+                                                        </div>
                                                         <div ng-switch on="isAuditor">
-                                                            <div ng-switch-when="no" class="disabled-div">
-                                                                <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
-                                                                <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
-                                                            </div>
-                                                            <div ng-switch-when="yes">
-                                                                <button type="button" id=btn-accept{{pending.Id}} class="btn btn-default-audit" ng-click="acceptClaim(pending)">Accept</button>
-                                                                <button type="button" id=btn-reject{{pending.Id}} class="btn btn-default-audit" ng-click="rejectClaim(pending)">Reject</button>
+                                                            <div ng-switch-when="yes" class="checkbox-inline bold-text">
+                                                                <button type="button" id="btn-reject{{completed.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(completed)">Reject</button>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
-
-                                            <div id=IncompleteDiv{{incomplete.Id}} class="row" ng-repeat="incomplete in incompletedPractises[i]">
-                                                <div class="content-box-type-two-popup">
-                                                    {{incomplete.Code}} - {{incomplete.Description}}
-                                                    <div class="checkbox-inline bold-text">
-                                                        <div ng-switch on="isMember">
-                                                            <div ng-switch-when="no" class="disabled-div">
-                                                                <input type="checkbox" class="checkbox" id=incompleteCheckBox{{incomplete.Id}}>
-                                                                <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
-                                                            </div>
-                                                            <div ng-switch-when="yes">
-                                                                <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} ng-click="createClaimRequest(incomplete)">
-                                                                <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                            <div class="col-md-6">
+                                                <div class="col">
+                                                    <div class="row" ng-repeat="pending in pendingPractises[i]">
+                                                        <div class="content-box-type-two-popup">
+                                                            {{pending.Code}} - {{pending.Description}}
+                                                            <div class="checkbox-inline bold-text">
+                                                                <div ng-switch on="isAuditor">
+                                                                    <div ng-switch-when="no" class="disabled-div">
+                                                                        <input type="checkbox" class="checkbox" id=pendingCheckBox{{incomplete.Id}} checked>
+                                                                        <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                                    </div>
+                                                                    <div ng-switch-when="yes">
+                                                                        <button type="button" id=btn-accept{{pending.Id}} class="btn btn-default-audit" ng-click="acceptClaim(pending)">Accept</button>
+                                                                        <button type="button" id=btn-reject{{pending.Id}} class="btn btn-default-audit" ng-click="rejectClaim(pending)">Reject</button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <div id=IncompleteDiv{{incomplete.Id}} class="row" ng-repeat="incomplete in incompletedPractises[i]">
+                                                        <div class="content-box-type-two-popup">
+                                                            {{incomplete.Code}} - {{incomplete.Description}}
+                                                            <div class="checkbox-inline bold-text">
+                                                                <div ng-switch on="isMember">
+                                                                    <div ng-switch-when="no" class="disabled-div">
+                                                                        <input type="checkbox" class="checkbox" id=incompleteCheckBox{{incomplete.Id}}>
+                                                                        <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                                    </div>
+                                                                    <div ng-switch-when="yes">
+                                                                        <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} ng-click="createClaimRequest(incomplete)">
+                                                                        <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
+                                     </div>
                                 </div>
 
 
