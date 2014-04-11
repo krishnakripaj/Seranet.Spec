@@ -5,62 +5,50 @@
 
         <div ng-switch on="isAdmin">
 
+            <div ng-switch-when="no">
+                <h1>Access Denied</h1>
+                <p>
+                    You need to be logged in as an adminitrator to view this page
+                </p>
+            </div>
+
             <div ng-switch-when="yes">
                 <h1 class="page-heading">Admin Dashboard</h1>
 
-            </div>
-            <div ng-switch-when="no">
-                <h1>Login As Administrator</h1>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="title-type-two green-back">
+                            <h4>Imported Projects</h4>
+                        </div>
+                        <div class="container-type-two white-back">
+                            <ul class="list-type-one add-remove-projects" data-ng-repeat="project in allProjectsFromDatabase">
+                                <li>
+                                    {{project.Name}}
+                                    <button type="button" class="btn btn-default btn-xs" id=enableDisableBtn{{project.Id}} ng-click="enableDisableProject(project)">{{project.enableDisableStatus}}</button>
+                                </li>
+                            </ul>
 
-        <div class="top-boxes col-md-8">
-            <div class="row">
-                <div class="content-box-type-three red-back clearfix no-margin-top" style="margin-right: 15px;margin-left: 15px;">
-                    <span class="level-text-small ng-binding no-margin-top">Projects existing in System</span>
-                </div>
-                <div class="col-md-3" data-ng-repeat="project in allProjectsFromDatabase">
-                    <div class="content-box-type-three-ash scorecard-tile ng-scope">
-                        <h4>{{project.Name}}</h4>
-                        <button type="button" class="btn btn-primary" id=enableDisableBtn{{project.Id}} ng-click="enableDisableProject(project)">{{project.enableDisableStatus}}</button>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="top-boxes col-md-4">
-            <div class="row">
+                    <div class="col-md-6">
+                        <div class="title-type-two red-back">
+                            <h4>All projects</h4>
+                        </div>
+                        <div class="container-type-two white-back">
+                            <ul class="list-type-one add-remove-projects" data-ng-repeat="project in allProjectsFrom99XServiceAPI">
+                                <li>
+                                    {{project.name}}
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="importProjectToDb(project)">Import</button>
+                                </li>
+                            </ul>
 
-                <div class="content-box-type-three red-back clearfix no-margin-top" style="margin-right: 15px;margin-left: 15px;">
-                    <span class="level-text-small ng-binding no-margin-top">Import Projects From API</span>
-                </div>
-                <div class="col-md-4" data-ng-repeat="project in allProjectsFrom99XServiceAPI">
-                    <div class="content-box-type-three-ash scorecard-tile ng-scope">
-                        <h4>{{project.name}}</h4>
-                        <button type="button" class="btn btn-primary" ng-click="importProjectToDb(project)">Import</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 </section>
-
-
-<!--<div ng-switch on="isAdmin">
-
-    <div ng-switch-when="yes">
-        <div data-cc-widget-header title="{{vm.title}}"></div>
-
-    </div>
-    <div ng-switch-when="no">
-        <h1>Login As Administrator</h1>
-    </div>
-</div>
-
-
-<div class="widget-foot">
-    <div class="clearfix"></div>
-</div>-->
 <link href="content/default-theme/css/main.css" rel="stylesheet">
