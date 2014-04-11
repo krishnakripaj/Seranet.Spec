@@ -9,6 +9,23 @@
         var vm = this;
         vm.title = " score card";
 
+        var logSuccess = common.logger.getLogFn(controllerId, 'success');
+       // vm.busyMessage = 'Please wait ...';
+        vm.isBusy = true;
+        vm.spinnerOptions = {
+            radius: 40,
+            lines: 7,
+            length: 0,
+            width: 30,
+            speed: 1.7,
+            corners: 1.0,
+            trail: 100,
+            color: '#F58A00'
+        };
+
+
+
+
         $scope.areas = []; //$scope.areas[i].level gives the level of i-th area,$scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.incompletedPractisesCount = 0;
         $scope.level_list = [0, 1, 2];       
@@ -345,6 +362,8 @@
 
                        $scope.projectName = data.Name;
                        $scope.projectAssignment = data.ProjetId;
+
+                       vm.isBusy = false;
 
                        $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
                        success(function (data, status, headers, config) {
