@@ -10,6 +10,23 @@
         var vm = this;
         vm.title = 'Admin';
         $scope.isAdmin = "no";
+
+
+        var logSuccess = common.logger.getLogFn(controllerId, 'success');
+      //  vm.busyMessage = 'Please wait ...';
+        vm.isBusy = true;
+        vm.spinnerOptions = {
+            radius: 40,
+            lines: 7,
+            length: 0,
+            width: 30,
+            speed: 1.7,
+            corners: 1.0,
+            trail: 100,
+            color: '#F58A00'
+        };
+
+
         activate();
 
         function activate() {
@@ -97,6 +114,7 @@
                               };
 
                               console.log('All Projects from db : ', $scope.allProjectsFromDatabase);
+                              vm.isBusy = false;
                           }).
                           error(function (data, status, headers, config) {
                               console.log(data);

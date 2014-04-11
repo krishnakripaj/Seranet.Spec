@@ -463,4 +463,14 @@ btn-default-audit {
 .add-remove-projects li:hover{
     background-color: #f1f1f1;
 }
-/*import projects page styles ends */ 
+/*import projects page styles ends */
+
+.spinner {
+    position : fixed !important;
+    left : 50% !important;
+    top : 50% !important;
+}
+
+.page-splash{
+    position : absolute;
+}
