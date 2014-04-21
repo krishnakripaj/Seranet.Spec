@@ -26,5 +26,6 @@ namespace Seranet.SpecM2.Web.Controllers
 
             return View();
         }
+
     }
 }
