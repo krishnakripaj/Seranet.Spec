@@ -446,6 +446,11 @@ btn-default-audit {
 }
 
 
+.modal-backdrop.fade.in {
+opacity: 0.5;
+/*filter: alpha(opacity=50);*/
+}
+
 /*import projects page styles */ 
 .list-type-one{
     margin:0;
@@ -464,5 +469,16 @@ btn-default-audit {
 .add-remove-projects li:hover{
     background-color: #f1f1f1;
 }
-/*import projects page styles ends */ 
+
+/*import projects page styles ends */
+
+.spinner {
+    position : fixed !important;
+    left : 50% !important;
+    top : 50% !important;
+}
+
+.page-splash{
+    position : absolute;
+}
 

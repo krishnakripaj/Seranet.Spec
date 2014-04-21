@@ -11,6 +11,7 @@ namespace Seranet.SpecM2.Api.Scorecard
 {
     public class ProjectController : BaseApiController
     {
+        //WindowsIdentity identity = System.Web.HttpContext.Current.Request.LogonUserIdentity;
         // GET api/project
         public IEnumerable<Project> Get()
         {

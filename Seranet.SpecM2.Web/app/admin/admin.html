@@ -3,8 +3,12 @@
 
     <div class="app-content">
 
-        <div ng-switch on="isAdmin">
+        <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation" style="margin-top:500px">
+            <div data-cc-spinner="vm.spinnerOptions"></div>
+            <div class="page-splash-message page-splash-message-subtle"></div>
+        </div>
 
+        <div ng-switch on="isAdmin">
             <div ng-switch-when="no">
                 <h1>Access Denied</h1>
                 <p>

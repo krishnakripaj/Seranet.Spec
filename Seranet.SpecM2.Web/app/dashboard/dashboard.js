@@ -4,10 +4,25 @@
     angular.module('app').controller(controllerId, ['$scope', 'common', '$http', '$timeout', dashboard]);
 
     function dashboard($scope, common, $http, $timeout) {
+
+
+        var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 
-
+        var logSuccess = common.logger.getLogFn(controllerId, 'success');
+      //  vm.busyMessage = 'Please wait ...';
+        vm.isBusy = true;
+        vm.spinnerOptions = {
+            radius: 40,
+            lines: 7,
+            length: 0,
+            width: 30,
+            speed: 1.7,
+            corners: 1.0,
+            trail: 100,
+            color: '#F58A00'
+        };
 
 
         $scope.areas = [];
@@ -74,6 +89,9 @@
                        // called asynchronously if an error occurs
                        // or server returns response with an error status.
                    });
+
+                   vm.isBusy = false;
+
 
                }).
                error(function (data, status, headers, config) {
