@@ -3,6 +3,7 @@ using Seranet.SpecM2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -11,6 +12,7 @@ namespace Seranet.SpecM2.Api.Scorecard
 {
     public class ProjectController : BaseApiController
     {
+        //WindowsIdentity identity = System.Web.HttpContext.Current.Request.LogonUserIdentity;
         // GET api/project
         public IEnumerable<Project> Get()
         {
@@ -24,6 +26,7 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         [HttpPost]
+        [AuthorizeRoles(role = "ADMIN")]
         public Boolean post(dynamic project)
         {
 
@@ -49,6 +52,7 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         [HttpPut]
+        [AuthorizeRoles(role = "ADMIN")]
         public Project put(Project project)
         {
 
