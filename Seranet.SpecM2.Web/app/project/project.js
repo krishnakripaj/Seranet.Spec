@@ -517,7 +517,7 @@
                            console.log(data);
                            $scope.userName = data.split("\\")[1].toString().toLowerCase();
                            // $scope.userName = "nirangad";
-                           $http.get("http://99xtechnology.lk/services/api/Projects",{withCredentials : true}).
+                           $http.get("http://99xt.lk/services/api/Projects",{withCredentials : true}).
                             success(function (data) {
                                 console.log(data);
                                 for (var i = 0; i < data.length; i++) {
