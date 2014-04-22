@@ -62,7 +62,7 @@
         $scope.allProjectsFromDatabase = [];        //coming from spec database
 
         //function to getAllProjectsFrom99XTService 
-        $http.get("http://99xtechnology.lk/services/api/Projects").
+        $http.get("http://99xtechnology.lk/services/api/Projects", {withCredentials : true}).
                     success(function (data) {
 
                         console.log("Success");

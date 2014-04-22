@@ -11,7 +11,6 @@ namespace Seranet.SpecM2.Api.Scorecard
 {
     public class UserRoleController : BaseApiController
     {
-
         // GET api/userrole
         public IEnumerable<UserRole> Get()
         {
