@@ -22,7 +22,7 @@
                     
                     $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                         success(function (data, status, headers, config) {
-                            if (data == 0) {
+                            if (data == 0 || data==3) {
                                 $scope.isAdmin = "yes";
                             }
                             else {
