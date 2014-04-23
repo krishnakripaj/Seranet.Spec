@@ -37,7 +37,7 @@
                   // $scope.userName = "nirangad";
                   $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                       success(function (data, status, headers, config) {
-                          if (data == 0) {
+                          if (data == 0 || data==3) {
                               $scope.isAdmin = "yes";
                               console.log("Admin page rites granted");
                           }
@@ -62,7 +62,7 @@
         $scope.allProjectsFromDatabase = [];        //coming from spec database
 
         //function to getAllProjectsFrom99XTService 
-        $http.get("http://99xtechnology.lk/services/api/Projects").
+        $http.get("http://99xtechnology.lk/services/api/Projects", {withCredentials : true}).
                     success(function (data) {
 
                         console.log("Success");

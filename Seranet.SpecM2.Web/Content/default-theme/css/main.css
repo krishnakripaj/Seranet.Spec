@@ -174,10 +174,11 @@ h5 {
     background-color: #444;
     color: #fff;
 }
-title-type-two {
+.title-type-two {
      color: #fff;
      padding:6px 20px;
  }
+
  .title-type-two h3, .title-type-two h4{
      color: #fff;
      font-size: 1.2em;
@@ -444,10 +445,12 @@ btn-default-audit {
   background-color: #fff;
 }
 
+
 .modal-backdrop.fade.in {
 opacity: 0.5;
 /*filter: alpha(opacity=50);*/
 }
+
 /*import projects page styles */ 
 .list-type-one{
     margin:0;
@@ -466,6 +469,7 @@ opacity: 0.5;
 .add-remove-projects li:hover{
     background-color: #f1f1f1;
 }
+
 /*import projects page styles ends */
 
 .spinner {
@@ -477,3 +481,4 @@ opacity: 0.5;
 .page-splash{
     position : absolute;
 }
+

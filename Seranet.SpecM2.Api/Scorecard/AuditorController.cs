@@ -12,6 +12,7 @@ namespace Seranet.SpecM2.Api.Scorecard
     public class AuditorController : BaseApiController
     {
         [HttpPost]
+        [AuthorizeRoles(role="AUDITOR")]
         public void post([FromBody] practiseStatus[] practiceslist)
         {
             for (int i = 0; i < practiceslist.Length; i++)

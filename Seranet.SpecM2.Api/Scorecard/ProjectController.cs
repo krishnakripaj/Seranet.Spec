@@ -12,6 +12,7 @@ namespace Seranet.SpecM2.Api.Scorecard
 {
     public class ProjectController : BaseApiController
     {
+        //WindowsIdentity identity = System.Web.HttpContext.Current.Request.LogonUserIdentity;
         // GET api/project
         public IEnumerable<Project> Get()
         {
@@ -25,6 +26,7 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         [HttpPost]
+        [AuthorizeRoles(role = "ADMIN")]
         public Boolean post(dynamic project)
         {
 
@@ -50,6 +52,7 @@ namespace Seranet.SpecM2.Api.Scorecard
         }
 
         [HttpPut]
+        [AuthorizeRoles(role = "ADMIN")]
         public Project put(Project project)
         {
 

@@ -5,6 +5,7 @@
 
     function dashboard($scope, common, $http, $timeout) {
 
+
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);

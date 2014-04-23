@@ -10,7 +10,7 @@
         vm.title = " score card";
 
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
-       // vm.busyMessage = 'Please wait ...';
+        // vm.busyMessage = 'Please wait ...';
         vm.isBusy = true;
         vm.spinnerOptions = {
             radius: 40,
@@ -69,9 +69,7 @@
                 $scope.auditedClaims.push(data);
             }
             console.log(practice.Id+" claim is rejected");
-            console.log($scope.auditedClaims);
-           
-            
+            console.log($scope.auditedClaims);          
         }
 
         $scope.acceptClaim = function (practice) {
@@ -110,7 +108,7 @@
             if ($scope.auditedClaims.length != 0) {
                 $http.post("api/auditor", $scope.auditedClaims).
                     success(function (data, status, headers) {
-                       // $route.reload();
+                        // $route.reload();
                         console.log("Auditor processed the claims");
                         console.log($scope.auditedClaims);
                         $scope.closeModalPopup();
@@ -119,7 +117,7 @@
                         console.log(data);
                         alert("unauthorized action");
                         $scope.closeModalPopup();
-                                }
+                    }
                     );
             }
 
@@ -129,8 +127,8 @@
         $scope.setPractisesArray = function (practises, subareaName) {
             console.log($('.modal-backdrop'));
             if (($('.modal-backdrop')).length > 1) {
-                    ($('.modal-backdrop'))[0] = null;
-                }
+                ($('.modal-backdrop'))[0] = null;
+            }
 
             if ($scope.changedClaims) {
                 $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
@@ -264,7 +262,7 @@
                     }).
                     error(function (data, status, headers, config) {
                         alert("You are not authorized to claim")
-                                    console.log(data);
+                        console.log(data);
                     });
             }
             
@@ -287,15 +285,12 @@
             //} else {
             //    setTimeout(function () { modalDialog = $('#myModal'); modalDialog.modal('hide'); }, 1000);
             //}
-           // $(document).ready(function () {
+            // $(document).ready(function () {
                 
-           // });
+            // });
             $('.modal-backdrop').remove();
             $route.reload();
         }
-       
-       
-           
        
         //to uncheck all the checkboxes when popup closed
         $('#myModal').on('hidden.bs.modal', function (e) {
@@ -522,7 +517,7 @@
                            console.log(data);
                            $scope.userName = data.split("\\")[1].toString().toLowerCase();
                            // $scope.userName = "nirangad";
-                           $http.get("http://99xtechnology.lk/services/api/Projects").
+                           $http.get("http://99xt.lk/services/api/Projects",{withCredentials : true}).
                             success(function (data) {
                                 console.log(data);
                                 for (var i = 0; i < data.length; i++) {
@@ -541,33 +536,30 @@
                                 }
                                 $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                                  success(function (data, status, headers, config) {
-                                    if (data == 1 && $scope.isMember=="no") {    //enum returns a number as the role (1 : auditoe, 0:admin
-                                        $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
-                                    }
-                                    else {
-                                       $scope.isAuditor = "no";
-                                    }
-                                    console.log("is auditor: " + $scope.isAuditor)
-                                }).
+                                     if ((data == 1||data==3) && $scope.isMember=="no") {    //enum returns a number as the role (1 : auditoe, 0:admin
+                                         $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
+                                     }
+                                     else {
+                                         $scope.isAuditor = "no";
+                                     }
+                                     console.log("is auditor: " + $scope.isAuditor)
+                                 }).
                                 error(function (data, status, headers, config) {
                                     console.log(data);
                                 });
-
-                               }).
-                            error(function (data, error) {
-                                console.log(error);
+                            }).
+                            error(function (data, status, headers, config) {
+                                    console.log(data);
                             });
-                           
-
-                       }).
-                       error(function (data, status, headers, config) {
-                           console.log(data);
-                           // called asynchronously if an error occurs
-                           // or server returns response with an error status.
-                       });
-           
-            return promise;
-        }
-       
-    }
+                        }).
+                error(function (data, status, headers, config) {
+                    console.log(data);
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });    
+                      
+        return promise;
+        }      
+    }  
+    
 })();
