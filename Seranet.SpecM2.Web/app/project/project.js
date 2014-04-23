@@ -290,7 +290,7 @@
             // $(document).ready(function () {
                 
             // });
-            //$('.modal-backdrop.fade.in').remove();
+            $('.modal-backdrop').remove();
             $route.reload();
         }
        
