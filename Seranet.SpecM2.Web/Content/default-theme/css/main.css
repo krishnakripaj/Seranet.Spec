@@ -446,10 +446,10 @@ btn-default-audit {
 }
 
 
-.modal-backdrop.fade.in {
+/*.modal-backdrop.fade.in {
 opacity: 0.5;
 /*filter: alpha(opacity=50);*/
-}
+}*/
 
 /*import projects page styles */ 
 .list-type-one{

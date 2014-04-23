@@ -22,8 +22,7 @@ namespace Seranet.SpecM2.Api.Scorecard
         {
             //UserRoleType userroletype = context.Database.SqlQuery<UserRoleType>("Select UserRoleType from dbo.UserRole where UserName=@p0", id).First();
             List<UserRoleType> roles = (from b in context.UserRoles where b.UserName == id select b.UserRoleType).ToList();
-            if (roles.Count == 0)
-            { //user belongs to no role
+            if (roles.Count == 0) { //user belongs to no role
                 return -1;
             }
             if (roles.Count == 1)   //user belongs to one role
@@ -33,11 +32,11 @@ namespace Seranet.SpecM2.Api.Scorecard
                 else if (roles[0] == UserRoleType.AUDITOR)
                     return 1;
             }
-            else if (roles.Count == 2)
+            else if (roles.Count == 2) // user belongs to both roles
             {
                 return 3;
             }
-
+            
             return -1;
         }
 

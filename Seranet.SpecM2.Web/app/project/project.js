@@ -128,9 +128,9 @@
 
         $scope.setPractisesArray = function (practises, subareaName) {
             console.log($('.modal-backdrop'));
-            if (($('.modal-backdrop')).length > 1) {
-                    ($('.modal-backdrop'))[0] = null;
-                }
+            //if (($('.modal-backdrop')).length > 1) {
+            //    ($('.modal-backdrop'))[0] = null;
+            //}
 
             if ($scope.changedClaims) {
                 $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
@@ -272,6 +272,7 @@
             
         }
 
+     
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
@@ -282,6 +283,7 @@
 
             var modalDialog = $('#myModal');
             modalDialog.modal('hide');
+            //$(".modal-backdrop").hide();
             //if (modalDialog.modal) {
             //    modalDialog.modal('hide');
             //} else {
@@ -290,12 +292,10 @@
            // $(document).ready(function () {
                 
            // });
-            $('.modal-backdrop').remove();
+            //$('.modal-backdrop.fade.in').remove();
             $route.reload();
         }
        
-       
-           
        
         //to uncheck all the checkboxes when popup closed
         $('#myModal').on('hidden.bs.modal', function (e) {
@@ -306,6 +306,8 @@
                     checkboxes[i].checked = false
                 }
             }
+            //alert('Modal is sclosed!');
+            //console.log($('.modal-backdrop'));
         })
   
 
@@ -559,18 +561,16 @@
                                 console.log("An error occured while getting details from 99XT Projects API.");
                                 console.log(error);
                             });
-                           
-
-                       }).
-                       error(function (data, status, headers, config) {
-                           console.log(data);
-                           // called asynchronously if an error occurs
-                           // or server returns response with an error status.
-                           console.log("An error occured while getting security username");
-                       });
-           
-            return promise;
-        }
-       
-    }
+                        }).
+                error(function (data, status, headers, config) {
+                    console.log(data);
+                    alert("Credential fails to access the project API")
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });    
+                      
+        return promise;
+        }      
+    }  
+    
 })();

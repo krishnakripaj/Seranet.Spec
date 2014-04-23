@@ -1,6 +1,7 @@
 ﻿<section data-ng-controller="project as vm">
 
     <div class="app-content" id="appContent">
+       
         <h1 class="page-heading">{{projectName}}</h1>
 
         <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation" style="margin-top:500px">
@@ -56,9 +57,8 @@
             </div>
         </div>
 
-
         <!-- Modal popup -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade in"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-popup">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -149,7 +149,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
 
 
@@ -157,38 +157,36 @@
                         </div>
 
                     </div>
-                       <div class="modal-footer">
-            <div ng-switch on="isMember">
-                <div ng-switch-when="yes">
-                    <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss=" modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
-                </div>
-                <div ng-switch-when="no">
-                    <div ng-switch on="isAuditor">
-                        <div ng-switch-when="no">
-                            <button type="button" class="btn btn-default" ng-click="closeModalPopup()" data-dismiss=" modal">Close</button>
-                        </div>
-                        <div ng-switch-when="yes">
-                            <button type="button" class="btn btn-default" ng-click="cancelAuditing()" data-dismiss=" modal">Close</button>
-                            <button type="button" class="btn btn-primary" ng-click="saveAudited()">Save changes</button>
+                    <div class="modal-footer">
+                        <div ng-switch on="isMember">
+                            <div ng-switch-when="yes">
+                                <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
+                            </div>
+                            <div ng-switch-when="no">
+                                <div ng-switch on="isAuditor">
+                                    <div ng-switch-when="no">
+                                        <button type="button" class="btn btn-default" ng-click="closeModalPopup()" data-dismiss="modal">Close</button>
+                                    </div>
+                                    <div ng-switch-when="yes">
+                                        <button type="button" class="btn btn-default" ng-click="cancelAuditing()" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" ng-click="saveAudited()">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
+
             </div>
         </div>
-                </div>
-
-               
-            </div>
-        </div>
-
-      
-
+        <!-- Modal popup end-->
     </div>
 
-    <!-- Modal popup end-->
-    <!-- Modal popup end-->
+    
+
 </section>
 
 <link href="content/site-base/css/bootstrap.min.css" rel="stylesheet">
