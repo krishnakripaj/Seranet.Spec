@@ -47,11 +47,13 @@
 
                       }).
                       error(function (data, status, headers, config) {
+                          console.log("An error occured while getting details from user roles in database.");
                           console.log(data);
                       });
 
               }).
               error(function (data, status, headers, config) {
+                  console.log("An error occured while getting details from username controller.");
                   console.log(data);
               });
             common.activateController([], controllerId)
@@ -62,7 +64,7 @@
         $scope.allProjectsFromDatabase = [];        //coming from spec database
 
         //function to getAllProjectsFrom99XTService 
-        $http.get("http://99xtechnology.lk/services/api/Projects", {withCredentials : true}).
+        $http.get("http://99xt.lk/services/api/Projects", {withCredentials : true}).
                     success(function (data) {
 
                         console.log("Success");
@@ -71,8 +73,8 @@
                         vm.isBusy = false;
                     }).
                     error(function (data, error) {
+                        console.log("An error occured while getting details from 99XT Projects API.");
                         console.log(error);
-                        console.log("error");
                     });
 
         //function to enable / disable project
@@ -118,6 +120,7 @@
                              
                           }).
                           error(function (data, status, headers, config) {
+                              console.log("An error occured while getting details from projects from database.");
                               console.log(data);
                               // called asynchronously if an error occurs
                               // or server returns response with an error status.
