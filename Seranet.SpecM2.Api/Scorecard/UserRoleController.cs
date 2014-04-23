@@ -31,13 +31,11 @@ namespace Seranet.SpecM2.Api.Scorecard
                 else if (roles[0] == UserRoleType.AUDITOR)
                     return 1;
             }
-            else
-            {
-                //user is on Admin as well as Auditor role
-            }
+            else if (roles.Count == 2) // user belongs to both roles
             {
                 return 3;
             }
+            
             return -1;
         }
 
