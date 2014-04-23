@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Seranet.SpecM2.Data.Seeds
 {
-    public class SpecSeedDataInitializer : System.Data.Entity.DropCreateDatabaseAlways<SpecDbContext>
+    public class SpecSeedDataInitializer : System.Data.Entity.CreateDatabaseIfNotExists<SpecDbContext>
     {
 
         protected override void Seed(SpecDbContext context)

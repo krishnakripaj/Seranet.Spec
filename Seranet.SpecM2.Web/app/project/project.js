@@ -35,7 +35,7 @@
         $scope.projectAssignment = "";
         $scope.userName = "";
         $scope.isMember = "no";
-        $scope.isAuditor = "yes";
+        $scope.isAuditor = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
         $scope.toBeCompletedCount;
@@ -126,9 +126,9 @@
 
         $scope.setPractisesArray = function (practises, subareaName) {
             console.log($('.modal-backdrop'));
-            if (($('.modal-backdrop')).length > 1) {
-                ($('.modal-backdrop'))[0] = null;
-            }
+            //if (($('.modal-backdrop')).length > 1) {
+            //    ($('.modal-backdrop'))[0] = null;
+            //}
 
             if ($scope.changedClaims) {
                 $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
@@ -270,6 +270,7 @@
             
         }
 
+     
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
@@ -280,6 +281,7 @@
 
             var modalDialog = $('#myModal');
             modalDialog.modal('hide');
+            //$(".modal-backdrop").hide();
             //if (modalDialog.modal) {
             //    modalDialog.modal('hide');
             //} else {
@@ -288,9 +290,10 @@
             // $(document).ready(function () {
                 
             // });
-            $('.modal-backdrop').remove();
+            //$('.modal-backdrop.fade.in').remove();
             $route.reload();
         }
+       
        
         //to uncheck all the checkboxes when popup closed
         $('#myModal').on('hidden.bs.modal', function (e) {
@@ -301,6 +304,8 @@
                     checkboxes[i].checked = false
                 }
             }
+            //alert('Modal is sclosed!');
+            //console.log($('.modal-backdrop'));
         })
   
 
@@ -554,6 +559,7 @@
                         }).
                 error(function (data, status, headers, config) {
                     console.log(data);
+                    alert("Credential fails to access the project API")
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });    
