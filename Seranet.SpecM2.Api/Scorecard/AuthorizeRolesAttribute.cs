@@ -21,7 +21,7 @@ namespace Seranet.SpecM2.Api.Scorecard
              WindowsIdentity identity = System.Web.HttpContext.Current.Request.LogonUserIdentity;
              String username = (identity.Name).Split('\\')[1];
              int userrole = (new UserRoleController()).Get(username);
-             if (userrole == 1)    // both auditor and admin
+             if (userrole == 3)    // both auditor and admin
              {
                  isInRole = true;
              }          
