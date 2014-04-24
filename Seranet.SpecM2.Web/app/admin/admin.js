@@ -139,13 +139,15 @@
                          if (data === "true")
                              console.log("Project is existing");
                          else {
+                             console.log("Importing project happening ...");
                              console.log("Project added");
                          }
+                     }).error(function (data, status, headers, config) {
+                         console.log("An error occured while importing project to database");
+                         console.log(data);
+                         // called asynchronously if an error occurs
+                         // or server returns response with an error status.
                      });
-
-            console.log("Importing project happening ...");
-           
-
         }
     }
 
