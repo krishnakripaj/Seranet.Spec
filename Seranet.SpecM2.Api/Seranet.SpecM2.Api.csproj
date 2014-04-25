@@ -78,10 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Authorization\AuthorizeRolesAttribute.cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Model\ClaimDetail.cs" />
     <Compile Include="Scorecard\AuditorController.cs" />
-    <Compile Include="Scorecard\AuthorizeRolesAttribute.cs" />
     <Compile Include="Scorecard\ClaimsController.cs" />
     <Compile Include="Scorecard\ModelController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

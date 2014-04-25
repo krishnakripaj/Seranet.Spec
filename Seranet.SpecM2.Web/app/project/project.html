@@ -21,12 +21,14 @@
                         <div ng-switch-when="yes">
                             <div id={{area.Name}}>
                                 <span class="level-text-large">L{{area.level}}</span>
+                                <!--<span><br /></span>-->
                                 <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
                             </div>
                         </div>
                         <div ng-switch-when="no">
                             <div id={{area.Name}}>
                                 <span class="level-text-large">L{{area.level}}</span>
+                                <!--<span><br /></span>-->
                                 <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
                             </div>
                         </div>
@@ -61,7 +63,7 @@
     </div>
 
     <!-- Modal popup -->
-    <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-popup">
             <div class="modal-content">
                 <div class="modal-header">
@@ -163,7 +165,7 @@
                 <div class="modal-footer">
                     <div ng-switch on="isMember">
                         <div ng-switch-when="yes">
-                            <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default"  ng-click="cancelAnyClaimsAdded()" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
                         </div>
                         <div ng-switch-when="no">

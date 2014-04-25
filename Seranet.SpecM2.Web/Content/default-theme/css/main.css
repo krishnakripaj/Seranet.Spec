@@ -262,7 +262,7 @@ h5 {
     font-family: 'robotobold';
     font-size: 30px;
     float: left;
-    margin-right: 5px;
+    margin-right: 4px;
     color: #fff;
 }
 .level-text-small {
@@ -283,7 +283,7 @@ h5 {
 /* Styles added by Kripa  */
 
 .modal-popup{
-      position: relative;
+   position: relative;
   z-index: 1050;
   width: auto;
   margin: 10px;
