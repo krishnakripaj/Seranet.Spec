@@ -20,6 +20,7 @@ namespace Seranet.SpecM2.Api.Scorecard
         // GET api/values/5
         public int Get(String id)
         {
+            //UserRoleType userroletype = context.Database.SqlQuery<UserRoleType>("Select UserRoleType from dbo.UserRole where UserName=@p0", id).First();
             List<UserRoleType> roles = (from b in context.UserRoles where b.UserName == id select b.UserRoleType).ToList();
             if (roles.Count == 0) { //user belongs to no role
                 return -1;

@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Seranet.SpecM2.Api.Authorization;
 
 namespace Seranet.SpecM2.Api.Scorecard
 {

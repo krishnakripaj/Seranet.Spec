@@ -10,7 +10,7 @@
         vm.title = " score card";
 
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
-        // vm.busyMessage = 'Please wait ...';
+       // vm.busyMessage = 'Please wait ...';
         vm.isBusy = true;
         vm.spinnerOptions = {
             radius: 40,
@@ -69,7 +69,9 @@
                 $scope.auditedClaims.push(data);
             }
             console.log(practice.Id+" claim is rejected");
-            console.log($scope.auditedClaims);          
+            console.log($scope.auditedClaims);
+           
+            
         }
 
         $scope.acceptClaim = function (practice) {
@@ -108,7 +110,7 @@
             if ($scope.auditedClaims.length != 0) {
                 $http.post("api/auditor", $scope.auditedClaims).
                     success(function (data, status, headers) {
-                        // $route.reload();
+                       // $route.reload();
                         console.log("Auditor processed the claims");
                         console.log($scope.auditedClaims);
                         $scope.closeModalPopup();
@@ -117,8 +119,11 @@
                         console.log(data);
                         alert("unauthorized action");
                         $scope.closeModalPopup();
-                    }
+                                }
                     );
+            }
+            else {
+                $scope.closeModalPopup();
             }
 
             
@@ -263,8 +268,10 @@
                     error(function (data, status, headers, config) {
                         alert("You are not authorized to claim")
                         console.log(data);
+                        $scope.closeModalPopup();
                     });
             }
+            $scope.closeModalPopup();
             
             
             
@@ -280,17 +287,20 @@
             jQuery.noConflict();
 
             var modalDialog = $('#myModal');
+            var backdrop = $('.modal-backdrop');
             modalDialog.modal('hide');
+
             //$(".modal-backdrop").hide();
             //if (modalDialog.modal) {
             //    modalDialog.modal('hide');
             //} else {
             //    setTimeout(function () { modalDialog = $('#myModal'); modalDialog.modal('hide'); }, 1000);
             //}
-            // $(document).ready(function () {
-                
+           // $(document).ready(function () {
+
             // });
-            $('.modal-backdrop').remove();
+            backdrop.remove();
+
             $route.reload();
         }
        
@@ -512,7 +522,7 @@
                 else if ($scope.areas[i].level == 3)
                     style = "dark-green-back";
 
-                document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style + " clearfix";
+                document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style+ " clearfix";
             }
         }  
 
@@ -522,7 +532,7 @@
                            console.log(data);
                            $scope.userName = data.split("\\")[1].toString().toLowerCase();
                            // $scope.userName = "nirangad";
-                           $http.get("http://99xt.lk/services/api/Projects",{withCredentials : true}).
+                           $http.get("http://99xt.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
                                 for (var i = 0; i < data.length; i++) {
@@ -541,20 +551,23 @@
                                 }
                                 $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                                  success(function (data, status, headers, config) {
-                                     if ((data == 1||data==3) && $scope.isMember=="no") {    //enum returns a number as the role (1 : auditoe, 0:admin
-                                         $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
-                                     }
-                                     else {
-                                         $scope.isAuditor = "no";
-                                     }
-                                     console.log("is auditor: " + $scope.isAuditor)
-                                 }).
+                                     if ((data == 1 || data == 3) && $scope.isMember=="no") {    //enum returns a number as the role (1 : auditoe, 0:admin
+                                        $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
+                                    }
+                                    else {
+                                       $scope.isAuditor = "no";
+                                    }
+                                    console.log("is auditor: " + $scope.isAuditor)
+                                }).
                                 error(function (data, status, headers, config) {
+                                    console.log("An error occured while getting details from Userrole database.");
                                     console.log(data);
                                 });
-                            }).
-                            error(function (data, status, headers, config) {
-                                    console.log(data);
+
+                               }).
+                            error(function (data, error) {
+                                console.log("An error occured while getting details from 99XT Projects API.");
+                                console.log(error);
                             });
                         }).
                 error(function (data, status, headers, config) {
