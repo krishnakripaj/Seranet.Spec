@@ -9,7 +9,7 @@
         var vm = this;
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
         var events = config.events;
-        vm.busyMessage = 'Please wait ...';
+        vm.busyMessage = '';
         vm.isBusy = true;
         vm.spinnerOptions = {
             radius: 40,
@@ -25,7 +25,7 @@
         activate();
 
         function activate() {
-            logSuccess('Hot Towel Angular loaded!', null, true);
+         //   logSuccess('Hot Towel Angular loaded!', null, true);
             common.activateController([], controllerId);
         }
 

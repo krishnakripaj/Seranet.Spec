@@ -14,7 +14,7 @@
                 <div class="col-md-3" data-ng-repeat="area in areas">
 
                     <div class="content-box-type-three title-type-one">
-                        <h4>{{area.Name}}</h4>
+                        <h4>{{area.fname}} <br /> {{area.lname}}</h4>
                     </div>
                     <div ng-switch on="area.hasPendings" id={{area.Name}}>
 
@@ -22,14 +22,16 @@
                             <div id={{area.Name}}>
                                 <span class="level-text-large">L{{area.level}}</span>
                                 <!--<span><br /></span>-->
-                                <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}} ({{area.pendings}} Pending)</span>
+                                <span class="level-text-small-project">Certified {{area.certificates}} of {{area.practices}} </span>
+                                <div class="level-text-small-pending">({{area.pendings}} Pending) </div>
                             </div>
                         </div>
                         <div ng-switch-when="no">
                             <div id={{area.Name}}>
                                 <span class="level-text-large">L{{area.level}}</span>
                                 <!--<span><br /></span>-->
-                                <span class="level-text-small">Certified {{area.certificates}} of {{area.practices}}</span>
+                                <span class="level-text-small-project">Certified {{area.certificates}} of {{area.practices}}</span>
+                                <div class="height-adjuster-no-pending"></div>
                             </div>
                         </div>
                     </div>

@@ -80,13 +80,29 @@ h5 {
     padding: 20px;
 }
 .content-box-type-two {
-    padding: 10px 20px;
+    padding: 10px 20px 18px;
+    font-size: 12px;
 }
+
+.content-box-type-two-dashboard {
+    padding: 22px 20px 6px;
+    font-size: 12px;
+}
+
 .content-box-type-two-popup {
     padding: 10px 20px;
     word-wrap: break-word;
     
 
+}
+.project-name {
+    font-size:17px;
+    margin-top : 24px;
+}
+
+.project-name-pending {
+    font-size: 13px;
+    font-family : robotolight;
 }
 .content-box-type-three {
     padding: 12px 30px;
@@ -108,7 +124,7 @@ h5 {
 }
 .mid-boxes {
     margin-top: 2em;
-    color: #fff;
+    color: #000;
 }
 .mid-boxes h3 {
     margin: 0em 0em 1em 0em;
@@ -133,7 +149,7 @@ h5 {
     background-color: #0090d9;
 }
 .green-back {
-    background-color: #0aa699;
+    background-color: #07776d;
 }
 .dark-green-back {
     background-color: #07776d;
@@ -189,6 +205,10 @@ h5 {
       margin: 10px;
 }
 
+.title-type-one h4 {
+      line-height: 26px;
+}
+
 .yellow-text {
     color: #fdd01c;
 }
@@ -200,8 +220,7 @@ h5 {
 }
 .grid-title-white div {
     color: #fff;
-    font-family: 'robotobold';
-    font-size: 1.1em;
+    font-size: 22px;
 }
 /*.grid*/ 
 .grid{
@@ -240,17 +259,43 @@ h5 {
     font-size: 1.12em !important;
 }
 .height-adjuster {
-    height: 97px;
+    height: 107px;
+}
+
+.height-adjuster-no-pending {
+    height: 63px;
 }
 .status-text {
     margin: 6px 0px;
+    font-size: 15px;
 }
+
+.status-text-dashboard {
+    margin: 14px 3px;
+    font-size: 15px;
+    float: right;
+    font-family: robotolight;
+}
+
+.status-text-boxes {
+    margin: 14px 3px;
+    font-size: 15px;
+    float: right;
+    font-family: robotolight;
+}
+
+.number-of-projects-text {
+    font-size: 17px;
+    letter-spacing : 0px;
+}
+
 .progress-bar-back,
 .progress-bar-back div {
     height: 5px;
 }
 .progress-bar-back {
     background-color: #ebeef1;
+    margin: 20px 0px;
 }
 .large-text {
     font-size: 2em;
@@ -265,18 +310,39 @@ h5 {
     margin-right: 4px;
     color: #fff;
 }
+
 .level-text-small {
     font-size: 15px;
     float: left;
     color: #fff;
     margin-top: 11px;
 }
+
+.level-text-small-project {
+    font-size: 97%;
+    float: right;
+    color: #fff;
+    margin-top: 11px;
+    font-family: robotolight;
+}
+
+.level-text-small-pending {
+    font-size: 97%;
+    margin-left: -21px;
+    color: #fff;
+    margin-top: 10px;
+    float: right;
+    clear: right;
+        font-family: robotolight;
+}
+
 @media (-webkit-min-device-pixel-ratio: 2) {
     .logo {
         background-image: url(../images/logo-retina.png);
         background-repeat: no-repeat;
         background-position: 0px 10px;
         background-size: 373px;
+        
     }
 }
 
