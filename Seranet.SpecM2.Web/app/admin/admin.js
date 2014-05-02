@@ -55,7 +55,9 @@
                   console.log(data);
               });
             common.activateController([], controllerId)
-                .then(function () { log('Activated Admin View'); });
+                .then(function () { 
+                    //log('Activated Admin View'); 
+                    });
         }
 
         $scope.allProjectsFrom99XServiceAPI = [];   //coming from the 99X service
