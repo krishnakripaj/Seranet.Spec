@@ -82,9 +82,24 @@ h5 {
 .content-box-type-two {
     padding: 10px 20px;
 }
+.content-box-type-two-popup {
+    padding: 10px 20px;
+    word-wrap: break-word;
+    
+
+}
 .content-box-type-three {
     padding: 12px 30px;
 }
+
+.content-box-type-three-ash {
+    padding: 12px 30px;
+}
+.content-box-type-three-ash:hover {
+   background-color:#C0C0C0;
+   cursor: pointer;
+}
+
 .top-boxes h3 {
     font-family: 'robotolight';
     margin: 0em 0em 1em 0em;
@@ -127,6 +142,9 @@ h5 {
 .black-back {
     background-color: #000000;
 }
+.purple-back {
+    background-color:#BE81F7;
+}
 
 .red-back {
     background-color: #f35958;
@@ -156,10 +174,20 @@ h5 {
     background-color: #444;
     color: #fff;
 }
+title-type-two {
+     color: #fff;
+     padding:6px 20px;
+ }
+ .title-type-two h3, .title-type-two h4{
+     color: #fff;
+     font-size: 1.2em;
+ }
+
 .title-type-one h4,
-.title-type-one h3 {
-    margin: 0px;
+.title-type-one h3, .title-type-two h3, .title-type-two h4 {
+      margin: 10px;
 }
+
 .yellow-text {
     color: #fdd01c;
 }
@@ -174,13 +202,35 @@ h5 {
     font-family: 'robotobold';
     font-size: 1.1em;
 }
-.grid {
+/*.grid*/ 
+.grid{
+     border-bottom: 1px solid #d3d3d3;
+}
+.grid, .grid-type-two{
     border-bottom: 1px solid #d3d3d3;
 }
 .scorecard-tile {
     background-color: #fff;
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3; 
 }
+
+#popup-trigger{
+     cursor: pointer;
+ }
+ #popup-trigger:hover{
+     background-color: #f1f1f1;
+ }
+ .grid-type-two .col{
+     padding: 5px 4px;
+ }
+
+ .padding-zero{
+     padding: 0px !important;
+ }
+ .large-text{
+     font-size: 2em;
+ }
+
 .inverted-margin-container {
     padding-left: 15px;
     padding-right: 15px;
@@ -189,7 +239,7 @@ h5 {
     font-size: 1.12em !important;
 }
 .height-adjuster {
-    height: 81px;
+    height: 97px;
 }
 .status-text {
     margin: 6px 0px;
@@ -202,7 +252,7 @@ h5 {
     background-color: #ebeef1;
 }
 .large-text {
-    font-size: 1.2em;
+    font-size: 2em;
 }
 .progress-bar {
     box-shadow: none;
@@ -211,7 +261,7 @@ h5 {
     font-family: 'robotobold';
     font-size: 30px;
     float: left;
-    margin-right: 30px;
+    margin-right: 5px;
     color: #fff;
 }
 .level-text-small {
@@ -227,7 +277,6 @@ h5 {
         background-position: 0px 10px;
         background-size: 373px;
     }
-<<<<<<< HEAD
 }
 
 /* Styles added by Kripa  */
@@ -240,7 +289,12 @@ h5 {
 }
 
 .modal-header{
-    background-color : #A09B9B;
+    background-image: -webkit-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+    background-image: -moz-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+    background-image: -o-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+    background-image: -ms-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+    background-image: linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f9f9f9', EndColorStr='#e9e9e9');
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -248,7 +302,11 @@ h5 {
 @media screen and (min-width: 768px) {
     .modal-popup {
         width: 600px;
-        margin: 30px auto;
+        margin: 5% 14%;
+    }
+    .modal-content {
+        width:1090px;
+        margin: 0 auto;
     }
 }
 
@@ -261,6 +319,163 @@ h5 {
     opacity: 0.4;
 }
 
-=======
+
+.disabled-div{
+    pointer-events:none;
+    opacity: 0.4;
 }
+
+.no-margin-top {
+margin-top : 0px;
+}
+
+input[type="checkbox"].checkbox {
+    display: none;
+}
+
+input[type="checkbox"].checkbox + label {
+    display: inline;
+    position: relative;
+    color: #333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+    
+    /*label styling*/
+    padding: 6px 0px;
+    font-size: 11.844px;
+    font-weight: lighter;
+    line-height: 14px;
+    
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    float:left;
+    width:5.0em;
+    text-align:center;
+}
+
+input[type="checkbox"].checkbox:checked + label {
+    color: #fff;
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+
+input[type="checkbox"].checkbox:checked+label:after {
+    content: 'Pending';
+}
+
+input[type="checkbox"].checkbox +label:after {
+    content: 'Claim'; 
+}
+
+input[type="checkbox"].checkbox:disabled + label {
+    opacity: 0.5;
+}
+
+#sub-area-actionlink {
+    text-decoration: none;
+}
+
+.palered-back {
+background-color:#FADBDB;
+}
+
+.paleyellow-back {
+background-color:#F5F6CE;
+}
+
+.palegreen-back {
+background-color:#97DF9C;
+}
+
+.l1-text{
+     color: #f35958;
+}
+
+.l2-text{
+    color: #fdd01c;
+}
+
+.l3-text{
+     color: #07776d;
+}
+
+.grid-row-set-l1 > div{
+     border-left:5px solid #f35958;
+ }
+ .grid-row-set-l2 > div{
+     border-left:5px solid #fdd01c;
+ }
+.grid-row-set-l3 > div{
+     border-left:5px solid #0aa699;
+ }
+
+btn-default-audit {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+
+   
+}
+
+.btn-default-audit:hover,
+.btn-default-audit:focus,
+.btn-default-audit:active,
+.btn-default-audit.active,
+.open .dropdown-toggle.btn-default-audit {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+
+}
+
+.btn-default-audit:active,
+.open .dropdown-toggle.btn-default-audit {
+  background-image: none;
+}
+
+
+.btn-default-audit .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+
+<<<<<<< HEAD
+/*import projects page styles */ 
+.list-type-one{
+    margin:0;
+    padding: 0;
+}
+.list-type-one li{
+    list-style: none;
+    padding: .7em 1.5em;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.add-remove-projects button{
+    margin-left: 1.5em; 
+    float:right;
+}
+.add-remove-projects li:hover{
+    background-color: #f1f1f1;
+}
+/*import projects page styles ends */
+
+.spinner {
+    position : fixed !important;
+    left : 50% !important;
+    top : 50% !important;
+}
+
+.page-splash{
+    position : absolute;
+=======
+.modal-backdrop.fade.in {
+opacity: 0.5;
+/*filter: alpha(opacity=50);*/
 >>>>>>> upstream/master
+}

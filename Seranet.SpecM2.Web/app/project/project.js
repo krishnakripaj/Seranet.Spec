@@ -140,6 +140,7 @@
                        success(function (data, status, headers, config) {
                            console.log(data);
                            for (var i = 0; i < data.length; i++) {
+
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
                            };
                            setPractices();
@@ -356,12 +357,16 @@
         activate();
 
         function activate() {
-            common.activateController([], controllerId).then(function () { log('Activated Project View'); });
+            common.activateController([], controllerId).then(function () {// log('Activated Project View'); 
+            });
 
             $http({ method: 'GET', url: 'api/model' }).
                success(function (data, status, headers, config) {
                    console.log(data);
                    for (var i = 0; i < data.length; i++) {
+                       var name = data[i].Name;
+                       data[i].fname = name.split(" ")[0];
+                       data[i].lname = name.split(" ")[1];
                        $scope.areas.push(data[i]);
                    };
 

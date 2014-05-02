@@ -1,6 +1,6 @@
 ﻿<section id="dashboard-view" data-ng-controller="dashboard as vm">
     <div class="app-content">
-        <h1 class="page-heading">Dashboard</h1>
+        <h1 class="page-heading"></h1>
 
         <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation" style="margin-top:500px">
             <div data-cc-spinner="vm.spinnerOptions"></div>
@@ -63,20 +63,22 @@
                 </div>
             </div>
         </div>-->
-        <div class="mid-boxes green-back content-box-type-one">
-            <h3>Project Comparison</h3>
-            |
-            <span>{{projectlist.length}} projects</span>
-        </div>
+        <!--<div class="mid-boxes green-back content-box-type-one">-->
+            <div class="page-heading">
+                <h1>
+                    Project Comparison         |
+                    <span class ="number-of-projects-text">{{projectlist.length}} projects</span>
+                </h1> 
+            </div>
         <div class="inverted-margin-container white-back">
             <div class="row dark-green-back">
                 <div class="col-md-2 grid-title-white">
-                    <div class="content-box-type-two font-adjuster">Project Name</div>
+                    <div class="content-box-type-two font-adjuster"></div>
                 </div>
                 <div class="col-md-10">
                     <div class="row grid-title-white">
                         <div class="col-md-3" data-ng-repeat="area in areas">
-                            <div class="content-box-type-two">{{area.Name}}</div>
+                            <div class="content-box-type-two">{{area.fname}}<br/>{{area.lname}}</div>
                         </div>
                     </div>
                 </div>
@@ -86,12 +88,12 @@
                 <a href=#/project/{{project.Id}}>
                     <div class="col-md-2 grid" ng-switch on="project.hasPendings">
                         <div ng-switch-when="no">
-                            <div class="content-box-type-two bold-text height-adjuster">{{project.Name}}</div>
+                            <div class="content-box-type-two bold-text height-adjuster"><div class="project-name">{{project.Name}}</div></div>
                         </div>
                         <div ng-switch-when="yes">
                             <div class="content-box-type-two bold-text height-adjuster">
-                                {{project.Name}}
-                                <div>({{project.pendingcount}} Pending)</div>
+                                <div class="project-name">{{project.Name}}</div>
+                                <div class="project-name-pending">({{project.pendingcount}} Pending)</div>
                             </div>
 
                         </div>
@@ -99,9 +101,9 @@
                     <div class="col-md-10">
                         <div class="row grid">
                             <div class="col-md-3" data-ng-repeat="area in project.areas">
-                                <div class="content-box-type-two">
-                                    <div id={{project.Name}}{{area.Name}}>L{{area.arealevel}}</div>
-                                    <div class="status-text">Certified {{area.areacertificates}} of {{area.areapractices}}</div>
+                                <div class="content-box-type-two-dashboard">
+                                    <div id={{project.Name}}{{area.Name}}>L{{area.arealevel}}<span class="status-text-dashboard">( {{area.areacertificates}} / {{area.areapractices}} )</span></div>
+                                    
                                     <div class="progress-bar-back">
                                         <div id=pb{{project.Name}}{{area.Name}}></div>
                                     </div>

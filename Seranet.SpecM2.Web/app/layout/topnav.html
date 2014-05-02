@@ -1,16 +1,17 @@
 ﻿<div data-ng-controller="topnav as vm">
     <div class="app-header-wrapper">
-        <div class="app-header logo">
+        <div class="app-header ">
+            <a href="#/"> <img src="/Content/default-theme/images/logo-retina.png" style="width: 348px;background-position;" /></a>
             <ul class="main-menu pull-right">
-                <li>
-                    <a  href="#/">Dashboard</a>
-                </li>
-                <li ng-switch on="isAdmin" class="margin-zero">
-                    <div ng-switch-when="yes">
-                        <a href="#/admin">Admin</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+                    <li>
+                        <a href="#/">Dashboard</a>
+                    </li>
+                    <li ng-switch on="isAdmin" class="margin-zero">
+                        <div ng-switch-when="yes">
+                            <a href="#/admin">Admin</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
     </div>
 </div>
