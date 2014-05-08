@@ -1,16 +1,16 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'project';
-    angular.module('app').controller(controllerId, ['$scope', 'common', '$routeParams', '$http','$route', project]);
+    angular.module('app').controller(controllerId, ['$scope', 'common', '$routeParams', '$http', '$route', project]);
 
-    function project($scope, common, $routeParams, $http,$route) {
+    function project($scope, common, $routeParams, $http, $route) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
         vm.title = " score card";
 
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
-       // vm.busyMessage = 'Please wait ...';
+        // vm.busyMessage = 'Please wait ...';
         vm.isBusy = true;
         vm.spinnerOptions = {
             radius: 40,
@@ -28,8 +28,8 @@
 
         $scope.areas = []; //$scope.areas[i].level gives the level of i-th area,$scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
         $scope.incompletedPractisesCount = 0;
-        $scope.level_list = [0, 1, 2];       
-        
+        $scope.level_list = [0, 1, 2];
+
         $scope.projectName = "";
         $scope.projectInContext;
         $scope.projectAssignment = "";
@@ -47,6 +47,8 @@
 
         $scope.listOfAllClaims = [];
         $scope.auditedClaims = [];
+
+        $scope.notApplicableClaims = [];
 
         $scope.rejectClaim = function (practice) {
             document.getElementById('btn-reject' + practice.Id).disabled = true;
@@ -68,16 +70,41 @@
             if (auditedbefore == false) {
                 $scope.auditedClaims.push(data);
             }
-            console.log(practice.Id+" claim is rejected");
+            console.log(practice.Id + " claim is rejected");
             console.log($scope.auditedClaims);
-           
-            
+
+
         }
+
+        $scope.makeClaimNotApplicable = function (practice) {
+            document.getElementById('btn-reject' + practice.Id).disabled = true;
+            document.getElementById('btn-accept' + practice.Id).disabled = true;
+            document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
+
+            $scope.claims[practice.Id] = 3;
+            var auditedbefore = false;
+            var data = {};
+            data['practice_id'] = practice.Id;
+            data['status'] = 4;
+            data['project_id'] = $scope.projectId;
+            for (var i = 0; i < $scope.auditedClaims.length; i++) {
+                if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
+                    $scope.auditedClaims[i].status = 4;
+                    auditedbefore = true;
+                }
+            }
+            if (auditedbefore === false) {
+                $scope.auditedClaims.push(data);
+            }
+            console.log(practice.Id + " claim is not applicable");
+            console.log($scope.auditedClaims);
+        }
+
 
         $scope.acceptClaim = function (practice) {
             document.getElementById('btn-reject' + practice.Id).disabled = true;
             document.getElementById('btn-accept' + practice.Id).disabled = true;
-          
+
             $scope.claims[practice.Id] = 1;
             var auditedbefore = false;
             var data = {};
@@ -110,7 +137,7 @@
             if ($scope.auditedClaims.length != 0) {
                 $http.post("api/auditor", $scope.auditedClaims).
                     success(function (data, status, headers) {
-                       // $route.reload();
+                        // $route.reload();
                         console.log("Auditor processed the claims");
                         console.log($scope.auditedClaims);
                         $scope.closeModalPopup();
@@ -119,14 +146,14 @@
                         console.log(data);
                         alert("unauthorized action");
                         $scope.closeModalPopup();
-                                }
+                    }
                     );
             }
             else {
                 $scope.closeModalPopup();
             }
 
-            
+
         }
 
         $scope.setPractisesArray = function (practises, subareaName) {
@@ -162,11 +189,13 @@
                 $scope.completedPractises = [];
                 $scope.pendingPractises = [];
                 $scope.incompletedPractises = [];
+                $scope.notApplicableClaims = [];
                 $scope.hasPractices = [];
                 for (var i = 0 ; i < 3 ; i++) {
                     $scope.completedPractises[i] = [];
                     $scope.pendingPractises[i] = [];
                     $scope.incompletedPractises[i] = [];
+                    $scope.notApplicableClaims[i] = [];
                     $scope.hasPractices[i] = "no";
                 }
 
@@ -178,6 +207,7 @@
                 var index = 0;
                 var index1 = 0;
                 var index2 = 0;
+                var index3 = 0;
 
                 for (var i = 0; i < Object.keys($scope.practices).length; i++) {
 
@@ -198,15 +228,25 @@
                         $scope.currentSubareaPendings++;
                         index2++;
                     }
+                    else if ($scope.claims[$scope.practices[i].Id] == 3) {
+                        //$scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                        $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1].push(practises[i]);
+                        console.log("Not applicable one - but is completed! " + index3 + " " + $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1]);
+                        $scope.currentSubareaPendings++;
+                        index3++;
+                    }
 
                     $scope.toBeCompletedCount = index1 + index2;
-                    $scope.completedCount = index;
-                    for(var c=0;c<3;c++){
-                        if ($scope.incompletedPractises[c].length + $scope.completedPractises[c].length +$scope.pendingPractises[c].length > 0){
+                    $scope.completedCount = index + index3;
+                    for (var c = 0; c < 3; c++) {
+                        if ($scope.incompletedPractises[c].length + $scope.completedPractises[c].length + $scope.pendingPractises[c].length + $scope.notApplicableClaims[c].length > 0) {
                             $scope.hasPractices[c] = "yes";
                         }
                     }
-                     
+
+                    console.log("NA - ");
+                    console.log($scope.notApplicableClaims);
+
                 }
             }
             ////can do through for loop
@@ -217,12 +257,12 @@
             //           document.getElementById("2-level-wholeraw").className = "row grid paleyellow-back";
             //           document.getElementById("3-level-wholeraw").className = "row grid palegreen-back";
 
- 
+
         }
 
         //function to save the claims
         $scope.createClaimRequest = function (practise) {
-           
+
             console.log(practise);
             var l = "#incompleteCheckBox" + practise.Id;
             var data = {};
@@ -273,12 +313,12 @@
                     });
             }
             $scope.closeModalPopup();
-            
-            
-            
+
+
+
         }
 
-     
+
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
@@ -297,15 +337,15 @@
             //} else {
             //    setTimeout(function () { modalDialog = $('#myModal'); modalDialog.modal('hide'); }, 1000);
             //}
-           // $(document).ready(function () {
+            // $(document).ready(function () {
 
             // });
             backdrop.remove();
 
             $route.reload();
         }
-       
-       
+
+
         //to uncheck all the checkboxes when popup closed
         $('#myModal').on('hidden.bs.modal', function (e) {
             var checkboxes = new Array();
@@ -318,7 +358,7 @@
             //alert('Modal is sclosed!');
             //console.log($('.modal-backdrop'));
         })
-  
+
 
         $scope.findClaimObject = function (claimPracticeId) {
 
@@ -388,7 +428,7 @@
                            };
                            calculate();
                            isAMember($scope.projectAssignment).then(function () {
-                               console.log('Success: isTeamMember: ' + $scope.isMember+' and isAuditor: '+$scope.isAuditor);
+                               console.log('Success: isTeamMember: ' + $scope.isMember + ' and isAuditor: ' + $scope.isAuditor);
 
                            });
                            //isAuditor($scope.auditorAssignment).then(function () {
@@ -434,37 +474,36 @@
                     var subpendingCount = 0;
                     for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
 
-                        if (!($scope.areas[i].SubAreas[j].Practices[k].Id in $scope.claims)) {
+                        if (!($scope.areas[i].SubAreas[j].Practices[k].Id in $scope.claims)) { //if practise is not in claims
                             if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
 
                                 level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
                             }
                         }
-                        else {
+                        else {                                                                   //if practise is in claims
                             if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {
+                                if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] === 3) {
+                                    subcertificatesCount++;
+                                }
+                                else if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1) {  // if practise is not accepted
 
-                                if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1) {
-
-                                    if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] === 0) {
+                                    if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] === 0) { //if practise not claimed
                                         subpendingCount++;
-                                        console.log($scope.areas[i].SubAreas[j].Practices[k].Id +" is pending")
+                                        console.log($scope.areas[i].SubAreas[j].Practices[k].Id + " is pending")
                                     }
-                                    if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
+                                    if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {   //if sub areas practise level is less than level of area
 
-                                        level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
+                                        level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;  //then level is sub areas practise level
                                     }
-                                    
-
                                 }
 
                                 else {
-                                    subcertificatesCount++;
+                                    subcertificatesCount++;     //if accepted then certified practise count increase
                                 }
                             }
-
                         }
 
-                        if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {
+                        if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {     //calculate amount of practises 
                             subpracticesCount++;
                         }
 
@@ -512,7 +551,7 @@
                 $scope.areas[i].practices = practicesCount;
                 $scope.areas[i].certificates = certificatesCount;
                 $scope.areas[i].pendings = pendingCount;
-                $scope.areas[i].hasPendings="no"
+                $scope.areas[i].hasPendings = "no"
                 if (pendingCount > 0) {
                     $scope.areas[i].hasPendings = "yes";
                 }
@@ -527,9 +566,10 @@
                 else if ($scope.areas[i].level == 3)
                     style = "dark-green-back";
 
-                document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style+ " clearfix";
+                document.getElementById($scope.areas[i].Name).className = "content-box-type-three " + style + " clearfix";
+
             }
-        }  
+        }
 
         function isAMember(projectAssignment) {
             var promise = $http({ method: 'GET', url: 'security/username' }).
@@ -547,7 +587,7 @@
                                         else {
                                             for (var j = 0; j < data[i].members.length ; j++) {
                                                 if (data[i].members[j].toLowerCase() == $scope.userName)
-                                                    $scope.isMember = "yes";                                            
+                                                    $scope.isMember = "yes";
                                             }
 
                                         }
@@ -556,34 +596,34 @@
                                 }
                                 $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
                                  success(function (data, status, headers, config) {
-                                     if ((data == 1 || data == 3) && $scope.isMember=="no") {    //enum returns a number as the role (1 : auditoe, 0:admin
-                                        $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
-                                    }
-                                    else {
-                                       $scope.isAuditor = "no";
-                                    }
-                                    console.log("is auditor: " + $scope.isAuditor)
-                                }).
+                                     if ((data == 1 || data == 3) && $scope.isMember == "no") {    //enum returns a number as the role (1 : auditoe, 0:admin
+                                         $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
+                                     }
+                                     else {
+                                         $scope.isAuditor = "no";
+                                     }
+                                     console.log("is auditor: " + $scope.isAuditor)
+                                 }).
                                 error(function (data, status, headers, config) {
                                     console.log("An error occured while getting details from Userrole database.");
                                     console.log(data);
                                 });
 
-                               }).
+                            }).
                             error(function (data, error) {
                                 console.log("An error occured while getting details from 99XT Projects API.");
                                 console.log(error);
                             });
-                        }).
+                       }).
                 error(function (data, status, headers, config) {
                     console.log(data);
                     alert("Credential fails to access the project API")
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                });    
-                      
-        return promise;
-        }      
-    }  
-    
+                });
+
+            return promise;
+        }
+    }
+
 })();

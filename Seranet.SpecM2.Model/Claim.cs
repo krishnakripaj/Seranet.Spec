@@ -32,7 +32,8 @@ namespace Seranet.SpecM2.Model
     {
         PENDING,
         APPROVED,
-        REJECTED
+        REJECTED,
+        NOTAPPLICABLE
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿<section data-ng-controller="project as vm">
 
     <div class="app-content" id="appContent">
-       
+
         <h1 class="page-heading">{{projectName}}</h1>
 
         <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation" style="margin-top:500px">
@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        
+
     </div>
 
     <!-- Modal popup -->
@@ -112,13 +112,25 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
+
+                                            <div class="content-box-type-two-popup not-applicable-pracitises" ng-repeat="notapplicable in notApplicableClaims[i]">
+                                                {{notapplicable.Code}} - {{notapplicable.Description}}
+                                                <div class="checkbox-inline bold-text">
+                                                    <div ng-switch on="isAuditor">
+                                                        <div ng-switch-when="yes" class="checkbox-inline bold-text">
+                                                            <button type="button" id="btn-reject{{notapplicable.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(notapplicable)">Undo</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                           
                                         </div>
                                         <div class="col-md-6">
                                             <div class="col">
                                                 <div class="row" ng-repeat="pending in pendingPractises[i]">
-                                                    <div class="content-box-type-two-popup">
+                                              <div class="content-box-type-two-popup">
                                                         {{pending.Code}} - {{pending.Description}}
                                                         <div class="checkbox-inline bold-text">
                                                             <div ng-switch on="isAuditor">
@@ -129,6 +141,7 @@
                                                                 <div ng-switch-when="yes">
                                                                     <button type="button" id=btn-accept{{pending.Id}} class="btn btn-default-audit" ng-click="acceptClaim(pending)">Accept</button>
                                                                     <button type="button" id=btn-reject{{pending.Id}} class="btn btn-default-audit" ng-click="rejectClaim(pending)">Reject</button>
+                                                                    <button type="button" id=btn-notapplicable{{pending.Id}} class="btn btn-default-audit" ng-click="makeClaimNotApplicable(pending)">Not applicable</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -167,7 +180,7 @@
                 <div class="modal-footer">
                     <div ng-switch on="isMember">
                         <div ng-switch-when="yes">
-                            <button type="button" class="btn btn-default"  ng-click="cancelAnyClaimsAdded()" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" ng-click="cancelAnyClaimsAdded()" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" ng-click="saveAnyClaimsAdded()">Save changes</button>
                         </div>
                         <div ng-switch-when="no">

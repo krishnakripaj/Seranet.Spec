@@ -27,6 +27,9 @@ namespace Seranet.SpecM2.Api.Scorecard
                 case 3:
                     s = Status.PENDING;
                     break;
+                case 4:
+                    s = Status.NOTAPPLICABLE;
+                    break;
 
             }
 

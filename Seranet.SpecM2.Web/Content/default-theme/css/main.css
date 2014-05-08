@@ -393,6 +393,9 @@ left:0%;
     opacity: 0.4;
 }
 
+.not-applicable-pracitises {
+    text-decoration: line-through;
+}
 
 .disabled-div{
     pointer-events:none;
