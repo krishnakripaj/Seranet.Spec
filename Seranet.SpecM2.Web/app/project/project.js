@@ -54,6 +54,7 @@
             document.getElementById('btn-reject' + practice.Id).disabled = true;
             if ($scope.claims[practice.Id] == 0) {
                 document.getElementById('btn-accept' + practice.Id).disabled = true;
+                document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
             }
             $scope.claims[practice.Id] = 2;
             var auditedbefore = false;
@@ -104,6 +105,7 @@
         $scope.acceptClaim = function (practice) {
             document.getElementById('btn-reject' + practice.Id).disabled = true;
             document.getElementById('btn-accept' + practice.Id).disabled = true;
+            document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
 
             $scope.claims[practice.Id] = 1;
             var auditedbefore = false;
