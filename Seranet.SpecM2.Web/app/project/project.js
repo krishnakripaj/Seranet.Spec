@@ -313,9 +313,9 @@
                         console.log(data);
                         $scope.closeModalPopup();
                     });
+            } else {
+                  $scope.closeModalPopup();
             }
-            $scope.closeModalPopup();
-
 
 
         }
