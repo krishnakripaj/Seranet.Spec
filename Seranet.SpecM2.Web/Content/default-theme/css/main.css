@@ -373,6 +373,7 @@ left:0%;
     border-top-right-radius: 5px;
 }
 
+
 @media screen and (min-width: 768px) {
     .modal-popup {
         width: 96%;
@@ -382,6 +383,30 @@ left:0%;
         width:1090px;
         margin: 0 auto;
     }
+
+      .modal-content-comment {
+        width:935px;
+        margin: 0 auto;
+    }
+}
+
+.modal-content-comment {
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  outline: none;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  top: 237px;
+}
+
+.modal-body-comment {
+  position: relative;
+  padding: 20px;
+  height: 349px;
 }
 
 .checkbox-inline{
@@ -495,9 +520,17 @@ btn-default-audit {
   color: #333333;
   background-color: #ffffff;
   border-color: #cccccc;
-
-   
 }
+
+.btn-addcomment {
+color: #333;
+background-color: #fff;
+border-color: #ccc;
+font-size: 10px;
+margin-left: 12px;
+height: 26px;
+}
+
 
 .btn-default-audit:hover,
 .btn-default-audit:focus,
@@ -521,11 +554,6 @@ btn-default-audit {
   background-color: #fff;
 }
 
-
-/*.modal-backdrop.fade.in {
-opacity: 0.5;
-/*filter: alpha(opacity=50);*/
-}*/
 
 /*import projects page styles */ 
 .list-type-one{

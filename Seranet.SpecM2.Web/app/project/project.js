@@ -38,6 +38,8 @@
         $scope.isAuditor = "no";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
+
+        $scope.CommentsArray = [];
         $scope.toBeCompletedCount;
         $scope.completedCount;
         $scope.hasPractices;
@@ -55,6 +57,11 @@
             if ($scope.claims[practice.Id] == 0) {
                 document.getElementById('btn-accept' + practice.Id).disabled = true;
                 document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
+                //document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
+
+                var j = "#addAuditorCommentBtn" + practice.Id;
+
+                $(j).removeClass('disabled');
             }
             $scope.claims[practice.Id] = 2;
             var auditedbefore = false;
@@ -62,6 +69,8 @@
             data['practice_id'] = practice.Id;
             data['status'] = 2;
             data['project_id'] = $scope.projectId;
+            // data['auditor_comment'] = document.getElementById("text-auditor-comment" + practice.Id).value;
+
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
                 if ($scope.auditedClaims[i].practice_id == data['practice_id']) {
                     $scope.auditedClaims[i].status = 2;
@@ -81,6 +90,7 @@
             document.getElementById('btn-reject' + practice.Id).disabled = true;
             document.getElementById('btn-accept' + practice.Id).disabled = true;
             document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
+            //    document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
 
             $scope.claims[practice.Id] = 3;
             var auditedbefore = false;
@@ -88,6 +98,7 @@
             data['practice_id'] = practice.Id;
             data['status'] = 4;
             data['project_id'] = $scope.projectId;
+
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
                 if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
                     $scope.auditedClaims[i].status = 4;
@@ -106,6 +117,11 @@
             document.getElementById('btn-reject' + practice.Id).disabled = true;
             document.getElementById('btn-accept' + practice.Id).disabled = true;
             document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
+            // document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
+
+            var j = "#addAuditorCommentBtn" + practice.Id;
+
+            $(j).removeClass('disabled');
 
             $scope.claims[practice.Id] = 1;
             var auditedbefore = false;
@@ -113,6 +129,8 @@
             data['practice_id'] = practice.Id;
             data['status'] = 1;
             data['project_id'] = $scope.projectId;
+            //data['auditor_comment'] = document.getElementById("text-auditor-comment" + practice.Id).value;
+
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
                 if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
                     $scope.auditedClaims[i].status = 1;
@@ -159,10 +177,8 @@
         }
 
         $scope.setPractisesArray = function (practises, subareaName) {
-            console.log($('.modal-backdrop'));
-            //if (($('.modal-backdrop')).length > 1) {
-            //    ($('.modal-backdrop'))[0] = null;
-            //}
+
+            $(".modal-backdrop fade in").remove();
 
             if ($scope.changedClaims) {
                 $http({ method: 'GET', url: 'api/projectprogress/' + $scope.projectId }).
@@ -171,6 +187,8 @@
                            for (var i = 0; i < data.length; i++) {
 
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
+
+
                            };
                            setPractices();
 
@@ -214,24 +232,55 @@
                 for (var i = 0; i < Object.keys($scope.practices).length; i++) {
 
                     if (typeof $scope.claims[$scope.practices[i].Id] === "undefined" || $scope.claims[$scope.practices[i].Id] === 2) {
+
+                        for (var ind = 0; ind < $scope.CommentsArray.length ; ind++) {
+                            //check if practise id matches 
+                            if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
+                                practises[i].TeamComment = $scope.CommentsArray[ind][1];
+                                practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+                            }
+                        }
+
                         $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Unclaimed or rejected one! " + index1 + " " + $scope.incompletedPractises[$scope.practices[i].Level.Id - 1]);
                         index1++;
                     }
                     if ($scope.claims[$scope.practices[i].Id] == 1) {
+
+                        for (var ind = 0; ind < $scope.CommentsArray.length ; ind++) {
+                            //check if practise id matches 
+                            if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
+                                practises[i].TeamComment = $scope.CommentsArray[ind][1];
+                                practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+                            }
+                        }
+
                         $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log($scope.completedPractises[0]);
                         console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
                         index++;
                     }
-                    else if ($scope.claims[$scope.practices[i].Id] == 0) {
+                    else if ($scope.claims[$scope.practices[i].Id] == 0) {  
+
+                        for (var ind = 0; ind < $scope.CommentsArray.length ; ind++) {
+                            //check if practise id matches 
+                            if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
+                                practises[i].TeamComment = $scope.CommentsArray[ind][1];
+                                practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+                            }
+                        }
+
                         $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Pending one! " + index2 + " " + $scope.pendingPractises[$scope.practices[i].Level.Id - 1]);
                         $scope.currentSubareaPendings++;
                         index2++;
+
+
+
+
+                        
                     }
                     else if ($scope.claims[$scope.practices[i].Id] == 3) {
-                        //$scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Not applicable one - but is completed! " + index3 + " " + $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1]);
                         $scope.currentSubareaPendings++;
@@ -251,15 +300,6 @@
 
                 }
             }
-            ////can do through for loop
-            //           document.getElementById("popup-level1-raw").className = "col-md-2 red-back  content-box-type-two";
-            //           document.getElementById("popup-level2-raw").className = "col-md-2 yellow-back  content-box-type-two";
-            //           document.getElementById("popup-level3-raw").className = "col-md-2 green-back  content-box-type-two";
-            //           document.getElementById("1-level-wholeraw").className = "row grid palered-back";
-            //           document.getElementById("2-level-wholeraw").className = "row grid paleyellow-back";
-            //           document.getElementById("3-level-wholeraw").className = "row grid palegreen-back";
-
-
         }
 
         //function to save the claims
@@ -267,20 +307,26 @@
 
             console.log(practise);
             var l = "#incompleteCheckBox" + practise.Id;
+            var j = "#addCommentBtn" + practise.Id;
+
             var data = {};
             console.log(l);
             if (!$(l).prop('checked')) {
-                // $scope.listOfAllClaims.pop();
+
+                // document.getElementById('addCommentBtn' + practise.Id).disabled = true;
+                $(j).addClass('btn btn-addcomment disabled');
+
                 $scope.listOfAllClaims.splice($.inArray($scope.findClaimObject(practise.Id), $scope.listOfAllClaims), 1);
                 console.log("not clicked - " + l);
                 console.log($scope.listOfAllClaims);
             }
             else {
-
-                data['AuditorComment'] = "Seed Auto generated ";
+                $(l).prop('checked', true);
+                // document.getElementById('addCommentBtn' + practise.Id).disabled = false;
+                $(j).removeClass('disabled');
                 data['Practice'] = practise;
                 data['Project'] = $scope.projectInContext;
-                data['TeamComment'] = "Seed Auto generated ";
+                data['TeamComment'] = document.getElementById("text-member-comment" + practise.Id).value;
 
                 $scope.listOfAllClaims.push(data);
                 console.log("clicked - " + l);
@@ -296,6 +342,7 @@
 
             $scope.closeModalPopup();
         }
+
 
         //when save button is clicked
         $scope.saveAnyClaimsAdded = function () {
@@ -313,59 +360,114 @@
                         console.log(data);
                         $scope.closeModalPopup();
                     });
+                $(".modal-backdrop fade in").remove();
             } else {
-                  $scope.closeModalPopup();
+                $scope.closeModalPopup();
             }
-
-
         }
 
 
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
-            //if (($('.modal-backdrop')).length > 1) {
-            //    ($('.modal-backdrop'))[0] = null;
-            //}
             jQuery.noConflict();
 
             var modalDialog = $('#myModal');
             var backdrop = $('.modal-backdrop');
             modalDialog.modal('hide');
 
-            //$(".modal-backdrop").hide();
-            //if (modalDialog.modal) {
-            //    modalDialog.modal('hide');
-            //} else {
-            //    setTimeout(function () { modalDialog = $('#myModal'); modalDialog.modal('hide'); }, 1000);
-            //}
-            // $(document).ready(function () {
-
-            // });
-           
-            //$('myModal').data('bs.modal', null);
             $('body').removeClass('modal-open');
             backdrop.remove();
-           // $('.modal-backdrop').remove();
             $route.reload();
+
+            //to uncheck all the checkboxes when popup closed
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                var checkboxes = new Array();
+                checkboxes = document.getElementsByName('incompleteCheckboxes');
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].type == 'checkbox') {
+                        checkboxes[i].checked = false
+                    }
+                }
+            })
+
+            $(".modal-backdrop fade in").remove();
+
         }
 
+        //to hide the comment modal popup
+        $scope.closeCommentPopupAndTakeText = function (incomplete) {
+            var modalId = "#commentModal" + incomplete.Id;
+            var commentText = document.getElementById("text-member-comment" + incomplete.Id).value;
 
-        //to uncheck all the checkboxes when popup closed
-        $('#myModal').on('hidden.bs.modal', function (e) {
-            var checkboxes = new Array();
-            checkboxes = document.getElementsByName('incompleteCheckboxes');
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].type == 'checkbox') {
-                    checkboxes[i].checked = false
-                }
-            }
-            
-            //
+            var practiceToAddCommentTo = $scope.findClaimObject(incomplete.Id);
+            practiceToAddCommentTo.TeamComment = commentText;
 
-            //alert('Modal is sclosed!');
-            //console.log($('.modal-backdrop'));
-        })
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
+        //to hide the complete comment modal popup
+        $scope.closeCompletedCommentPopupAndTakeText = function (complete) {
+            var modalId = "#commentCompletedModal" + complete.Id;
+            var commentText = document.getElementById("text-auditor-complete-comment" + complete.Id).value;
+
+            var practiceToAddCommentTo = $scope.findAuditedClaimObject(complete.Id);
+            practiceToAddCommentTo.auditor_comment = commentText;
+
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
+        //to hide the completed comment modal popup
+        $scope.closeCompletedCommentPopup = function (complete) {
+            var modalId = "#commentCompletedModal" + complete.Id;
+
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
+        //to hide the auditor comment modal popup
+        $scope.closeAuditorCommentPopupAndTakeText = function (project) {
+            var modalId = "#auditorCommentModal" + project.Id;
+            var commentText = document.getElementById("text-auditor-comment" + project.Id).value;
+
+            var practiceToAddCommentTo = $scope.findAuditedClaimObject(project.Id);
+            practiceToAddCommentTo.auditor_comment = commentText;
+
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
+        $scope.preventClose = function (event) { event.stopPropagation(); };
 
 
         $scope.findClaimObject = function (claimPracticeId) {
@@ -374,6 +476,19 @@
 
                 if ($scope.listOfAllClaims[i].Practice.Id === claimPracticeId)
                     return $scope.listOfAllClaims[i]; // Return as soon as the object is found
+
+            }
+
+            return null; // The object was not found
+
+        }
+
+        $scope.findAuditedClaimObject = function (claimPracticeId) {
+
+            for (var i = 0, len = $scope.auditedClaims.length; i < len; i++) {
+
+                if ($scope.auditedClaims[i].practice_id === claimPracticeId)
+                    return $scope.auditedClaims[i]; // Return as soon as the object is found
 
             }
 
@@ -392,13 +507,6 @@
                 $http.post("api/claims", $scope.listOfAllClaims).success(function (data, status, headers) {
                     console.log("Claim aray added");
                 })
-
-                //for (var i = 0; i < $scope.listOfAllClaims.length; i++) {
-                //    var divId = "IncompleteDiv" + $scope.listOfAllClaims[i].Practice.Id;
-
-                //    console.log(divId);
-                //    document.getElementById(divId).className = "row grid disabled-practise-div";
-                //}
             }
         }
 
@@ -433,6 +541,23 @@
                            console.log(data);
                            for (var i = 0; i < data.length; i++) {
                                $scope.claims[data[i].Practice_Id] = data[i].Status;
+
+                               $scope.getCommentsMadeForClaim = function () {
+
+                                   $http({ method: 'GET', url: 'api/claims/' + data[i].Id }).
+                                        success(function (claimdata, status, headers, config) {
+                                            var holdCommentAndId = [];
+                                            holdCommentAndId[0] = claimdata.Practice.Id;
+                                            holdCommentAndId[1] = claimdata.TeamComment;
+                                            holdCommentAndId[2] = claimdata.AuditorComment;
+
+                                            $scope.CommentsArray.push(holdCommentAndId);
+                                        })
+
+                               }
+
+                               $scope.getCommentsMadeForClaim();
+
                            };
                            calculate();
                            isAMember($scope.projectAssignment).then(function () {
@@ -442,7 +567,6 @@
                            //isAuditor($scope.auditorAssignment).then(function () {
                            //    console.log('Success: ' + $scope.isAuditor);
                            //})
-
                        }).
                        error(function (data, status, headers, config) {
                            console.log(data);

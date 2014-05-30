@@ -42,10 +42,16 @@ namespace Seranet.SpecM2.Api.Scorecard
             return context.Claims;
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        //// GET api/values/5
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        public Claim Get(int id)
         {
-            return "value";
+         Claim claim =context.Claims.Include("Practice").Where(p => p.Id == id).FirstOrDefault();
+         return claim;
         }
 
         [HttpPost]
