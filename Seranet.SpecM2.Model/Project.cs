@@ -19,7 +19,8 @@ namespace Seranet.SpecM2.Model
 
         public byte[] RowVersion { get; set; }
 
-        
+        public string TeamMembers { get; set; }
 
+        public string ProjectMemberRep { get; set; }
     }
 }

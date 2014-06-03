@@ -59,9 +59,9 @@
                 document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
                 //document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
 
-                var j = "#addAuditorCommentBtn" + practice.Id;
+                
+                
 
-                $(j).removeClass('disabled');
             }
             $scope.claims[practice.Id] = 2;
             var auditedbefore = false;
@@ -70,6 +70,15 @@
             data['status'] = 2;
             data['project_id'] = $scope.projectId;
             // data['auditor_comment'] = document.getElementById("text-auditor-comment" + practice.Id).value;
+
+
+            var f = "#addCommentBtn" + practice.Id;
+            if (f != null)
+                $(f).removeClass('disabled');
+
+            var j = "#addAuditorCommentBtn" + practice.Id;
+            if (j != null)
+                $(j).removeClass('disabled');
 
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
                 if ($scope.auditedClaims[i].practice_id == data['practice_id']) {
@@ -91,6 +100,11 @@
             document.getElementById('btn-accept' + practice.Id).disabled = true;
             document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
             //    document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
+
+            var j = "#addAuditorCommentBtn" + practice.Id;
+
+            $(j).removeClass('disabled');
+
 
             $scope.claims[practice.Id] = 3;
             var auditedbefore = false;
@@ -260,7 +274,7 @@
                         console.log("Got one! " + index + " " + $scope.completedPractises[$scope.practices[i].Level.Id - 1]);
                         index++;
                     }
-                    else if ($scope.claims[$scope.practices[i].Id] == 0) {  
+                    else if ($scope.claims[$scope.practices[i].Id] == 0) {
 
                         for (var ind = 0; ind < $scope.CommentsArray.length ; ind++) {
                             //check if practise id matches 
@@ -278,14 +292,24 @@
 
 
 
-                        
+
                     }
                     else if ($scope.claims[$scope.practices[i].Id] == 3) {
+
+                        for (var ind = 0; ind < $scope.CommentsArray.length ; ind++) {
+                            //check if practise id matches 
+                            if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
+                                practises[i].TeamComment = $scope.CommentsArray[ind][1];
+                                practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+                            }
+                        }
+
                         $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1].push(practises[i]);
                         console.log("Not applicable one - but is completed! " + index3 + " " + $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1]);
                         $scope.currentSubareaPendings++;
                         index3++;
                     }
+
 
                     $scope.toBeCompletedCount = index1 + index2;
                     $scope.completedCount = index + index3;
@@ -419,6 +443,7 @@
             var modalId = "#commentCompletedModal" + complete.Id;
             var commentText = document.getElementById("text-auditor-complete-comment" + complete.Id).value;
 
+
             var practiceToAddCommentTo = $scope.findAuditedClaimObject(complete.Id);
             practiceToAddCommentTo.auditor_comment = commentText;
 
@@ -466,6 +491,40 @@
             backdrop.remove();
             $(".modal-backdrop fade in").remove();
         }
+
+        $scope.closeNotApplicableCommentPopupAndTakeText = function (project) {
+            var modalId = "#notapplicablemodal" + project.Id;
+            var commentText = document.getElementById("text-auditor-notapplicable-comment" + project.Id).value;
+
+            var practiceToAddCommentTo = $scope.findAuditedClaimObject(project.Id);
+            practiceToAddCommentTo.auditor_comment = commentText;
+
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
+        $scope.closeNotApplicableCommentPopup = function (project) {
+            var modalId = "#notapplicablemodal" + project.Id;
+          
+
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
 
         $scope.preventClose = function (event) { event.stopPropagation(); };
 
@@ -708,8 +767,44 @@
                        success(function (data, status, headers, config) {
                            console.log(data);
                            $scope.userName = data.split("\\")[1].toString().toLowerCase();
-                           // $scope.userName = "nirangad";
-                           $http.get("http://99xt.lk/services/api/Projects", { withCredentials: true }).
+
+                           $http({ method: 'GET', url: 'api/project/' + $scope.projectId }).
+                            success(function (projdata, status, headers, config) {
+
+                                if (projdata.TeamMembers != null) {
+
+                                    var membersListFromApi = projdata.TeamMembers;
+
+                                    var membersArray = membersListFromApi.split(",");
+                                    var member_rep = projdata.ProjectMemberRep;
+
+                                    if ($scope.userName == projdata.ProjectMemberRep) {
+                                        $scope.isMember = "yes";
+                                    } else {
+                                        for (var i = 0 ; i < membersArray.length ; i++) {
+                                            if ($scope.userName == membersArray[i]) {
+                                                $scope.isMember = "yes";
+                                            }
+                                        }
+                                    }
+
+                                    $http({ method: 'GET', url: 'api/userrole/' + $scope.userName }).
+ success(function (data, status, headers, config) {
+     if ((data == 1 || data == 3) && $scope.isMember == "no") {    //enum returns a number as the role (1 : auditoe, 0:admin
+         $scope.isAuditor = "yes";                //user can be auditor only if he is not a team member                       
+     }
+     else {
+         $scope.isAuditor = "no";
+     }
+     console.log("is auditor: " + $scope.isAuditor)
+ }).
+error(function (data, status, headers, config) {
+    console.log("An error occured while getting details from Userrole database.");
+    console.log(data);
+});
+
+                                } else {
+                                    $http.get("http://99xt.lk/services/api/Projects", { withCredentials: true }).
                             success(function (data) {
                                 console.log(data);
                                 for (var i = 0; i < data.length; i++) {
@@ -746,6 +841,8 @@
                                 console.log("An error occured while getting details from 99XT Projects API.");
                                 console.log(error);
                             });
+                                }
+                          });  
                        }).
                 error(function (data, status, headers, config) {
                     console.log(data);
@@ -756,6 +853,10 @@
 
             return promise;
         }
+
+
+
+
     }
 
 })();

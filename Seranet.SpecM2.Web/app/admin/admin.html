@@ -31,8 +31,46 @@
                                     <button type="button" class="btn btn-default btn-xs" id=enableDisableBtn{{project.Id}} ng-click="enableDisableProject(project)">{{project.enableDisableStatus}}</button>
                                 </li>
                             </ul>
-
                         </div>
+                        <br />
+
+                        <!-- Add a manual project here -->
+                        <div class="title-type-two blue-back">
+                            <h4>Add a Manual Project</h4>
+                        </div>
+                        <div class="content-box-admin white-back">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="ProjectNameNew">Project Name:</label>
+                                    <input type="text" class="form-control" id="ProjectNameNew" placeholder="Enter project name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ProjectCodeNew">Project Code:</label>
+                                    <input type="text" class="form-control" id="ProjectCodeNew" placeholder="Enter Project Code">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="managmentRep">Add Management Rep:</label> 
+                                    <input type="text" class="form-control" id="managmentRep" placeholder="Enter Management Rep">
+                                </div>
+
+
+                                <label>Add Project Members:</label> <button class="btn btn-default member-add" ng-click="addOneMoreProjectMember()">Add</button> <br />
+
+                                <div id='TextBoxesGroup'>
+                                    <div id="projectMemberDiv1">
+                                        <input type="text" class="form-control member-add-width" id="projectMember1" placeholder="Enter name">
+                                    </div>
+                                </div>
+                                <br />
+                                <button ng-click="addProjectManuallyToDatabase()" class="btn btn-default" style="float: right;">
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Add Manual Project ends here -->
+
                     </div>
 
                     <div class="col-md-6">

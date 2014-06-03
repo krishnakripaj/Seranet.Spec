@@ -121,7 +121,7 @@
                                                     <div ng-switch on="isAuditor">
                                                         <div ng-switch-when="yes" class="checkbox-inline bold-text">
                                                             <button type="button" id="btn-reject{{completed.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(completed)">Reject</button>
-                                                            <button type="button" id=addCommentBtn{{completed.Id}} class="btn btn-addcomment" data-toggle="modal" data-target="#commentCompletedModal{{completed.Id}}">
+                                                            <button type="button" id=addCommentBtn{{completed.Id}} class="btn btn-addcomment disabled" data-toggle="modal" data-target="#commentCompletedModal{{completed.Id}}">
                                                                 Comments
                                                             </button>
                                                         </div>
@@ -183,10 +183,66 @@
                                                     <div ng-switch on="isAuditor">
                                                         <div ng-switch-when="yes" class="checkbox-inline bold-text">
                                                             <button type="button" id="btn-reject{{notapplicable.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(notapplicable)">Undo</button>
+                                                            <button type="button" id=addAuditorCommentBtn{{notapplicable.Id}} class="btn btn-auditor-addcomment disabled" data-toggle="modal" data-target="#notapplicablemodal{{notapplicable.Id}}">
+                                                                Comments
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+                                                    <div ng-switch on="isMember">
+                                                        <div ng-switch-when="yes">
+                                                            <button type="button" id=addAuditorCommentBtn{{notapplicable.Id}} class="btn btn-auditor-addcomment" data-toggle="modal" data-target="#notapplicablemodal{{notapplicable.Id}}">
+                                                                Comments
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="modal fade" id="notapplicablemodal{{notapplicable.Id}}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                                    <div class="modal-popup">
+                                                        <div class="modal-content-comment">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="notapplicablemodal{{notapplicable.Id}}" aria-hidden="true"></button>
+                                                                <h4 class="modal-title" id="basicModal">{{notapplicable.Code}} : Add a comment</h4>
+                                                            </div>
+                                                            <div class="modal-body-comment">
+
+                                                                <div ng-switch on="isMember">
+                                                                    <div ng-switch-when="yes">
+                                                                        <h4>Comments from the Team: </h4>
+                                                                        <div>
+                                                                            {{notapplicable.TeamComment}}
+                                                                        </div>
+                                                                        <hr />
+                                                                        <h4>Auditor Comments: </h4>
+                                                                        {{notapplicable.AuditorComment}}
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div ng-switch on="isAuditor">
+                                                                    <div ng-switch-when="yes">
+                                                                        <h4>Comments from the Team: </h4>
+                                                                        <div>
+                                                                            {{notapplicable.TeamComment}}
+                                                                        </div>
+                                                                        <hr />
+                                                                        <h4>Auditor Comments: </h4>
+                                                                        <textarea style="width:100%;height:63%;" id=text-auditor-notapplicable-comment{{notapplicable.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{notapplicable.AuditorComment}}</textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" id=btn-auditor-comment{{notapplicable.Id}} class="btn btn-default" ng-click="closeNotApplicableCommentPopup(notapplicable)">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
+
                                         </div>
                                         <div class="col-md-6">
                                             <div class="col">

@@ -11,6 +11,7 @@
         vm.title = 'Admin';
         $scope.isAdmin = "no";
 
+        $scope.textBoxCounter = 2;
 
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
       //  vm.busyMessage = 'Please wait ...';
@@ -148,6 +149,71 @@
                          // or server returns response with an error status.
                      });
         }
+
+        //function to add project manually to database
+        $scope.addProjectManuallyToDatabase = function () {
+           
+            var empty = 0;
+
+            $('input[type=text]').each(function () {
+                if (this.value == "") {
+                    empty++;
+                }
+            })
+
+            if (empty > 0)
+                alert('Please fill all the details for the project');
+            else {
+                var projectMembers = new Object();
+
+                for (var i = 1 ; i < $scope.textBoxCounter ; i++) {
+                    projectMembers[i] = document.getElementById('projectMember' + i).value;
+                }
+
+                var myObject = new Object();
+                myObject.assignment = document.getElementById("ProjectCodeNew").value;;
+                myObject.name = document.getElementById('ProjectNameNew').value;
+                myObject.membersfrommanual = projectMembers;
+                myObject.rep = document.getElementById('managmentRep').value;
+
+                $http.post('api/project', JSON.stringify(myObject)).
+                         success(function (data, status, headers) {
+                             $route.reload();
+                             console.log("Status: ", data);
+                             if (data === "true") {
+                                 console.log("Project is existing");
+                                 alert("Cannot add project as there is another project with the same ID");
+                             } else {
+                                 console.log("Importing project happening ...");
+                                 console.log("Project added");
+                             }
+                         }).error(function (data, status, headers, config) {
+                             console.log("An error occured while importing project to database");
+                             console.log(data);
+                             // called asynchronously if an error occurs
+                             // or server returns response with an error status.
+                         });
+
+                $scope.refreshTextBoxCounter();
+
+            }
+        }
+
+        //function to add textbox to add members to manual projects
+        $scope.addOneMoreProjectMember = function () {
+
+            var newTextBoxDiv = $(document.createElement('div')).attr("id", 'projectMemberDiv' + $scope.textBoxCounter);
+
+            newTextBoxDiv.after().html('<input type="text" class="form-control member-add-width" id="projectMember' + $scope.textBoxCounter + '" placeholder="Enter name">');
+            newTextBoxDiv.appendTo("#TextBoxesGroup");
+
+            $scope.textBoxCounter++;
+        }
+
+        $scope.refreshTextBoxCounter = function(){
+            $scope.textBoxCounter = 2;
+        }
+
     }
 
 })();

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Seranet.SpecM2.Api.Authorization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Seranet.SpecM2.Api.Scorecard
 {
@@ -24,7 +26,8 @@ namespace Seranet.SpecM2.Api.Scorecard
 
         public Project Get(int id)
         {
-            return context.Projects.Where(p => p.Id == id).FirstOrDefault();
+            Project project = context.Projects.Where(p => p.Id == id).FirstOrDefault();
+            return project;
         }
 
         [HttpPost]
@@ -45,6 +48,18 @@ namespace Seranet.SpecM2.Api.Scorecard
                 projectToAdd.Enabled = true;
                 projectToAdd.Name = project.name;
                 projectToAdd.ProjetId = project.assignment;
+
+                if (project.membersfrommanual != null)
+                {
+                    List<string> membersArr = new List<string>();
+                    foreach (var mem in project.membersfrommanual)
+                    {
+                        membersArr.Add(mem.Value.ToString());
+                    }
+                    projectToAdd.TeamMembers = string.Join(",", membersArr.ToArray());
+                    projectToAdd.ProjectMemberRep = project.rep;
+                }
+               
                 context.Projects.Add(projectToAdd);
                 context.SaveChanges();
                 isExisting = false; 

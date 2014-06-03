@@ -76,5 +76,17 @@ namespace Seranet.SpecM2.Api.Scorecard
         public void post(int status) { 
         
         }
+
+        [HttpPut]
+        public void put(dynamic claim)
+        {
+
+            int claimId = claim.claimId;
+            var claimtoaddto = context.Claims.Where(p => p.Id == claimId).FirstOrDefault();
+
+            context.Entry(claimtoaddto).CurrentValues.SetValues(claim.claimMessage);
+            context.SaveChanges();
+
+        }
     }
 }

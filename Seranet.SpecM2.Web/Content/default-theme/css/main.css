@@ -458,6 +458,8 @@ input[type="checkbox"].checkbox + label {
     float:left;
     width:5.0em;
     text-align:center;
+
+    margin: 12px;
 }
 
 input[type="checkbox"].checkbox:checked + label {
@@ -520,6 +522,7 @@ btn-default-audit {
   color: #333333;
   background-color: #ffffff;
   border-color: #cccccc;
+
 }
 
 .btn-addcomment {
@@ -527,7 +530,7 @@ color: #333;
 background-color: #fff;
 border-color: #ccc;
 font-size: 10px;
-margin-left: 12px;
+margin: 12px;
 height: 26px;
 }
 
@@ -572,6 +575,25 @@ height: 26px;
 }
 .add-remove-projects li:hover{
     background-color: #f1f1f1;
+}
+label {
+    font-weight: inherit;
+}
+
+.content-box-admin {
+    padding: 44px;
+}
+
+.member-add
+{
+    display: inline-block;
+}
+
+.member-add-width
+{
+    display: inline-block;
+    width: 50%;
+    margin-top: 12px;
 }
 
 /*import projects page styles ends */
