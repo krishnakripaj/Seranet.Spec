@@ -40,6 +40,7 @@
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
 
         $scope.CommentsArray = [];
+        $scope.holdClaimObject = [];
         $scope.toBeCompletedCount;
         $scope.completedCount;
         $scope.hasPractices;
@@ -419,6 +420,55 @@
 
         }
 
+
+        $scope.memberCommentPendingModal = function (incomplete) {
+            var practiceToAddCommentTo = $scope.findClaimObject(incomplete.Id);
+
+            var commentText = document.getElementById("text-auditor-comment" + incomplete.Id).value;
+            var modalId = "#auditorCommentModal" + incomplete.Id;
+
+            //practiceToAddCommentTo.TeamComment = commentText;
+            if (practiceToAddCommentTo == null) {
+
+                var foundClaim = $scope.findClaimFromIncompletedPractises(incomplete.Id);
+
+                var claimObject =  {
+                    claimId :foundClaim.Id,
+                claimMessage : commentText
+                }
+                
+
+                $http.put('api/claims/' + incomplete.Id, claimObject).
+                  success(function (data, status, headers) {
+                      $route.reload();
+                      console.log($('.modal-backdrop'));
+                      jQuery.noConflict();
+                      var modalDialog = $(modalId);
+                      var backdrop = $('.modal-backdrop');
+                      modalDialog.modal('hide');
+
+                      $('body').removeClass('modal-open');
+                      backdrop.remove();
+                      $(".modal-backdrop fade in").remove();
+                  });
+
+
+
+            } else {
+                practiceToAddCommentTo.TeamComment = commentText;
+
+                console.log($('.modal-backdrop'));
+                jQuery.noConflict();
+                var modalDialog = $(modalId);
+                var backdrop = $('.modal-backdrop');
+                modalDialog.modal('hide');
+
+                $('body').removeClass('modal-open');
+                backdrop.remove();
+                $(".modal-backdrop fade in").remove();
+            }
+        }
+
         //to hide the comment modal popup
         $scope.closeCommentPopupAndTakeText = function (incomplete) {
             var modalId = "#commentModal" + incomplete.Id;
@@ -436,7 +486,24 @@
             $('body').removeClass('modal-open');
             backdrop.remove();
             $(".modal-backdrop fade in").remove();
+
+
         }
+
+        $scope.closeinCompletedCommentPopup = function (incomplete) {
+            var modalId = "#commentModal" + incomplete.Id;
+
+            console.log($('.modal-backdrop'));
+            jQuery.noConflict();
+            var modalDialog = $(modalId);
+            var backdrop = $('.modal-backdrop');
+            modalDialog.modal('hide');
+
+            $('body').removeClass('modal-open');
+            backdrop.remove();
+            $(".modal-backdrop fade in").remove();
+        }
+
 
         //to hide the complete comment modal popup
         $scope.closeCompletedCommentPopupAndTakeText = function (complete) {
@@ -555,6 +622,22 @@
 
         }
 
+        $scope.findClaimFromIncompletedPractises = function (claimid) {
+
+            for (var i = 0, len = $scope.holdClaimObject.length; i < len; i++) {
+
+
+                if ($scope.holdClaimObject[i].Practice.Id === claimid)
+                    return $scope.holdClaimObject[i]; // return as soon as the object is found
+
+
+
+            }
+
+            return null; // the object was not found
+
+        }
+
         $scope.createAndSaveClaimRequestsArray = function () {
             $scope.changedClaims = true;
             jQuery.noConflict();
@@ -611,6 +694,8 @@
                                             holdCommentAndId[2] = claimdata.AuditorComment;
 
                                             $scope.CommentsArray.push(holdCommentAndId);
+
+                                            $scope.holdClaimObject.push(claimdata); //holkding all the claims
                                         })
 
                                }

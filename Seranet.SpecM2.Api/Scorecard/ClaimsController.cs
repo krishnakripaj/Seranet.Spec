@@ -82,9 +82,12 @@ namespace Seranet.SpecM2.Api.Scorecard
         {
 
             int claimId = claim.claimId;
-            var claimtoaddto = context.Claims.Where(p => p.Id == claimId).FirstOrDefault();
+            Claim claimtoaddto = context.Claims.Where(p => p.Id == claimId).FirstOrDefault();
 
-            context.Entry(claimtoaddto).CurrentValues.SetValues(claim.claimMessage);
+            claimtoaddto.TeamComment = claim.claimMessage;
+            context.Claims.Attach(claimtoaddto);
+
+            context.Entry(claimtoaddto).Property(x => x.TeamComment).IsModified = true;
             context.SaveChanges();
 
         }
